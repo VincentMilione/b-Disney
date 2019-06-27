@@ -126,13 +126,13 @@ CREATE TABLE indirizzo (
     cap int (5) not null,
     nCivico int not null,
     citta varchar(60) not null,
-    regione varchar(60) not null,
+    provincia varchar(60) not null,
     stato varchar(40) default 'italia'
 );
-insert into indirizzo (registrato, via, cap, nCivico, citta, regione) value('matteo@alice.it','via parmenide',84069,1,'Roscigno','Campania');
-insert into indirizzo (registrato, via, cap, nCivico, citta, regione) value('giulia@tiscali.it','via giuliani',84012,28,'Roma','Lazio');
-insert into indirizzo (registrato, via, cap, nCivico, citta, regione) value('rosalia@libero.it','via tommasini ',84061,7,'Felitto','Campania');
-insert into indirizzo (registrato, via, cap, nCivico, citta, regione) value('andrea@libero.it','via roma',85178,16,'Aquara','Campania');
+insert into indirizzo (registrato, via, cap, nCivico, citta, provincia) value('matteo@alice.it','via parmenide',84069,1,'Roscigno','Salerno');
+insert into indirizzo (registrato, via, cap, nCivico, citta, provincia) value('giulia@tiscali.it','via giuliani',84012,28,'Roma','Roma');
+insert into indirizzo (registrato, via, cap, nCivico, citta, provincia) value('rosalia@libero.it','via tommasini ',84061,7,'Felitto','Salerno');
+insert into indirizzo (registrato, via, cap, nCivico, citta, provincia) value('andrea@libero.it','via roma',85178,16,'Aquara','Salerno');
 
 
 CREATE TABLE fattura(
@@ -143,6 +143,11 @@ CREATE TABLE fattura(
 	dataFattura date not null,
 	Indirizzo int not null
 );
+
+insert into fattura(registrato,dataFattura,Indirizzo) value('matteo@alice.it','2019-06-20',1);
+insert into fattura(registrato,dataFattura,Indirizzo) value('giulia@tiscali.it','2019-09-20',1);
+insert into fattura(registrato,dataFattura,Indirizzo) value('rosalia@libero.it','2019-09-10',1);
+
 
 CREATE TABLE ordine (
 	fattura int references fattura (codiceFattura)
@@ -157,6 +162,16 @@ CREATE TABLE ordine (
     ivaAp numeric (4,2) default 0,
 	scontoAp numeric (4,2) default 0
 );
+
+insert into ordine value(1,2,16.00,1,5.0,10);
+insert into ordine value(2,2,16.00,2,5.0,10);
+insert into ordine value(2,7,17.00,1,5.0,10);
+insert into ordine value(1,8,16.00,1,5.0,10);
+insert into ordine value(2,9,15.00,2,5.0,10);
+insert into ordine value(1,10,16.00,1,5.0,10);
+insert into ordine value(2,25,13.00,1,5.0,10);
+insert into ordine value(3,10,16.00,2,5.0,10);
+insert into ordine value(2,22,13.00,1,5.0,10);
 
 CREATE TABLE recenzione (
 	prodottoR int references prodotto (codice) 

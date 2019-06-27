@@ -40,16 +40,17 @@
 			</thead>
 		<tbody>
 			<!--n ordini esistenti nel database-->
-		 <%for (int i=0; i<lista.size(); i++) {
-			 for(int j=0; j<lista.get(i).getProdotti().size(); j++){%> 
+		 <%for (int i=0; i<lista.size()+1; i++) {
+			 for(int j=0; j<lista.get(i).getProdotti().size()+1; j++){%> 
 			<tr class="text-center">
 				<td rowspan="<%=lista.get(i).getProdotti().size()%> " class="product-name">
 				<button  class="button button2 submitter" type="submit">Fattura</button>
 				</td>
+				<td><%=lista.get(i).getProdotti().get(j).getProduct().getName()%></td>
+				<td><%=lista.get(i).getProdotti().get(j).getProduct().getPriceSenzaIva()%></td>
+				<td><%=lista.get(i).getProdotti().get(j).getProduct().getPricewithIva()%></td>
+				<td><%=lista.get(i).getProdotti().get(j).getProduct().getDiscount()%></td>
 				<td><%=lista.get(i).getProdotti().get(j).getQty()%></td>
-				<td>spesa</td>
-				<td>spesa sped</td>
-				<td>spesa tot</td>
 			</tr><%} }%>
 		</tbody>
 			</table>
