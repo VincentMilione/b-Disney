@@ -115,7 +115,7 @@ public class ProductBean implements Serializable {
 	 * @return double iva
 	 */
 	public double calculateIva () {
-		return Math.round((iva/100)*price*100)/100.0;
+		return Math.round(iva*price)/100.0;
 	}
 	
 	/**
@@ -123,16 +123,19 @@ public class ProductBean implements Serializable {
 	 * @return prezzo + iva
 	 */
 	public double getPriceSenzaSconto () {
-		return Math.round(calculateIva() + price*100)/100.0;
+		return Math.round((calculateIva() + price) * 100)/100.0;
 	}
 	
+	public double getPriceSenzaIva () {
+		return isinDiscount () ? price - price * (discount/100) : price;
+	}
 	/**
 	 * ritorna il prezzo unitario completo (iva + prezzo) tenendo conto se � stato o meno applicato uno sconto
 	 * @return 
 	 */
 	
 	public double getPricewithIva () {
-		return isinDiscount() ?	Math.round((discount/100)*(calculateIva() + price)*100)/100.0  : Math.round(calculateIva() + price*100)/100.0;
+		return isinDiscount() ?	Math.round((price + calculateIva () - (discount/100)*(calculateIva() + price))*100)/100.0  : getPriceSenzaSconto();
 	}
 
 	@Override

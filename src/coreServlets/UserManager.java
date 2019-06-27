@@ -59,7 +59,7 @@ public class UserManager extends HttpServlet {
 				} else if ("viewOrders".equalsIgnoreCase(op)) {
 					
 				} else if ("viewFatture".equalsIgnoreCase(op)) {
-					
+					//crea attribute "fatture"
 				}
 			} catch (java.sql.SQLException e) {
 			

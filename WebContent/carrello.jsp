@@ -35,7 +35,7 @@
 
 <div class="leftcolumn"> <%@ include file = "cartContent.jsp"%></div>
 <div class="rightcolumn"> <%@ include file = "Acquista.jsp" %> <hr>
-      		<fieldset><center> <a href="Billing" class="chck">Checkout</a></center></fieldset>
+      		<fieldset><a style = "text-align: center" href="Billing" class="chck">Checkout</a></fieldset>
 </div>
  </section>
  
