@@ -48,38 +48,18 @@
      	<%@include file = "zoom.jsp" %>	
   	</div>
   	<div class="capo">
-   		<h1>${product.getName()}</h1>
+   		<h1>${product.getName()}</h1><br>
     	<h3 class="price"><span>${product.getPricewithIva()} &#8364</span></h3>
     	<p>La quantit&#224 disponibile in magazzino &#232 ${product.getQty()}</p>
     	<p>${product.getDescription()}</p>
     			
 		<form method = "post" action="ProductControl?id=${product.code}&act=addC">
- 			Aggiungi quantit&#224 desiderata: <input type="number" name="qty" value = "1" min="1" max="${product.getQty()}">
-  		<center>	<br><p><button  type = "submit" class="btn btn-primary py-3 px-5" >Acquista</button>
-  			<a href="Catalogo.jsp" class="btn btn-primary py-3 px-5">Indietro</a></p></center>
+ 		<label  class="myLabel" for="fname">Quantit&#224 desiderata</label>
+   		<input id="inputN" type="number" name="qty" value = "1" min="1" max="${product.getQty()}">
+  			<br><button  type = "submit" class="button button2" >Acquista</button>
+  			<a href="Catalogo.jsp" class="button button2">Indietro</a>
   		</form>
-  		<p>I nostri prodotti sono realizzati con materiali di alta qualit&#224.</p>
-    				 
-    			<p>	Se un prodotto arriva danneggiato, 
-					saremo pi&#250 che felici di sostituire o rimborsare prodotti Disney Store, 
-					sia che tu abbia la bolla di consegna o meno. Ti chiederemo, tuttavia, di restituirci 
-					qualsiasi prodotto che sia stato comprato come regalo, cos&#237 da poter verificare che sia un prodotto Disney Store.
-				</p>
-				<p> Come effettuare un reso per ricevere un rimborso.
-					Se non sei completamente soddisfatto dei prodotti ordinati, hai tempo fino ad un massimo di 30 giorni
-					 di calendario dalla data di ricezione del tuo ordine, per poter effettuare un reso di alcuni o tutti 
-					 gli articoli al suo interno.<br>
-					Fino a 14 giorni dalla ricezione del tuo ordine
-					<lo>
-					<li> Puoi restituire i prodotti tramite il nostro Portale resi europeo e, se hai reso tutti gli articoli che hai ordinato, ricevere il rimborso delle spese di spedizione sostenute per effettuare il tuo ordine.
-					</li><li>Le spese di spedizione non ti verranno rimborsate se effettui il reso solo di una parte del tuo ordine.
-					Oltre i 14 giorni, ma entro i 30 giorni dalla ricezione del tuo ordine<br>
-					</li><li> Puoi restituire tutti o alcuni dei prodotti tramite il nostro Portale resi europeo, ma non ti verranno rimborsate le spese di spedizione originariamente sostenute.
-					</li></lo><br>Il rimborso viene effettuato non appena il tuo reso raggiunge i nostri magazzini. Ti informiamo che affinch&#232 il tuo reso rientri nei nostri magazzini possono volerci dalle 2 alle 3 settimane.
-					<br>Non appena il tuo reso sar&#224 rientrato nei nostri magazzini, il rimborso verr&#224 processato usando lo stesso metodo di pagamento usato al momento dell&#39ordine in 5-7 giorni lavorativi.
-					<br><br>
-				<br></p>
-		</div>
+		</div><br><br><br>
 </section>
 <section class="card">
 		<div >

@@ -534,6 +534,10 @@ input[type=text], input[type=number] {
   border-radius: 3px;
 }
 
+#inputN{
+	width: 25%;
+}
+
 .myLabel {
   margin-bottom: 10px;
   display: block;
