@@ -1,0 +1,55 @@
+package beans;
+
+public class Adress {
+
+	private String nation;
+	private String street;
+	private int nCv;
+	private int CAP;
+	private String province;
+	private String citta;
+	private int codice;
+	
+	public String getNation() {
+		return nation;
+	}
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public int getnCv() {
+		return nCv;
+	}
+	public void setnCv(int nCv) {
+		this.nCv = nCv;
+	}
+	public int getCAP() {
+		return CAP;
+	}
+	public void setCAP(int cAP) {
+		CAP = cAP;
+	}
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getCitta() {
+		return citta;
+	}
+	public void setCitta(String citta) {
+		this.citta = citta;
+	}
+	public int getCodice() {
+		return codice;
+	}
+	public void setCodice(int codice) {
+		this.codice = codice;
+	}
+}
