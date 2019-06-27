@@ -38,6 +38,7 @@
   </div>
  </div>
 <%@include file = "footer.jsp" %>
+
 <script>
 $(document).ready(function () {
 	$("#submit").click (function () {
@@ -46,9 +47,12 @@ $(document).ready(function () {
 		var srch = <%= srch%>;
 		var data = ctgy == null ? {pg: pg, srch: srch} : {pg: pg, ctgy: ctgy};
 		
-		$.get("CatalogServlet", data)
+		$.get("catalogo", data)
 			.done (function (data) {
-				console.log(data);
+				$(".productCard").remove();
+				$.each(data, function () {
+					$("<div>").addClass("")
+				});
 			});
 	})
 });

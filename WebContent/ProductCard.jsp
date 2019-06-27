@@ -6,18 +6,18 @@
 	List<ProductBean> list =(List<ProductBean>)  request.getAttribute("list");
 	int size = list.size();
 %> 
-<div class = "container " >
+<section class = "flex-container">
 <%for (ProductBean e : list) { %>
-<div class="productCard" >
 
-<div class="imgSconto">
-	<img src=<%=e.getPhoto()%> alt=<%=e.getName() %> title=<%=e.getName() %>>
-</div>
-
- <div class ="nomeProdSconto"><h3><a href = "ProductControl?id=<%=e.getCode()%>&act=view"><%=e.getName() %></a></h3></div>
-  <p class="prezzo">$<%=e.getPriceSenzaSconto() %></p>
-  <p class="sconto">$<%=(Math.round(e.getPricewithIva()*100))/100.0 %></p>
-  <p><button>Acquista</button></p> 
+<div>
+  <img class = "image" src="img/admin.jpg">
+ <div class = "text">
+  <h1>TITOLO MOLTO O</h1>
+ </div>
+  <p class="price">$19.99</p>
+ <div class = "add">
+  <p><button>Add to Cart</button></p>
+ </div>
 </div>
 <%} %>
-</div>
+</section>
