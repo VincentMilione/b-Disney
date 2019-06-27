@@ -73,7 +73,7 @@
             	  <input type="text" id="CAP" value ="84013" name="CAP" placeholder="8089">
                   <label  class="myLabel" for="state">Stato</label>
                   <input type="text" id="state" name="state" value = "Italia" placeholder="Italia">
-                  <button class="butt">Aggiungi</button>
+                  <button id="butt">Aggiungi</button>
               </div><br>
               	 
               <%@ include file = "Acquista.jsp" %>        
