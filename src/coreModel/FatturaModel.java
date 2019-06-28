@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import beans.*;
 
@@ -222,6 +223,50 @@ public abstract class FatturaModel {
 		return list;
 	}
 	
+	public List<FatturaBean> retrieveInvoices(java.util.Date date, java.util.Date date2) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection connection = null;
+		SimpleDateFormat s = new SimpleDateFormat ("yyyy-MM-dd");
+		String da = date != null ? s.format(date) : null;
+		String a = date2 != null ? s.format(date2) : null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = da != null && a != null ?  retrieveAllInvoicesUsers + " WHERE dataFattura BETWEEN "+da +" AND " +a : da == null && a == null ? retrieveAllInvoicesUsers: da == null && a!= null ? retrieveAllInvoicesUsers +" WHERE dataFattura < " +a : retrieveAllInvoicesUsers +" WHERE dataFattura > " +da;
+		
+		java.util.List<FatturaBean> list = new java.util.ArrayList<FatturaBean> ();
+
+		try {
+			connection = getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				FatturaBean f = new FatturaBean();
+				Registered bean = new Registered ();
+				
+				java.util.GregorianCalendar cl = new java.util.GregorianCalendar();
+				cl.setTime(rs.getDate("dataFattura"));
+				
+				RegisteredModel.setBean(rs, bean);
+				f.setCod(rs.getInt("codiceFattura"));
+				f.setProdotti(retrieveInvoiceOrders(f.getCod(), connection));
+				f.setShipping(new AddressModelDS().doRetrieve(rs.getInt("Indirizzo")));
+				f.setDate(cl);
+				
+				list.add(f);
+			}
+		
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					closeConnection(connection);
+			}
+		}
+		return list;
+	}
+	
 	public abstract void closeConnection(Connection connector) throws SQLException;
 	public abstract Connection getConnection () throws SQLException;
 	
@@ -232,6 +277,8 @@ public abstract class FatturaModel {
 	private static final String retrieveInvoice = "SELECT FROM * " +FATT_TABLE +" WHERE registrato = ? AND codiceFattura = ?";
 	private static final String retrieveInvoiceorders = "SELECT * FROM " +ORDER_TABLE +" JOIN " +PROD_TABLE + " ON codice = prodotto  WHERE fattura = ?";
 	private static final String retrieveAllInvoices = "SELECT * FROM " +FATT_TABLE;
+	private static final String retrieveAllInvoicesUsers = "SELECT * FROM " +FATT_TABLE +" JOIN " +RegisteredModel.TABLE + " ON loginA = registrato ";
 	private static final String insertOrder = "INSERT INTO "+ORDER_TABLE+" VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String retrieveOrders = "SELECT * FROM "+ORDER_TABLE +" JOIN " +PROD_TABLE + " ON codice = prodotto WHERE registrato = ?";
+	
 }
