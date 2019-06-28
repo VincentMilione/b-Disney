@@ -35,7 +35,7 @@
         	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Welcome ${user.name}</span><span class="caret"></span></a>
             	<ul class="dropdown-menu">
             	<li><a href="protected-page.jsp">Area Personale</a>
-            	<li><a href="OrdiniUtente.jsp">Visualizza Ordini</a></li>
+            	<li><a href="UserManager?op=viewFatture">Visualizza Ordini</a></li>
         		<li><a href="Logout">Logout</a></li>	
         		</ul>
         <%} else if (isAdmin) {%>

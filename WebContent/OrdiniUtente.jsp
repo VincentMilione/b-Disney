@@ -20,7 +20,9 @@
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
 <%@include file = "header2.jsp" %>
 <%
-	List<FatturaBean> lista= (List<FatturaBean>) request.getAttribute("fatture");
+	List<FatturaBean> lista= (List<FatturaBean>) session.getAttribute("fatture");
+ 	System.out.println(lista);
+ 	if (lista == null) return;
 %>
 <div class="field2">
 	<div class="row ">
@@ -31,7 +33,8 @@
 	     <thead class="thead-primary">
 			<tr class="text-center">
 				<th>&nbsp;</th>
-				<th>Prodotti</th>
+				<th>Prodotto</th>
+				<th>nome Prodotto</th>
 				<th>Prezzo</th>
 				<th>Prezzo Iva</th>
 				<th>Sconto</th>
@@ -40,17 +43,24 @@
 			</thead>
 		<tbody>
 			<!--n ordini esistenti nel database-->
-		 <%for (int i=0; i<lista.size()+1; i++) {
-			 for(int j=0; j<lista.get(i).getProdotti().size()+1; j++){%> 
+		 <%for (FatturaBean fatt : lista) {
+			 int size = fatt.size();
+			 java.util.List<Order> orders = fatt.getProdotti();
+			 %> 
 			<tr class="text-center">
-				<td rowspan="<%=lista.get(i).getProdotti().size()%> " class="product-name">
+				<td rowspan="<%=size%> " class="product-name">
 				<button  class="button button2 submitter" type="submit">Fattura</button>
 				</td>
-				<td><%=lista.get(i).getProdotti().get(j).getProduct().getName()%></td>
-				<td><%=lista.get(i).getProdotti().get(j).getProduct().getPriceSenzaIva()%></td>
-				<td><%=lista.get(i).getProdotti().get(j).getProduct().getPricewithIva()%></td>
-				<td><%=lista.get(i).getProdotti().get(j).getProduct().getDiscount()%></td>
-				<td><%=lista.get(i).getProdotti().get(j).getQty()%></td>
+				<%
+				for(Order o : orders){
+				 	ProductBean bean = o.getProduct();
+				%>
+				<td><div id="img" style="background-image: url('<%=bean.getPhoto()%>');"></div></td>
+				<td><%=bean.getName()%></td>
+				<td><%=bean.getPriceSenzaIva()%></td>
+				<td><%=bean.getPricewithIva()%></td>
+				<td><%=bean.getDiscount()%></td>
+				<td><%=o.getQty()%></td>
 			</tr><%} }%>
 		</tbody>
 			</table>

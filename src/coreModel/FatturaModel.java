@@ -209,8 +209,7 @@ public abstract class FatturaModel {
 				
 				list.add(f);
 			}
-			
-
+		
 		} finally {
 			try {
 				if (preparedStatement != null)
