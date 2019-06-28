@@ -251,6 +251,7 @@ public abstract class FatturaModel {
 				f.setProdotti(retrieveInvoiceOrders(f.getCod(), connection));
 				f.setShipping(new AddressModelDS().doRetrieve(rs.getInt("Indirizzo")));
 				f.setDate(cl);
+				f.setUser(bean);
 				
 				list.add(f);
 			}

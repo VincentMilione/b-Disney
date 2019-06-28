@@ -12,13 +12,11 @@ public abstract class RegisteredModel extends UserModel {
 		
 	}*/
 	
-	protected static Registered setBean (ResultSet rs, Registered bean) throws SQLException {
+	protected static void setBean (ResultSet rs, Registered bean) throws SQLException {
 		bean.setName(rs.getString("nome"));
 		bean.setCognome(rs.getString("cognome"));
 		bean.setLogin(rs.getString("loginA"));
 		bean.setPassword(rs.getString("pass"));
-		
-		return bean;
 	}
 	
 	//TABLE = "registrato";

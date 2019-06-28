@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AdminManager
  */
-@WebServlet("/AdminManager")
+@WebServlet("/admin")
 public class AdminManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     static coreModel.FatturaModel model;
@@ -34,7 +34,7 @@ public class AdminManager extends HttpServlet {
 		// TODO Auto-generated method stub
 		Boolean isAdmin = (Boolean) request.getSession().getAttribute("isAdmin");
 		
-		if (isAdmin != null ? isAdmin : false) {
+		if (isAdmin != null ? isAdmin : true) {
 			try {
 				
 				String login = request.getParameter("idUser");
@@ -46,6 +46,7 @@ public class AdminManager extends HttpServlet {
 				java.util.Date a = par2 == null ? null : format.parse(par2);
 				
 				request.setAttribute("fatture", login == null ? model.retrieveInvoices(da, a) : model.retrieveInvoices(new coreModel.RegisteredModelDM().doRetrieveByKey(login), da, a));
+				getServletContext().getRequestDispatcher(response.encodeURL("/Ordini.jsp")).forward(request, response);;
 			} catch (ParseException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

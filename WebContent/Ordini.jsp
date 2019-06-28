@@ -32,32 +32,35 @@
 </head>
 <body style="background-image: url('images/areg.gif');"  data-spy="scroll" data-target=".navbar" data-offset="50">
  <%
-	java.util.List<FatturaBean> lista= (java.util.List<FatturaBean>) session.getAttribute("fatture");
+	java.util.List<FatturaBean> lista= (java.util.List<FatturaBean>) request.getAttribute("fatture");
+ 	java.text.SimpleDateFormat format = new java.text.SimpleDateFormat ("yyyy-MM-dd");
  %>
 <!--Attenzione chiedere se bisogna inserire anche tutti i dati della fattura-->
 <section class="ftco-section ftco-cart">
 	<div class="row ">
-    	<div class="card">
+    	<div class="card y x">
     	<div class="cart-list">
     	<h1>Ordini clienti</h1>
 	    	<table class="table">
 		 <thead class="thead-primary">
 			<tr class="text-center">
 				<th>&nbsp;</th>
-				
 				<th>Utente </th>
+				<th>Data</th>
 		     	<th>Prodotto</th>
 				<th>nome Prodotto</th>
 				<th>Prezzo</th>
 				<th>Prezzo Iva</th>
 				<th>Sconto</th>
 				<th>Quantità</th>
-				<th>Data</th>
+				
 			</tr>
 			</thead>
 		<tbody>
 			<!--n fatture esistenti nel database-->
-		 <%for (FatturaBean fatt : lista) {
+		 <%
+		 lista = lista == null ? new java.util.ArrayList<FatturaBean> () : lista;
+		 for (FatturaBean fatt : lista) {
 			 int size = fatt.size();
 			 java.util.List<Order> orders = fatt.getProdotti();
 			 %> 
@@ -65,16 +68,21 @@
 				<td rowspan="<%=size%> " class="product-name">
 				    <button  class="button button2 submitter" type="submit">Fattura</button>
 				</td>
-		<!--inserire nome prodotto e descrizione-->
-				<th>Utente </th>
-		     	<th>Prodotto</th>
-				<th>nome Prodotto</th>
-				<th>Prezzo</th>
-				<th>Prezzo Iva</th>
-				<th>Sconto</th>
-				<th>Quantità</th>
-				<th>Data</th>
-			</tr><%} %>
+				<td rowspan="<%=size%> "><%=fatt.getUser().getLogin()%></td>
+				<td rowspan="<%=size%> "><%=format.format(fatt.getDate().getTime()) %></td>
+		     	
+			<%
+				for(Order o : orders){
+				 	ProductBean bean = o.getProduct();
+			%>
+				<td><div id="img" style="background-image: url('<%=bean.getPhoto()%>');"></div></td>
+				<td><%=bean.getName()%></td>
+				<td><%=bean.getPriceSenzaIva()%></td>
+				<td><%=bean.getPricewithIva()%></td>
+				<td><%=bean.getDiscount()%></td>
+				<td><%=o.getQty()%></td>
+				
+			</tr><%}} %>
 		</tbody>
 			</table>
 			<a class="button button2"  href= "amministratore.jsp"> Indietro</a>
