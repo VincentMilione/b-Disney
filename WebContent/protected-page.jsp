@@ -42,60 +42,67 @@
 <body  style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
  <%@include file = "header2.jsp" %><br>
 <div class="field2">
-	<h3>Dati Personali </h3>
- 	<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Nome</label>
-    <input type="text" id="fnome" name="firstname" value="${user.name}" placeholder="${user.name}" >
-    <label  class="myLabel" for="fname"><i class="fa fa-user"></i> Cognome</label>
-    <input type="text" id="fcognome" name="firstname" value="${user.cognome}" placeholder="${user.cognome}" >
-    <button id="but1" class=" button button2">Modifica</button>
+	
+		<h3>Dati Personali </h3>
+ 		<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Nome</label>
+    	<input type="text" id="fnome" name="firstname" value="${user.name}" placeholder="${user.name}" >
+    	<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Cognome</label>
+    	<input type="text" id="fcognome" name="firstname" value="${user.cognome}" placeholder="${user.cognome}" >
+    	<button id="but1" class=" button button2">Modifica</button>
+    	<div id= "success1" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>
+		<div id= "alert1" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Errore durante l aggiornamento</div>
      <hr>
-    <h3>Credenziali</h3>
-    <i class="fa fa-envelope"></i> Email: ${user.login}<br><br>
-	<label  class="myLabel" for="fname"><i class="fa fa-lock"></i>Vecchia Password</label>
-    <input type="text" id="vpass" name="firstname">
-    <label  class="myLabel" for="fname"><i class="fa fa-lock"></i> Nuova Password</label>
-    <input type="text" id="npass" name="firstname">
-    <button id="but2" class="but2 button button2">Modifica Password</button>	
- 	
- 	
+     
+    	<h3>Credenziali</h3>
+    	<i class="fa fa-envelope"></i> Email: ${user.login}<br><br>
+		<label  class="myLabel" for="fname"><i class="fa fa-lock"></i>Vecchia Password</label>
+    	<input type="text" id="vpass" name="firstname">
+    	<label  class="myLabel" for="fname"><i class="fa fa-lock"></i> Nuova Password</label>
+    	<input type="text" id="npass" name="firstname">
+    	<button id="but2" class="but2 button button2">Modifica Password</button>
+    	<div id= "success2" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>
+		<div id= "alert2" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l aggiornamento</div>
+		<div id= "alert3" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> La password non corrisponde a quella digitata</div>
 </div>
 <%@include file = "footer.jsp" %>
+<%UserBean us = (UserBean) session.getAttribute("user"); %>
 <script>
 $(document).ready(function() {
+	$("#success1").hide();
+	$("#alert1").hide();
+	$("#success2").hide();
+	$("#alert2").hide();
+	$("#alert3").hide();
+	
 	$("#but1").click(function () {
 		var nome = $("#fnome").val();
 		var cognome = $("#fcognome").val();
 		
 		$.post("UserManager", {op: "modCred", nome: nome, cognome: cognome})
 		.done(function(data){
-			/*var string = "<div class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>";
-			$("#but1").append(string);*/
-			alert("success");
+			 $("#success1").slideToggle();
 		})
 		.fail(function() {
-			/*var string = "<div class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-		  	<strong>Errore!</strong> Errore durante l aggiornamento</div>";
-			$("#but1").append(string);*/
-			alert("fail");
+			 $("#alert1").slideToggle();
 		});
 	});
 	
 	$("#but2").click(function () {
 		var pw = $("#npass").val();
 		var oldpw= $("#vpass").val();
+		if(oldpw=='<%=us.getPassword()%>'){
+			$.post("UserManager", {op: "modCred", pass: pw}, "html")
+			.done(function(data){
+				 $("#success2").slideToggle();
+			})
+			.fail(function() {
+				 $("#alert2").slideToggle();
+			});
+		}else{
+			 $("#alert3").slideToggle();
+		}
 		
 		
-		$.post("UserManager", {op: "modCred", pass: pw}, "html")
-		.done(function(data){
-			/*var string = "<div class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>";
-			$("#but2").append(string);*/
-		})
-		.fail(function() {
-		/*	var string = "<div class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-		  	<strong>Errore!</strong> Errore durante l aggiornamento</div>";
-			$("#but2").append(string);*/
-		
-		});
 	});
 	
 	
@@ -104,3 +111,4 @@ $(document).ready(function() {
 
 </body>
 </html>
+<!--   $("#personal").after("#success1");-->
