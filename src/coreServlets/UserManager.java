@@ -1,12 +1,20 @@
 package coreServlets;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import coreModel.FatturaModel;
+import coreModel.FatturaModelDM;
+import coreModel.FatturaModelDS;
 import coreModel.RegisteredModel;
 import coreModel.RegisteredModelDM;
 import coreModel.RegisteredModelDS;
@@ -20,12 +28,15 @@ public class UserManager extends HttpServlet {
     
 	static boolean isDataSource = false;
 	static RegisteredModel model;
+	static FatturaModel fatt;
 	static
 	{
 		if (isDataSource) {
 			model = new RegisteredModelDS();
+			fatt = new FatturaModelDS();
 		} else {
 			model = new RegisteredModelDM();
+			fatt = new FatturaModelDM();
 		}
 	}
     /**
@@ -59,10 +70,25 @@ public class UserManager extends HttpServlet {
 				} else if ("viewOrders".equalsIgnoreCase(op)) {
 					
 				} else if ("viewFatture".equalsIgnoreCase(op)) {
-					//crea attribute "fatture"
+					if(request.getHeader("x-requested-with") == null) {
+						request.getSession().setAttribute("fatture", fatt.retrieveInvoices(bean, null, null));
+						request.getRequestDispatcher(response.encodeURL("OrdiniUtente.jsp")).forward(request, response);
+					} else {
+						response.setContentType("application/json");
+						SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+						String par1 = request.getParameter("da");
+						String par2 = request.getParameter("a");
+						java.util.Date da = par1 == null ? null : format.parse(par1);
+						java.util.Date a = par2 == null ? null : format.parse(par2);
+						
+						response.getWriter().write(new Gson().toJson(fatt.retrieveInvoices(bean, da, a)));
+					}
 				}
 			} catch (java.sql.SQLException e) {
-			
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 	}
 	

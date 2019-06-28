@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Order implements Serializable {
 
+	@Override
+	public String toString() {
+		return "Order [product=" + product + ", qty=" + qty + "]\n";
+	}
 	private static final long serialVersionUID = -7625196350124530857L;
 	private ProductBean product;
 	private int qty;

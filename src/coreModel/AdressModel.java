@@ -175,8 +175,11 @@ public abstract class AdressModel {
 
 			ResultSet rs = preparedStatement.executeQuery();
 
-			if (rs.next())
+			if (rs.next()) {
+				address = new Adress();
 				setBean(rs, address);
+			}
+				
 			
 
 		} finally {

@@ -39,4 +39,9 @@ public class FatturaBean implements java.io.Serializable{
 	public void setUser(Registered user) {
 		this.user = user;
 	}
+	@Override
+	public String toString() {
+		return "Dettagli = [cod=" + cod + ", date=" + date + ", shipping=" + shipping + "]"+"\n prodotti=" + prodotti 
+				+ ", user=" + user;
+	}
 }

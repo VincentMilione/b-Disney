@@ -185,9 +185,9 @@ public abstract class FatturaModel {
 		String da = date != null ? s.format(date) : null;
 		String a = date2 != null ? s.format(date2) : null;
 		PreparedStatement preparedStatement = null;
-		String selectSQL = da != null && a != null ?  retrieveAllInvoices + " WHERE dataFattura BETWEEN "+da +" AND " +a : da == null && a == null ? retrieveAllInvoices: da == null && a!= null ? retrieveOrders +" WHERE dataFattura < " +a : retrieveAllInvoices +" WHERE dataFattura > " +da;
-		selectSQL = e == null ? selectSQL : da!=null || a!=null ? " AND registrato = " +e.getLogin() : " registrato = " +e.getLogin();
-
+		String selectSQL = da != null && a != null ?  retrieveAllInvoices + " WHERE dataFattura BETWEEN "+da +" AND " +a : da == null && a == null ? retrieveAllInvoices: da == null && a!= null ? retrieveAllInvoices +" WHERE dataFattura < " +a : retrieveAllInvoices +" WHERE dataFattura > " +da;
+		selectSQL = e == null ? selectSQL : da!=null || a!=null ? selectSQL +" AND registrato = " +e.getLogin() : selectSQL + " WHERE registrato = " +"'"+e.getLogin()+"'";
+		
 		java.util.List<FatturaBean> list = new java.util.ArrayList<FatturaBean> ();
 
 		try {
@@ -203,9 +203,13 @@ public abstract class FatturaModel {
 				
 				f.setCod(rs.getInt("codiceFattura"));
 				f.setProdotti(this.retrieveInvoiceOrders(f.getCod(), connection));
+				f.setShipping(new AddressModelDS().doRetrieve(rs.getInt("Indirizzo")));
 				f.setDate(cl);
+				f.setUser(e);
+				
 				list.add(f);
 			}
+			
 
 		} finally {
 			try {

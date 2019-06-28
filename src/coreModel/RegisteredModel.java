@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import beans.UserBean;
 import beans.Registered;
 
 public abstract class RegisteredModel extends UserModel {
@@ -15,7 +13,7 @@ public abstract class RegisteredModel extends UserModel {
 	}*/
 	
 	//TABLE = "registrato";
-	public synchronized UserBean doRetrieveByKey(String user) throws SQLException {
+	public synchronized Registered doRetrieveByKey(String user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Registered bean = new Registered();
