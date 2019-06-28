@@ -37,7 +37,7 @@
 	</div>
   </div>
  </div>
-<%@include file = "footer2.jsp" %>
+<%@include file = "footer.jsp" %>
 
 <script>
 $(document).ready(function () {
