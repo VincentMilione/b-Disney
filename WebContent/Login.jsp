@@ -30,6 +30,7 @@
 	Non sei ancora registrato? &nbsp &nbsp<a href= "registration.jsp"> Registrati ora</a>
 	</fieldset>
 	</form>
+	
 <%@include file = "footer2.jsp" %>
 </body>
 </html>

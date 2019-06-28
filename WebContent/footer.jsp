@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 
  
-<footer>
+<footer class="footer">
   <h6>
          Termini e Condizioni | 
          Normativa Europea sul trattamento dei dati personali | Informativa sulla privacy |  

@@ -15,17 +15,7 @@
  		<!-- Acquista -->
  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
-		<title>Carrello</title>
-		<style>
- 	footer {
-   			position:relative;
-   			clear:both;
- 		  	bottom:0;
-   			width:98%;
-   			margin-top:-200;
-   			height:175px;   
-		}
-		</style>	
+		<title>Carrello</title>	
 		
 </head>
 <body style="background-image: url('images/areg.gif');"  data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -39,6 +29,6 @@
 </div>
  </section>
  
-<%@include file = "footer.jsp" %>
+<%@include file = "footer2.jsp" %>
 </body>
 </html>

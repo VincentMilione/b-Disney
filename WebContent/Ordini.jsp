@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     
   <%@ page import = "beans.*, java.util.Collection" %>
+   <%@page import="beans.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@
   			text-decoration: none;
   			display: inline-block;
 			}
+			
 
 		 a:hover, a:active {
   			background-color: blue;
@@ -29,7 +31,9 @@
 <title>Ordini</title>
 </head>
 <body style="background-image: url('images/areg.gif');"  data-spy="scroll" data-target=".navbar" data-offset="50">
- 
+ <%
+	java.util.List<FatturaBean> lista= (java.util.List<FatturaBean>) session.getAttribute("fatture");
+ %>
 <!--Attenzione chiedere se bisogna inserire anche tutti i dati della fattura-->
 <section class="ftco-section ftco-cart">
 	<div class="row ">
@@ -41,29 +45,39 @@
 			<tr class="text-center">
 				<th>&nbsp;</th>
 				
-		     	<th>Prezzo</th>
-				<th>Quantità</th>
+				<th>Utente </th>
+		     	<th>Prodotto</th>
+				<th>nome Prodotto</th>
+				<th>Prezzo</th>
+				<th>Prezzo Iva</th>
 				<th>Sconto</th>
-				<th>Iva</th>
+				<th>Quantità</th>
+				<th>Data</th>
 			</tr>
 			</thead>
 		<tbody>
 			<!--n fatture esistenti nel database-->
-		 <%for (int i=0; i<3; i++) { %> 
-			<tr class="text-center">
-				<td class="product-name">
-		<!--inserire nome prodotto e descrizione-->
-			<h3>cod.fattura</h3>
-			<p>code, name</p>
+		 <%for (FatturaBean fatt : lista) {
+			 int size = fatt.size();
+			 java.util.List<Order> orders = fatt.getProdotti();
+			 %> 
+			 <tr class="text-center">
+				<td rowspan="<%=size%> " class="product-name">
+				    <button  class="button button2 submitter" type="submit">Fattura</button>
 				</td>
-				<td class="price">$prezzo</td>
-		<td >quantità</td>
-		<td >sconto</td>
-		<td >iva</td>
+		<!--inserire nome prodotto e descrizione-->
+				<th>Utente </th>
+		     	<th>Prodotto</th>
+				<th>nome Prodotto</th>
+				<th>Prezzo</th>
+				<th>Prezzo Iva</th>
+				<th>Sconto</th>
+				<th>Quantità</th>
+				<th>Data</th>
 			</tr><%} %>
 		</tbody>
 			</table>
-			<a href= "amministratore.jsp"> Indietro</a>
+			<a class="button button2"  href= "amministratore.jsp"> Indietro</a>
 	</div>
 	</div>
 	</div>

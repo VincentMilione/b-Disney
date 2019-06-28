@@ -6,33 +6,12 @@
 <meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/stile.css" type = "text/css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    	<link rel="stylesheet" href="css/stile.css" type = "text/css">
-		<!--  <link rel="stylesheet" href="css/carrello.css" type = "text/css">-->
-		<link rel="stylesheet" href="css/stilereg.css" type = "text/css">
-		
- 		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
  		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-		<script>
-		$(document).ready(function(){
-  		$(".button").click(function(){
-  		  var column = $(this).parent();
-		  var price = column.next().html();
-		  var qty = price.next().html();
-		  var sconto = qty.next().next().next().html();
-		  var iva = sconto.next().html();
-
-		  console.log(price);
-		  console.log(qty);
-		  console.log(sconto);
-		  console.log(iva);
-  		});
-	});
-		
-		
-</script>
-<title>Catalogo</title>
+ 		<title>Catalogo</title>
 </head>
 <body>
 <body style="background-image: url('images/areg.gif');" >
@@ -84,10 +63,27 @@
 			<button  class="button button2 submitter" type="submit">Aggiorna</button>
 			<a href= "amministratore.jsp"> Indietro</a>
 			</fieldset>
-		<!--  		</form>-->
+		
 	</div>
  </section>
+	<script>
+		$(document).ready(function(){
+  		$(".button").click(function(){
+  		  var column = $(this).parent();
+		  var price = column.next().html();
+		  var qty = price.next().html();
+		  var sconto = qty.next().next().next().html();
+		  var iva = sconto.next().html();
 
+		  console.log(price);
+		  console.log(qty);
+		  console.log(sconto);
+		  console.log(iva);
+  		});
+	});
+		
+		
+</script>
 
 </body>
 </html>

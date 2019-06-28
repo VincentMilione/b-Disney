@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<footer class = "extended">
+    
+<footer class = "extended footer2">
   <h6>
          Termini e Condizioni | 
          Normativa Europea sul trattamento dei dati personali | Informativa sulla privacy |  
