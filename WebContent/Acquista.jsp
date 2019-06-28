@@ -5,11 +5,20 @@
 
 
    <div class="acquista">
-      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>5</b></span></h4>
-      <p> Spese Totali<span class="price"> $67.00</span></p>
-      <p> Spese Spedizione<span class="price"> $5.00</span></p>
+      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>${cart.size()}</b></span></h4>
+      <p>Totale (IVA escl.)<span class="price">${cart.getTotalWithoutIva()}</span></p>
+      <p>Totale IVA<span class="price">${cart.getTotalIva()}</span></p>
      
       <hr>
-      <p>Totale <span class="price" style="color:black"><b>$300</b></span></p>
+      <p>Totale<span class="price" style="color:black"><b>${cart.getTotal()}</b></span></p>
      
+    </div>
+
+	
+   <div class="acquista">
+      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4><span class="price" style="color:black"><b>${cart.size()}</b></span>
+      <p> Totale (IVA escluse)<span class="price">${cart.getTotalWithoutIva()}</span></p>
+      <p> Totale IVA<span class="price">${cart.getTotalIva()}</span></p>
+      <hr>
+      <p>Totale <span class="price" style="color:black"><b>${cart.getTotal()}</b></span></p>
     </div>

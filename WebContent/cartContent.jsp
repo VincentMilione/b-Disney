@@ -52,11 +52,11 @@ if (cart == null) {
 						<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 						<td class="image-prod"><div id="img" style="background-image: url('<%=urlImage%>');"></div> </td>
 						<td class="product-name"><%=name%></td>
-						<td><%=assign(priceUnit)%></td>
-						<td><%=assign(priceWithIva)%></td>
+						<td><%=priceUnit%></td>
+						<td><%=priceWithIva%></td>
 						<td><%=bean.getDiscount()%>&#37;</td>
 						<td class="quantity"><div class="input-group mb-3"><input type="number" name="quantity" class="quantity form-control input-number" value="<%=orderedQty%>" min="1" max="<%=qtyMax%>"></div></td>
-						<td class="total"><%=assign(priceUnit)%></td>
+						<td class="total"><%=totalProduct%></td>
 					</tr>
 			<%
 	}
@@ -68,8 +68,3 @@ if (cart == null) {
 	</div>
   </div>
 </section>
-<%!
-	public String assign (String s) {
-		return s.substring(s.charAt('.')+1).length() == 1 ? s + "0" : s;
-	}
-%>

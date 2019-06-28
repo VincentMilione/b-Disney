@@ -57,7 +57,7 @@ public class Cart implements Serializable {
 		for (Order o : list) {
 			beans.ProductBean item = o.getProduct();
 			
-			total = total + o.getQty() * (item.getPrice());
+			total = total + o.getQty() * (item.getPriceSenzaIva());
 		}
 		
 		return Math.round(total * 100)/100.0;
