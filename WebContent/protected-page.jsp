@@ -10,8 +10,8 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1">
  	<link rel="stylesheet" href="css/stile.css" type = "text/css">
   	<link rel="stylesheet" href="css/bootstrap.css" type = "text/css">
- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -51,10 +51,10 @@
      <hr>
     <h3>Credenziali</h3>
     <i class="fa fa-envelope"></i> Email: ${user.login}<br><br>
-	<label  class="myLabel" for="fname"><i class="fa fa-lock"></i> Password</label>
-    <input type="text" id="fname" name="firstname">
+	<label  class="myLabel" for="fname"><i class="fa fa-lock"></i>Vecchia Password</label>
+    <input type="text" id="vpass" name="firstname">
     <label  class="myLabel" for="fname"><i class="fa fa-lock"></i> Nuova Password</label>
-    <input type="text" id="fname" name="firstname">
+    <input type="text" id="npass" name="firstname">
     <button id="but2" class="but2 button button2">Modifica Password</button>	
  	
  	
@@ -66,31 +66,34 @@ $(document).ready(function() {
 		var nome = $("#fnome").val();
 		var cognome = $("#fcognome").val();
 		
-		$.post("UserManager", {operation: "1", nome: nome, cognome: cognome}, "html")
+		$.post("UserManager", {op: "modCred", nome: nome, cognome: cognome})
 		.done(function(data){
-			var string = "<div class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>";
-			$("#but1").append(string);
+			/*var string = "<div class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>";
+			$("#but1").append(string);*/
+			alert("success");
 		})
 		.fail(function() {
-			var string = "<div class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+			/*var string = "<div class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
 		  	<strong>Errore!</strong> Errore durante l aggiornamento</div>";
-			$("#but1").append(string);
-		
+			$("#but1").append(string);*/
+			alert("fail");
 		});
 	});
 	
 	$("#but2").click(function () {
-		var pw = $("#fnome").val();
+		var pw = $("#npass").val();
+		var oldpw= $("#vpass").val();
 		
-		$.post("UserManager", {operation: "1", nome: pw}, "html")
+		
+		$.post("UserManager", {op: "modCred", pass: pw}, "html")
 		.done(function(data){
-			var string = "<div class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>";
-			$("#but2").append(string);
+			/*var string = "<div class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>";
+			$("#but2").append(string);*/
 		})
 		.fail(function() {
-			var string = "<div class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+		/*	var string = "<div class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
 		  	<strong>Errore!</strong> Errore durante l aggiornamento</div>";
-			$("#but2").append(string);
+			$("#but2").append(string);*/
 		
 		});
 	});

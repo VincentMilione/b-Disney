@@ -64,6 +64,7 @@ public abstract class RegisteredModel extends UserModel {
 			preparedStatement.setString(4, e.getCognome());
 			
 			preparedStatement.executeUpdate();
+			connection.commit();
 		} 
 		finally 
 		{
@@ -94,6 +95,7 @@ public abstract class RegisteredModel extends UserModel {
 			
 			
 			preparedStatement.executeUpdate();
+			connection.commit();
 		} 
 		finally 
 		{
@@ -109,5 +111,5 @@ public abstract class RegisteredModel extends UserModel {
 	
 	protected static final String TABLE = "registrato";
 	protected static final String insertSQL = "INSERT INTO " + TABLE + "(loginA, pass, nome, cognome) values (?, ?, ?, ?)";
-	protected static final String updateSQL = "UPDATE " + TABLE + "set loginA = ?, pass = ?, nome = ?, cognome = ? where loginA = ?";
+	protected static final String updateSQL = "UPDATE " + TABLE + " set loginA = ?, pass = ?, nome = ?, cognome = ? where loginA = ?";
 }

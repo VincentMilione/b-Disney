@@ -59,7 +59,7 @@
   			<br><button  type = "submit" class="button button2" >Acquista</button>
   			<a href="Catalogo.jsp" class="button button2">Indietro</a>
   		</form>
-		</div><br><br><br>
+		</div><br>
 </section>
 <section class="card">
 		<div >
