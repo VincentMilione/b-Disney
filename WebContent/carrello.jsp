@@ -30,5 +30,29 @@
  </section>
  
 <%@include file = "footer2.jsp" %>
+<script type="text/javascript">
+$(document).ready(function () {
+		//avvia richiesta per reperire lista prodotti 
+		$.getJSON("myCart")
+			//se funge
+			.done (function (json) {
+				$.each(json, function () {
+					//costruisci il div per i prodotti
+					var row = $('<tr class="text-center"></tr>');
+					$("tbody").append(row);
+					$(row).append('<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>');
+					$(row).append('<td class="image-prod"><div id="img" style = "background-image: url("this.img")"></div> </td>');
+					$(row).append('<td class="product-name">this.name</td>');
+					
+				});
+				
+				$(".productCard a").wrap ('<h3 style = "font-size: 120%">');
+				$(".productCard h3").wrap('<div class = "nomeProdSconto"></div>');
+				$(".productCard img").wrap('<div class = "imgSconto"></div>');
+				$(".productCard button").wrap("<p>")
+			});
+	
+});
+</script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import = "beans.*, beans.Cart, java.util.Collection" %>
@@ -31,9 +32,9 @@ if (cart == null) {
 } else {
 	Collection<Order> list = cart.getOrders();
 	java.util.Iterator<Order> it = list.iterator();
-	double cartTotal = cart.getTotal();
-	double cartIva = cart.getTotalIva();
-	double cartPrice = cart.getTotalWithoutIva();
+	BigDecimal cartTotal = cart.getTotal();
+	BigDecimal cartIva = cart.getTotalIva();
+	BigDecimal cartPrice = cart.getTotalWithoutIva();
 
 	while (it.hasNext()) {
 		Order o = it.next();

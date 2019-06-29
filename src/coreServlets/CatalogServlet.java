@@ -7,10 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import beans.ProductBean;
 import coreModel.ProductModel;
 import coreModel.ProductModelDM;
@@ -88,24 +84,9 @@ public abstract class CatalogServlet extends HttpServlet {
 		else {
 			//send JSON FILE
 			response.setContentType("application/json");
-			Gson parser = new Gson();
+			beans.JSONProd parser = new beans.JSONProd (list);
 			
-			JsonObject[] obj = new JsonObject[list.size()];
-			int i = 0;
-			
-			for (ProductBean o : list) {
-				obj[i] = new JsonObject();
-				obj[i].addProperty("id", o.getCode());
-				obj[i].addProperty("name", o.getName());
-				obj[i].addProperty("img", o.getPhoto());
-				obj[i].addProperty("isinDicount", o.isinDiscount());
-				obj[i].addProperty("price", o.getPriceSenzaSconto().toString());
-				obj[i].addProperty("priceDisc", o.getPricewithIva().toString());
-				obj[i].addProperty("discount", o.getDiscount());
-				i++;
-			}
-			
-			response.getWriter().write(parser.toJson(obj));
+			response.getWriter().write(parser.parse());
 		}
 	}
 	

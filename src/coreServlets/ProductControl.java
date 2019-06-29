@@ -48,17 +48,19 @@ public class ProductControl extends HttpServlet {
 					}
 					
 					if (action.equalsIgnoreCase("addC")) {
-						int id = Integer.parseInt(request.getParameter("id"));
-						int qty = Integer.parseInt(request.getParameter("qty"));
-						ProductBean bean = model.doRetrieveByKey(id);
-						Order orderBean = new Order (bean, qty);
+						synchronized (cart) {
+							int id = Integer.parseInt(request.getParameter("id"));
+							int qty = Integer.parseInt(request.getParameter("qty"));
+							ProductBean bean = model.doRetrieveByKey(id);
+							Order orderBean = new Order (bean, qty);
 						
-						cart.addOrder(orderBean);
+							cart.addOrder(orderBean);
 						
-						if (request.getHeader("x-requested-with") == null) {
-							response.setContentType("text/html");
-							response.sendRedirect(response.encodeURL("carrello.jsp"));
-						}
+							if (request.getHeader("x-requested-with") == null) {
+								response.setContentType("text/html");
+								response.sendRedirect(response.encodeURL("carrello.jsp"));
+							}
+					}
 					} else if (action.equalsIgnoreCase("view")) {
 						//visualizzazione del prodotto lato client
 						int id = Integer.parseInt(request.getParameter("id"));
