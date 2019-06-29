@@ -53,24 +53,38 @@ $(document).ready(function () {
 			.done (function (json) {
 				//rimuovi i prodotti dalla pagina
 				$(".productCard").remove();
+				console.log(json);
 				$.each(json, function () {
 					//costruisci il div per i prodotti
-					console.log(this.price);
+					var divImage = $('<div class = "imgSconto">');
+					var divName = $('<div class ="nomeProdSconto">');
 					var main = $('<div class = "productCard">');
 					var img = $('<img>')
-						.wrap('<div class = "imgSconto">')
-						.attr("src", this.photo);
-					var prezzo = $('<p class = "prezzo">').html(this.price);
-					var sconto = $('<p class = "sconto">').html(this.price);
-					var button = $('<button>').html('Acquista');
+						.attr("src", this.img)
 					
+					var name = $('<h3 style = "font-size: 120%">');
+					var link = $('<a>').attr("href", 'ProductControl?id'+this.id).html(this.name);
+					var prezzo = $('<p class = "prezzo">').html(this.price+"&#8364;");
+					var sconto = $('<p class = "sconto">').html(this.priceDisc+"&#8364;");
+					var button = $('<button>').html('Acquista');
+				
 					$(main).append(img);
-					$(main).append(prezzo);
-					$(main).append (sconto);
+					$(main).append(link);
+					if (this.isinDicount) {
+						$(main).append(prezzo);
+						$(main).append (sconto);
+					}
+					else $(main).append (sconto);
+					
 					$(main).append(button);
 					
 					$(".container").append(main);
 				});
+				
+				$(".productCard a").wrap ('<h3 style = "font-size: 120%">');
+				$(".productCard h3").wrap('<div class = "nomeProdSconto"></div>');
+				$(".productCard img").wrap('<div class = "imgSconto"></div>');
+				$(".productCard button").wrap("<p>")
 			});
 	})
 });

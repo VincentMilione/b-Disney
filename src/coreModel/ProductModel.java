@@ -21,7 +21,7 @@ public abstract class ProductModel {
 		item.setTipo(rs.getString("tipo"));
 		item.setIva(rs.getDouble("iva"));
 		item.setDiscount(rs.getDouble("sconto"));
-		item.setPrice(rs.getInt("prezzo"));
+		item.setPrice(rs.getDouble("prezzo"));
 		item.setQty(rs.getInt("quantita"));
 	}
 	
@@ -193,10 +193,10 @@ public abstract class ProductModel {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				ProductBean bean = new ProductBean();
-
+				ProductBean bean = new ProductBean();			
 				setBean(rs, bean);
 				products.add(bean);
+
 			}
 
 		} finally {
