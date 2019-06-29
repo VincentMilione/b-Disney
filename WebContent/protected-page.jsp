@@ -45,9 +45,9 @@
 	
 		<h3>Dati Personali </h3>
  		<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Nome</label>
-    	<input type="text" id="fnome" name="firstname" value="${user.name}" placeholder="${user.name}" >
+    	<input class="myInput1" type="text" id="fnome" name="firstname" value="${user.name}" placeholder="${user.name}" >
     	<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Cognome</label>
-    	<input type="text" id="fcognome" name="firstname" value="${user.cognome}" placeholder="${user.cognome}" >
+    	<input class="myInput1" type="text" id="fcognome" name="firstname" value="${user.cognome}" placeholder="${user.cognome}" >
     	<button id="but1" class=" button button2">Modifica</button>
     	<div id= "success1" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>
 		<div id= "alert1" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Errore durante l aggiornamento</div>
@@ -56,9 +56,9 @@
     	<h3>Credenziali</h3>
     	<i class="fa fa-envelope"></i> Email: ${user.login}<br><br>
 		<label  class="myLabel" for="fname"><i class="fa fa-lock"></i>Vecchia Password</label>
-    	<input type="text" id="vpass" name="firstname">
+    	<input class="myInput1" type="text" id="vpass" name="firstname">
     	<label  class="myLabel" for="fname"><i class="fa fa-lock"></i> Nuova Password</label>
-    	<input type="text" id="npass" name="firstname">
+    	<input class="myInput1" type="text" id="npass" name="firstname">
     	<button id="but2" class="but2 button button2">Modifica Password</button>
     	<div id= "success2" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>
 		<div id= "alert2" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l aggiornamento</div>

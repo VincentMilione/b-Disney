@@ -62,17 +62,17 @@
 	        <button id="toggle">Aggiungi indirizzo</button><br>
 	         <div id="AddIndirizzo"><br>
 	        	  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> Indirizzo</label>
-            	  <input type="text" value= "test" id="adr" name="address" placeholder="via della repubblica">
+            	  <input class="myInput1" type="text" value= "test" id="adr" name="address" placeholder="via della repubblica">
             	  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> Numero civico</label>
-            	  <input type="number" value = "5" id="nc" name="nc" min="1" ><br>
+            	  <input class="myInput1" type="number" value = "5" id="nc" name="nc" min="1" ><br>
             	  <label class="myLabel" for="city"><i class="fa fa-institution"></i> Città</label>
-                  <input type="text" value = "Roma" id="city" name="city" placeholder="Roma">
+                  <input class="myInput1" type="text" value = "Roma" id="city" name="city" placeholder="Roma">
                   <label  class="myLabel" for="city"><i class="fa fa-institution"></i> Provincia</label>
-                  <input type="text" value = "Roma" id="provincia" name="provincia" placeholder="Roma">
+                  <input class="myInput1" type="text" value = "Roma" id="provincia" name="provincia" placeholder="Roma">
                   <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> CAP</label>
-            	  <input type="text" id="CAP" value ="84013" name="CAP" placeholder="8089">
+            	  <input class="myInput1" type="text" id="CAP" value ="84013" name="CAP" placeholder="8089">
                   <label  class="myLabel" for="state">Stato</label>
-                  <input type="text" id="state" name="state" value = "Italia" placeholder="Italia">
+                  <input class="myInput1" type="text" id="state" name="state" value = "Italia" placeholder="Italia">
                   <button id="butt">Aggiungi</button>
               </div><br>
               	 
