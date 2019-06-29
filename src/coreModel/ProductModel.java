@@ -29,7 +29,7 @@ public abstract class ProductModel {
 		
 		preparedStatement.setString(1, item.getName());
 		preparedStatement.setString(2, item.getDescription());
-		preparedStatement.setDouble(3, item.getPrice());
+		preparedStatement.setBigDecimal(3, item.getPrice());
 		preparedStatement.setInt(4, item.getQty());
 		preparedStatement.setString(5, item.getCharacter());
 		preparedStatement.setString(6, item.getPhoto());

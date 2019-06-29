@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,43 +38,44 @@ public class Cart implements Serializable {
 	
 	/*---- utilities -----*/
 	
-	public double getTotal () {
+	public java.math.BigDecimal getTotal () {
 		double total = 0;
 		Collection<Order> list = products.values();
 		
 		for (Order o : list) {
 			beans.ProductBean item = o.getProduct();
 			
-			total = total + o.getQty()*(item.getPricewithIva());
+			total = total + o.getQty()*(item.getPricewithIva().doubleValue());
 		}
 		
-		return Math.round(total * 100)/100.0;
+		return new java.math.BigDecimal(total).setScale(2, RoundingMode.HALF_EVEN);
 	}
 	
-	public double getTotalWithoutIva () {
+	public java.math.BigDecimal getTotalWithoutIva () {
 		double total = 0;
 		Collection<Order> list = products.values();
 		
 		for (Order o : list) {
 			beans.ProductBean item = o.getProduct();
 			
-			total = total + o.getQty() * (item.getPriceSenzaIva());
+			total = total + o.getQty() * (item.getPriceSenzaIva().doubleValue());
 		}
 		
-		return Math.round(total * 100)/100.0;
+		return new java.math.BigDecimal(total).setScale(2, RoundingMode.HALF_EVEN);
 	}
 	
-	public double getTotalIva () {
+	public java.math.BigDecimal getTotalIva () {
 		double total = 0;
 		Collection<Order> list = products.values();
+		
 		
 		for (Order o : list) {
 			beans.ProductBean item = o.getProduct();
 			
-			total = total + o.getQty()*(item.calculateIva());
+			total = total + o.getQty()*(item.calculateIva().doubleValue());
 		}
 		
-		return Math.round(total * 100)/100.0;
+		return new java.math.BigDecimal(total).setScale(2, RoundingMode.HALF_EVEN);
 	}
 	
 	public int size () {

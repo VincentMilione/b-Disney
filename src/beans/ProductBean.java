@@ -1,6 +1,8 @@
 package beans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ProductBean implements Serializable {
 
@@ -15,7 +17,7 @@ public class ProductBean implements Serializable {
 	private int category;
 	private double iva;
 	private double discount;
-	private double price;
+	private BigDecimal price;
 	
 	public ProductBean (int id) {
 		code = id;
@@ -84,12 +86,12 @@ public class ProductBean implements Serializable {
 		this.discount = discount;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
 	public void setPrice(double d) {
-		this.price = d;
+		this.price = setDecimal (d);
 	}
 
 	public int getQty() {
@@ -101,6 +103,9 @@ public class ProductBean implements Serializable {
 	}
 	
 	/*------ utilities -------*/
+	private BigDecimal setDecimal (double d) {
+		return new BigDecimal (d).setScale(2, RoundingMode.HALF_EVEN);
+	}
 	
 	/**
 	 * la funzione controlla se il prodotto � in sconto
@@ -114,28 +119,36 @@ public class ProductBean implements Serializable {
 	 * la funzione fa il calcolo dell'iva da applicare sul prodotto
 	 * @return double iva
 	 */
-	public double calculateIva () {
-		return Math.round(iva*price)/100.0;
+	public BigDecimal calculateIva () {
+		return setDecimal(price.doubleValue()*(iva/100));
 	}
 	
 	/**
 	 * ritorna il prezzo senza sconti applicati
 	 * @return prezzo + iva
 	 */
-	public double getPriceSenzaSconto () {
-		return Math.round((calculateIva() + price) * 100)/100.0;
+	public BigDecimal getPriceSenzaSconto () {
+		double iva = calculateIva ().doubleValue();
+		double money = price.doubleValue();
+		
+		return setDecimal(iva + money);
 	}
 	
-	public double getPriceSenzaIva () {
-		return isinDiscount () ? price - price * (discount/100) : price;
+	public BigDecimal getPriceSenzaIva () {
+		double money = price.doubleValue();
+		
+		return isinDiscount () ? setDecimal(money - money * (discount/100)) : price;
 	}
 	/**
 	 * ritorna il prezzo unitario completo (iva + prezzo) tenendo conto se � stato o meno applicato uno sconto
 	 * @return 
 	 */
 	
-	public double getPricewithIva () {
-		return isinDiscount() ?	Math.round((price + calculateIva () - (discount/100)*(calculateIva() + price))*100)/100.0  : getPriceSenzaSconto();
+	public BigDecimal getPricewithIva () {
+		double iva = calculateIva ().doubleValue();
+		double money = price.doubleValue();
+		
+		return isinDiscount() ?	setDecimal (money + iva - (discount/100)*(iva + money)): getPriceSenzaSconto();
 	}
 
 	@Override

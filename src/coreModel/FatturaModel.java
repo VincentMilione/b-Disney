@@ -56,7 +56,7 @@ public abstract class FatturaModel {
 			
 			state.setInt(i, f.getCod());
 			state.setInt(i + 1, bean.getCode());
-			state.setDouble(i + 2, bean.getPrice());
+			state.setBigDecimal(i + 2, bean.getPrice());
 			state.setInt(i + 3, o.getQty());
 			state.setDouble(i + 4, bean.getIva());
 			state.setDouble(i + 6, bean.getDiscount());

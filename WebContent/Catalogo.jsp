@@ -47,11 +47,14 @@ $(document).ready(function () {
 		var srch = <%= srch%>;
 		var data = ctgy == null ? {pg: pg, srch: srch} : {pg: pg, ctgy: ctgy};
 		
+		//avvia richiesta per reperire lista prodotti da visualizzare in pagina = pg
 		$.get("catalogo", data)
+			//se funge
 			.done (function (json) {
+				//rimuovi i prodotti dalla pagina
 				$(".productCard").remove();
 				$.each(json, function () {
-					
+					//costruisci il div per i prodotti
 					console.log(this.price);
 					var main = $('<div class = "productCard">');
 					var img = $('<img>')

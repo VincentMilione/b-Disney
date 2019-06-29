@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 
 public class Order implements Serializable {
 
@@ -39,8 +40,8 @@ public class Order implements Serializable {
 	}
 
 	/*-----	utilities ------*/
-	public double getTotal () {
-		return Math.round(product.getPricewithIva() * qty * 100)/100.0;
+	public java.math.BigDecimal getTotal () {
+		return new java.math.BigDecimal(product.getPricewithIva().doubleValue()*qty).setScale(2, RoundingMode.HALF_EVEN);
 	}
 	
 	
