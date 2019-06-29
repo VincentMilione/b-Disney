@@ -30,9 +30,10 @@
 	<div class="row ">
 		<div class="card y x">
     <form>
- 	 	<input type="text" class="ricerca ricerca1" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser.png')"><br><br>
- 	  	<input type="date" class="ricerca"  name="search2" placeholder="da data...">
- 	 	<input type="date" class="ricerca" name="search3" placeholder="a data..."> 
+ 	 	<input type="text" class="ricerca ricerca1" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')"><br>
+        <input type="date" class="ricerca"  name="da" placeholder="da data..." style="background-image: url('images/dateFrom.png')">
+ 	    <input type="date" class="ricerca" name="a" placeholder="a data..." style="background-image: url('images/dateTo.png')"> 
+		<button class="button button2" id="butt1">Cerca</button>
 	</form>
 	
     	<div class="cart-list">

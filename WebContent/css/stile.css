@@ -549,16 +549,16 @@ span.price {
   font-size: 16px;
   background-color: white;
   padding: 12px 30px 12px 50px;
-
+  margin: 5px 5px 5px 5px;
+   background-repeat: no-repeat;
+   background-position: 2px 2px; 
 }
 
 .ricerca1{
  
-  background-repeat: no-repeat;
-  background-position: 2px 2px; 
+  
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
- 
  }
 
 .ricerca1:focus {
