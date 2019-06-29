@@ -13,12 +13,3 @@
       <p>Totale<span class="price" style="color:black"><b>${cart.getTotal()}</b></span></p>
      
     </div>
-
-	
-   <div class="acquista">
-      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4><span class="price" style="color:black"><b>${cart.size()}</b></span>
-      <p> Totale (IVA escluse)<span class="price">${cart.getTotalWithoutIva()}</span></p>
-      <p> Totale IVA<span class="price">${cart.getTotalIva()}</span></p>
-      <hr>
-      <p>Totale <span class="price" style="color:black"><b>${cart.getTotal()}</b></span></p>
-    </div>

@@ -6,7 +6,7 @@
 	List<ProductBean> list =(List<ProductBean>)  request.getAttribute("list");
 	int size = list.size();
 %> 
-<div class = "container " >
+<div class = "container">
 <%for (ProductBean e : list) { %>
 <div class="productCard" >
 
@@ -21,3 +21,4 @@
 </div>
 <%} %>
 </div>
+

@@ -31,7 +31,7 @@
     <div class="card">
       <h3>Risultato per "<%=c %>"</h3>
      
-   	<div class="container"> 
+   	<div> 
  	<%@include file= "ProductCard.jsp" %>
 	<p style = "text-align: center">pg <input class = "pageof" type = "number" value = "1" min="1" max="<%= request.getAttribute("maxPg") %>"> of <%= request.getAttribute("maxPg") %> <button id = "submit">Invia</button></p>
 	</div>
@@ -42,16 +42,31 @@
 <script>
 $(document).ready(function () {
 	$("#submit").click (function () {
-		var pg = $("#foot").val();
+		var pg = $(".pageof").val();
 		var ctgy = <%= ctgy%>;
 		var srch = <%= srch%>;
 		var data = ctgy == null ? {pg: pg, srch: srch} : {pg: pg, ctgy: ctgy};
 		
 		$.get("catalogo", data)
-			.done (function (data) {
+			.done (function (json) {
 				$(".productCard").remove();
-				$.each(data, function () {
-					$("<div>").addClass("")
+				$.each(json, function () {
+					
+					console.log(this.price);
+					var main = $('<div class = "productCard">');
+					var img = $('<img>')
+						.wrap('<div class = "imgSconto">')
+						.attr("src", this.photo);
+					var prezzo = $('<p class = "prezzo">').html(this.price);
+					var sconto = $('<p class = "sconto">').html(this.price);
+					var button = $('<button>').html('Acquista');
+					
+					$(main).append(img);
+					$(main).append(prezzo);
+					$(main).append (sconto);
+					$(main).append(button);
+					
+					$(".container").append(main);
 				});
 			});
 	})
