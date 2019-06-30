@@ -156,6 +156,6 @@ public abstract class RegisteredModel extends UserModel {
 	protected static final String TABLE = "registrato";
 	protected static final String insertSQL = "INSERT INTO " + TABLE + "(loginA, pass, nome, cognome) values (?, ?, ?, ?)";
 	protected static final String updateSQL = "UPDATE " + TABLE + " set loginA = ?, pass = ?, nome = ?, cognome = ? where loginA = ?";
-	protected static final String searchSQL = "SELECT * FROM "+TABLE+ " WHERE loginA LIKE %?%";
+	protected static final String searchSQL = "SELECT * FROM "+TABLE+ " WHERE loginA LIKE ?";
 	
 }

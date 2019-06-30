@@ -52,7 +52,7 @@
   display: block;
 }
 
-.Mydropdown p:hover {background-color: #ddd;}
+.Mydropdown-content p:hover {background-color: #ddd;}
 
 .show {display: block;}
         </style>
@@ -71,11 +71,9 @@
 		<div class="card y x">
     <form>
     <div class="dropdown">
-     <input type="text"  id="mySearch" class="ricerca ricerca1 Mydropbtn" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')" onclick="myFunction()" ><br>
+     <input type="text"  id="mySearch" class="ricerca ricerca1 Mydropbtn" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')"  ><br>
      <div id="myDropdown" class="Mydropdown-content">
-    	<%for (FatturaBean fatt2 : lista) {%>
-		 			<p><%=fatt2.getUser().getLogin()%></p>
-				<% } %> 
+    	 
      </div>
    </div>
  	 		
@@ -138,23 +136,42 @@
 	</div>
  </section>
 <script>
-function myFunction() {
-	  document.getElementById("myDropdown").classList.toggle("show");
-	}
+$(document).ready(function () {
+	$("#mySearch").keyup(function myFunction() {
+			$('#myDropdown p').remove();
+			var src= $("#mySearch").val();
+			$.getJSON("SuggesterUser", {srch : src})
+				.done(function (json){
+					$.each(json, function () {
+						$("#myDropdown").append('<p role =' +this.login +'>'+this.login+'</p>');
+						
+						$('[role="'+this.login+'"]').click(function () {
+							$("#mySearch").val($(this).html());
+							document.getElementById("myDropdown").classList.toggle("show");
+						});
+					});
+				});
+			
+		 	 document.getElementById("myDropdown").classList.toggle("show");
+		 	 
+		});
+	
 
-	// Close the dropdown if the user clicks outside of it
-	window.onclick = function(event) {
-	  if (!event.target.matches('.Mydropbtn')) {
-	    var dropdowns = document.getElementsByClassName("Mydropdown-content");
-	    var i;
-	    for (i = 0; i < dropdowns.length; i++) {
-	      var openDropdown = dropdowns[i];
-	      if (openDropdown.classList.contains('show')) {
-	        openDropdown.classList.remove('show');
-	      }
-	    }
-	  }
-	}
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+		  if (!event.target.matches('.Mydropbtn')) {
+		    var dropdowns = document.getElementsByClassName("Mydropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		}
+});
+
 </script>
 </body>
 </html>
