@@ -223,7 +223,8 @@ public abstract class ProductModel {
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, search);
+			preparedStatement.setString(1, "%"+search+"%");
+			preparedStatement.setString(2, "%"+search+"%");
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -317,15 +318,13 @@ public abstract class ProductModel {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			prepareSQLlist(preparedStatement, codes);
-			System.out.println(preparedStatement);
-			
+	
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 				ProductBean bean = new ProductBean ();
 				setBean(rs, bean);
 				list.add(bean);
-				System.out.println();
 			}
 			
 		} finally {
@@ -355,7 +354,7 @@ public abstract class ProductModel {
 	protected static final String updateSQL = "UPDATE prodotto SET "
 			+ "nome = ?, descrizione = ?, prezzo = ?, quantita = ?, personaggio = ?, foto = ?, iva = ?, sconto = ?, tipo = ?, "
 			+ "categoria = ? WHERE codice = ?";
-	protected static final String searchSQL = "SELECT * FROM "+TABLE_NAME+ " WHERE nome LIKE %?% or descrizione LIKE %?%";
+	protected static final String searchSQL = "SELECT * FROM "+TABLE_NAME+ " WHERE nome LIKE ? or descrizione LIKE ?";
 	protected static final String categorySQL = "SELECT * FROM "+TABLE_NAME+ " WHERE categoria = ?";
 	protected static final String order = " ORDER BY nome";
 }

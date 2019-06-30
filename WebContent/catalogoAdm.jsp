@@ -28,8 +28,8 @@
 			<tr class="text-center">
 				<th>&nbsp;</th>
 				
-		     		<th>Prezzo</th>
-				<th>Quantit・/th>
+		     	<th>Prezzo</th>
+				<th>Quantit&#224;</th>
 				<th>Personaggio</th>
 				<th>Categoria</th>
 				<th>Sconto</th>
@@ -39,22 +39,19 @@
 			</thead>
 		<tbody>
 			<!--n prodotti esistenti nel database-->
-		 <%for (int i=0; i<10; i++) { %> 
-			<tr class="text-center">
+	<%for (int i=0; i<10; i++) { %> 
+		<tr class="text-center selected">
 				<td class="product-name">
-		<!--inserire codice e nome prodotto e descrizione-->
-		
-		<!-- in value metteremo i codici prodotti, tutti diversi e cosi identifichiamo il prodotto -->
-			<h4>codiceProdotto/ nome </h4>
-			<p>Breve descrizione prodotto</p>
-			<button  class="button button2 submitter" type="submit">Modifica</button>
+					<h4>codiceProdotto/ nome </h4>
+					<p>Breve descrizione prodotto</p>
+					<button  class="button button2 submitter" type="submit">Modifica</button>
 				</td>
-				<td>$prezzo</td>
-		<td >quantit・</td>
-		<td >personaggio</td>
-		<td >categoria</td>
-		<td >sconto</td>
-		<td >iva</td>
+				<td role = "price">$prezzo</td>
+				<td role = "qty">quantit・</td>
+				<td role = "character">personaggio</td>
+				<td role = "category">categoria</td>
+				<td role = "discount">sconto</td>
+				<td role = "iva">iva</td>
 			</tr><%} %>
 		</tbody>
 			</table>
@@ -63,22 +60,34 @@
 			<button  class="button button2 submitter" type="submit">Aggiorna</button>
 			<a href= "amministratore.jsp"> Indietro</a>
 			</fieldset>
-		
+		</div>
+		</div>
 	</div>
  </section>
 	<script>
 		$(document).ready(function(){
-  		$(".button").click(function(){
-  		  var column = $(this).parent();
-		  var price = column.next().html();
-		  var qty = price.next().html();
-		  var sconto = qty.next().next().next().html();
-		  var iva = sconto.next().html();
+  		$(".button").click(function prova (){
+  		  $("tbody tr").removeClass("selected");
+  		  var row = $(this).parent().parent().addClass("update");
+		  var price = $('.update [role="price"]').html();
+		  var qty = $('.update [role="qty"]').html();
+		  var sconto = $('.update [role="discount"]').html();
+		  var iva = $(+'.update [role="iva"]').html();
 
-		  console.log(price);
-		  console.log(qty);
-		  console.log(sconto);
-		  console.log(iva);
+		  $('.update [role="price"]').html('<input type "number" size = 7>');
+		  $('.update [role="qty"]').html('<input type "number" size = 7>');
+		  $('.update [role="discount"]').html('<input type "number" size = 7>');
+		  $('.update [role="iva"]').next().html('<input type "number" size = 7>');
+		  var button = $(' .selected .button');
+		  $(button).html('Update')
+		  $(button).unbind();
+		  $(button).click(function () {
+			  $('.update [role="price"]').html(price);
+			  $('.update [role="qty"]').html(qty);
+			  $('.update [role="discount"]').html(sconto);
+			  $('.update [role="iva"]').next().html(iva);
+			  
+		  });
   		});
 	});
 		
