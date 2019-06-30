@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.GsonBuilder;
+
 import beans.ProductBean;
 import coreModel.ProductModel;
 import coreModel.ProductModelDM;
@@ -18,6 +20,7 @@ import coreModel.ProductModelDS;
 @WebServlet("/CatalogServlet")
 public abstract class CatalogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
     protected String URL;
     protected int numEl;
     /**
@@ -84,9 +87,7 @@ public abstract class CatalogServlet extends HttpServlet {
 		else {
 			//send JSON FILE
 			response.setContentType("application/json");
-			beans.JSONProd parser = new beans.JSONProd (list);
-			
-			response.getWriter().write(parser.parse());
+			response.getWriter().write(new GsonBuilder().registerTypeAdapter(ProductBean.class, new json.JsonBuilderProd()).create().toJson(list));
 		}
 	}
 	

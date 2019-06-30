@@ -18,8 +18,6 @@ public class ProductBean implements Serializable {
 	private double iva;
 	private double discount;
 	private BigDecimal price;
-	@SuppressWarnings("unused")
-	private String priceString;
 	
 	public ProductBean (int id) {
 		code = id;
@@ -94,7 +92,6 @@ public class ProductBean implements Serializable {
 
 	public void setPrice(double d) {
 		this.price = setDecimal (d);
-		this.priceString = price.toString();
 	}
 
 	public int getQty() {
