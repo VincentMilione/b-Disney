@@ -30,7 +30,7 @@
 	<div class="row ">
 		<div class="card y x">
     <form>
- 	 	<input type="text" class="ricerca ricerca1" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')"><br>
+ 	 	<input type="text"  id="mySearch" class="ricerca ricerca1" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')" ><br>
         <input type="date" class="ricerca"  name="da" placeholder="da data..." style="background-image: url('images/dateFrom.png')">
  	    <input type="date" class="ricerca" name="a" placeholder="a data..." style="background-image: url('images/dateTo.png')"> 
 		<button class="button button2" id="butt1">Cerca</button>
@@ -38,7 +38,7 @@
 	
     	<div class="cart-list">
     	<h1>Ordini clienti</h1>
-	    	<table class="table">
+	    	<table class="table" id="myMenu">
 		 <thead class="thead-primary">
 			<tr class="text-center">
 				<th>&nbsp;</th>
@@ -61,11 +61,12 @@
 			 int size = fatt.size();
 			 java.util.List<Order> orders = fatt.getProdotti();
 			 %> 
-			 <tr class="text-center">
+		
+			 <tr class="text-center tr1">
 				<td rowspan="<%=size%> " class="product-name">
 				    <button  class="button button2 submitter" type="submit">Fattura</button>
 				</td>
-				<td rowspan="<%=size%> "><%=fatt.getUser().getLogin()%></td>
+				<td id="td1" rowspan="<%=size%> "><%=fatt.getUser().getLogin()%></td>
 				<td rowspan="<%=size%> "><%=format.format(fatt.getDate().getTime()) %></td>
 		     	
 			<%
@@ -78,8 +79,10 @@
 				<td><%=bean.getPricewithIva()%></td>
 				<td><%=bean.getDiscount()%></td>
 				<td><%=o.getQty()%></td>
-				
-			</tr><%}} %>
+			
+			</tr>
+		<%}} %>
+			
 		</tbody>
 			</table>
 			<a class="button button2"  href= "amministratore.jsp"> Indietro</a>
@@ -87,6 +90,10 @@
 	</div>
 	</div>
  </section>
-
+<script>
+$(document).ready(function (){
+	
+})
+</script>
 </body>
 </html>
