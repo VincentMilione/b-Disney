@@ -30,7 +30,7 @@
 	<div class="row ">
 		<div class="card y x">
     <form>
- 	 	<input type="text"  id="mySearch" class="ricerca ricerca1" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')" ><br>
+ 	 	<input type="search"  id="mySearch" class="ricerca ricerca1" name="search" placeholder="Utente..." style="background-image: url('images/lenteUser1.png')" ><br>
         <input type="date" class="ricerca"  name="da" placeholder="da data..." style="background-image: url('images/dateFrom.png')">
  	    <input type="date" class="ricerca" name="a" placeholder="a data..." style="background-image: url('images/dateTo.png')"> 
 		<button class="button button2" id="butt1">Cerca</button>
@@ -68,7 +68,12 @@
 				</td>
 				<td id="td1" rowspan="<%=size%> "><%=fatt.getUser().getLogin()%></td>
 				<td rowspan="<%=size%> "><%=format.format(fatt.getDate().getTime()) %></td>
-		     	
+		     	 <div class="suggerimenti">
+	 				<section>
+	 				for(i=0;i<3;i++)
+	 				<option></option>
+	 				</section>
+	 </div>
 			<%
 				for(Order o : orders){
 				 	ProductBean bean = o.getProduct();
@@ -92,7 +97,7 @@
  </section>
 <script>
 $(document).ready(function (){
-	
+	$(".").hide();
 })
 </script>
 </body>

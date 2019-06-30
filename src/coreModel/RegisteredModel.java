@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import beans.Registered;
 
 public abstract class RegisteredModel extends UserModel {
@@ -116,7 +117,45 @@ public abstract class RegisteredModel extends UserModel {
 		}
 	}
 	
+	public synchronized ArrayList<Registered> doRetrieveBySearch(String search) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		java.util.ArrayList<Registered> list = new java.util.ArrayList<Registered>();
+
+		String selectSQL = searchSQL + "ORDER BY nome";
+
+		try {
+			connection = getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, "%"+search+"%");
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Registered bean = new Registered();
+
+				setBean(rs, bean);
+				list.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					closeConnection(connection);
+			}
+		}
+		return list;
+	}
+		
+	
 	protected static final String TABLE = "registrato";
 	protected static final String insertSQL = "INSERT INTO " + TABLE + "(loginA, pass, nome, cognome) values (?, ?, ?, ?)";
 	protected static final String updateSQL = "UPDATE " + TABLE + " set loginA = ?, pass = ?, nome = ?, cognome = ? where loginA = ?";
+	protected static final String searchSQL = "SELECT * FROM "+TABLE+ " WHERE loginA LIKE %?%";
+	
 }
