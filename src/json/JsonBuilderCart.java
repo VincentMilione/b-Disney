@@ -7,9 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import beans.ProductBean;
-
-
 public class JsonBuilderCart implements com.google.gson.JsonSerializer<beans.Cart> {
 
 	@Override
@@ -21,7 +18,7 @@ public class JsonBuilderCart implements com.google.gson.JsonSerializer<beans.Car
 		obj.addProperty("noIva", cart.getTotalWithoutIva().toString());
 		obj.addProperty("tot", cart.getTotal().toString());
 		obj.addProperty("size", cart.size());
-		obj.add("list", new GsonBuilder().registerTypeAdapter(ProductBean.class, new json.JsonBuilderProd()).create().toJsonTree(cart.getOrders()));
+		obj.add("list", new GsonBuilder().registerTypeAdapter(beans.Order.class, new json.JsonBuilderOrder()).create().toJsonTree(cart.getOrders()));
 		
 		return obj;
 	}

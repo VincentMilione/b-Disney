@@ -6,7 +6,7 @@
 <section class="ftco-section ftco-cart">
 <div class="row ">
 	<div class="card">
-		    <div class="cart-list">
+		    <div class="cart-list table-responsive">
 				<table class="table">
 				<thead class="thead-primary">
 					<tr class="text-center">
@@ -21,7 +21,7 @@
 					</tr>
 				</thead>
 				<tbody>
-
+<!--  -->
 <%
 Cart cart = (Cart) session.getAttribute("cart");
 

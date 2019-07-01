@@ -23,7 +23,7 @@
 
 <section class="card carrello">
 
-<div class="leftcolumn"> <%@ include file = "cartContent.jsp"%></div>
+<div class="leftcolumn"></div>
 <div class="rightcolumn"> <%@ include file = "Acquista.jsp" %> <hr>
       		<fieldset><a style = "text-align: center" href="Billing" class="chck">Checkout</a></fieldset>
 </div>
@@ -33,58 +33,68 @@
 <script type="text/javascript">
 $(document).ready(function () {
 		//avvia richiesta per reperire lista prodotti 
-		$.getJSON("myCart")
+		$.get("myCart")
 			//se funge
-			.done (function (json) {
-				$.each(json, function () {
-					//costruisci il div per i prodotti
-					var row = $('<tr class="text-center"></tr>');
-					$("tbody").append(row);
-					$(row).append('<td class="product-remove"><button class="removeX" style="background-image: url("images/x.png")"></button>');
-					$(row).append('<td class="image-prod"><div id="img" style = "background-image: url("this.img")"></div> </td>');
-					$(row).append('<td class="product-name">this.name</td>');
+			.done (function (data) {
+				$(".leftcolumn").append(data);
+				
+				$('.quantity input[type = "number"]').focus (function focuser () {
+					var oldQty = this.value;
+					$(this).unbind();
+					$(this).blur(function () {
+						var row = $(this).parents().filter("tr");
+						var qty = this.value;
+						var id = $(row).attr("id");
+						
+						$.get("ProductControl", {id : id, act : "addC", qty : qty})
+							.done (function (json) {
+								console.log(json);
+								var t= 0;
+								var flag = false;
+								for(i=0;i<json.size && !flag;i++){
+									if(json.list[i].order.id==id){
+										t = json.list[i].totOrdine;
+										flag = true;
+									}
+								}
+								$("#"+id +' .total').html(t);
+								ordini(json);
+							})
+							.fail (function () {
+								//ancora in cantiere
+								var o = $("#"+$(row).attr("id")+' .quantity input[type = "number"]');
+								$(o).val(oldQty);
+							})
+							.always(function () {
+								var o = $("#"+$(row).attr("id")+' .quantity input[type = "number"]');
+								$(o).unbind();
+								$(o).focus(focuser);
+							});
+					});
+				});
+
+				
+				$(".removeX").click(function () {
 					
+					var row = $(this).parents().filter("tr");
+					$.get("ProductControl", {id : $(row).attr("id"), act : "delete" }) 
+						.done(function(json){
+							$(row).remove();
+							ordini(json);
+						});
 				});
 				
-				$(".productCard a").wrap ('<h3 style = "font-size: 120%">');
-				$(".productCard h3").wrap('<div class = "nomeProdSconto"></div>');
-				$(".productCard img").wrap('<div class = "imgSconto"></div>');
-				$(".productCard button").wrap("<p>")
-			});
-		
-		$('.quantity input[type = "number"]').focus (function focuser () {
-			var oldQty = this.value;
-			$(this).unbind();
-			$(this).blur(function () {
-				var row = $(this).parents().filter("tr");
-				var qty = this.value;
-				
-				$.get("ProductControl", {id : $(row).attr("id"), act : "addC", qty : qty})
-					.fail (function () {
-						var o = $("#"+$(row).attr("id")+' .quantity input[type = "number"]');
-						$(o).val(oldQty);
-					})
-					.always(function () {
-						var o = $("#"+$(row).attr("id")+' .quantity input[type = "number"]');
-						$(o).unbind();
-						$(o).focus(focuser);
-					});
-			});
-		});
-
-		
-		$(".removeX").click(function () {
-			
-			var row = $(this).parents().filter("tr");
-			$.get("ProductControl", {id : $(row).attr("id"), act : "delete" }) 
-				.done(function(json){
-					$(row).remove();
+				function ordini(json)
+				{ 
 					$("#Iva span").html(json.totIva);
 					$("#noIva span").html(json.noIva);
 					$("#tot span").html(json.tot);
 					$("#size b").html(json.size);
-				});
-		});
+				}
+			});
+		
+		
+		
 });
 </script>
 </body>

@@ -51,6 +51,7 @@ public class ProductControl extends HttpServlet {
 					}
 					
 					if (action.equalsIgnoreCase("addC")) {
+						
 						synchronized (cart) {
 							int id = Integer.parseInt(request.getParameter("id"));
 							int qty = Integer.parseInt(request.getParameter("qty"));
@@ -64,8 +65,10 @@ public class ProductControl extends HttpServlet {
 								response.sendRedirect(response.encodeURL("carrello.jsp"));
 							}
 							else {
-								
+								response.setContentType("application/json");
+								response.getWriter().write(parser.toJson(cart));
 							}
+								
 					}
 					} else if (action.equalsIgnoreCase("view")) {
 						//visualizzazione del prodotto lato client

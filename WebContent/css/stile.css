@@ -179,7 +179,6 @@ div .container {
 table {
   border-collapse: collapse;
   width: 100%;
-  
 }
 
 th, td {
@@ -616,7 +615,7 @@ span.price {
   	padding: 9px 13px;  
   	}
   	
-  		.ricerca{
+  	.ricerca{
  	 width: 55%;
 	}
 }
@@ -631,6 +630,7 @@ span.price {
 	width: 100%;
 	height: 50%;
 }
+ 
 
 }
 
