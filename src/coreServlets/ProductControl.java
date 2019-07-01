@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import beans.Cart;
 import beans.Order;
 import beans.ProductBean;
@@ -75,8 +78,16 @@ public class ProductControl extends HttpServlet {
 						else response.sendRedirect("/error.jsp");
 					} else if (action.equalsIgnoreCase("delete")) {
 						//elimina dal carrello
+						response.setContentType("application/json");
 						int id = Integer.parseInt(request.getParameter("id"));
 						cart.deleteProduct(id);
+						JsonObject obj = new JsonObject ();
+						obj.addProperty("totIva", cart.getTotalIva().toString());
+						obj.addProperty("noIva", cart.getTotalWithoutIva().toString());
+						obj.addProperty("tot", cart.getTotal().toString());
+						obj.addProperty("size", cart.size());
+						
+						response.getWriter().write(new Gson().toJson(obj));
 					}
 			}			
 		} catch (SQLException e) {

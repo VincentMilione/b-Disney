@@ -40,7 +40,7 @@ $(document).ready(function () {
 					//costruisci il div per i prodotti
 					var row = $('<tr class="text-center"></tr>');
 					$("tbody").append(row);
-					$(row).append('<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>');
+					$(row).append('<td class="product-remove"><button class="removeX" style="background-image: url("images/x.png")"></button>');
 					$(row).append('<td class="image-prod"><div id="img" style = "background-image: url("this.img")"></div> </td>');
 					$(row).append('<td class="product-name">this.name</td>');
 					
@@ -51,7 +51,25 @@ $(document).ready(function () {
 				$(".productCard img").wrap('<div class = "imgSconto"></div>');
 				$(".productCard button").wrap("<p>")
 			});
-	
+		
+		$('.quantity input[type = "number"]').blur(function () {
+			$.post("ProdControl", {id : id, act : })
+			
+		});
+		
+		$(".removeX").click(function () {
+			
+			$("#"+this.id).parent().parent().addClass("selected");
+			$.get("ProductControl", {id : this.id, act : "delete" }) 
+				.done(function(json){
+					$(".selected").remove();
+					console.log(json);
+					$("#Iva span").html(json.totIva);
+					$("#noIva span").html(json.noIva);
+					$("#tot span").html(json.tot);
+					$("#size b").html(json.size);
+				});
+		});
 });
 </script>
 </body>
