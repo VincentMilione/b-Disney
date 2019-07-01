@@ -37,16 +37,20 @@ public class AdminManager extends HttpServlet {
 		if (isAdmin != null ? isAdmin : true) {
 			try {
 				
-				String login = request.getParameter("idUser");
+				String login = request.getParameter("search");
+				System.out.println(login);
 				SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 				String par1 = request.getParameter("da");
 				String par2 = request.getParameter("a");
 			
-				java.util.Date da = par1 == null ? null : format.parse(par1);
-				java.util.Date a = par2 == null ? null : format.parse(par2);
+				java.util.Date da = par1 == null || "".equals(par1) ? null : format.parse(par1);
+				java.util.Date a = par2 == null || "".equals(par2) ? null : format.parse(par2);
 				
 				request.setAttribute("fatture", login == null ? model.retrieveInvoices(da, a) : model.retrieveInvoices(new coreModel.RegisteredModelDM().doRetrieveByKey(login), da, a));
-				getServletContext().getRequestDispatcher(response.encodeURL("/Ordini.jsp")).forward(request, response);;
+				
+				if (request.getHeader("x-requested-with") == null)
+					getServletContext().getRequestDispatcher(response.encodeURL("/Ordini.jsp")).forward(request, response);
+				else getServletContext().getRequestDispatcher(response.encodeURL("contentJSP/tableOrdersadmin.jsp")).forward(request, response);
 			} catch (ParseException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
