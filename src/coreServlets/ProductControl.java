@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
 
 import beans.Cart;
 import beans.Order;
@@ -27,7 +27,7 @@ public class ProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	static boolean isDataSource = true;
-	
+	Gson parser = new GsonBuilder().registerTypeAdapter(Cart.class, new json.JsonBuilderCart()).create();
 	static ProductModel model;
 	
 	static {
@@ -63,6 +63,9 @@ public class ProductControl extends HttpServlet {
 								response.setContentType("text/html");
 								response.sendRedirect(response.encodeURL("carrello.jsp"));
 							}
+							else {
+								
+							}
 					}
 					} else if (action.equalsIgnoreCase("view")) {
 						//visualizzazione del prodotto lato client
@@ -81,13 +84,8 @@ public class ProductControl extends HttpServlet {
 						response.setContentType("application/json");
 						int id = Integer.parseInt(request.getParameter("id"));
 						cart.deleteProduct(id);
-						JsonObject obj = new JsonObject ();
-						obj.addProperty("totIva", cart.getTotalIva().toString());
-						obj.addProperty("noIva", cart.getTotalWithoutIva().toString());
-						obj.addProperty("tot", cart.getTotal().toString());
-						obj.addProperty("size", cart.size());
 						
-						response.getWriter().write(new Gson().toJson(obj));
+						response.getWriter().write(parser.toJson(cart));
 					}
 			}			
 		} catch (SQLException e) {

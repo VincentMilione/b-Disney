@@ -52,18 +52,33 @@ $(document).ready(function () {
 				$(".productCard button").wrap("<p>")
 			});
 		
-		$('.quantity input[type = "number"]').blur(function () {
-			$.post("ProdControl", {id : id, act : })
-			
+		$('.quantity input[type = "number"]').focus (function focuser () {
+			var oldQty = this.value;
+			$(this).unbind();
+			$(this).blur(function () {
+				var row = $(this).parents().filter("tr");
+				var qty = this.value;
+				
+				$.get("ProductControl", {id : $(row).attr("id"), act : "addC", qty : qty})
+					.fail (function () {
+						var o = $("#"+$(row).attr("id")+' .quantity input[type = "number"]');
+						$(o).val(oldQty);
+					})
+					.always(function () {
+						var o = $("#"+$(row).attr("id")+' .quantity input[type = "number"]');
+						$(o).unbind();
+						$(o).focus(focuser);
+					});
+			});
 		});
+
 		
 		$(".removeX").click(function () {
 			
-			$("#"+this.id).parent().parent().addClass("selected");
-			$.get("ProductControl", {id : this.id, act : "delete" }) 
+			var row = $(this).parents().filter("tr");
+			$.get("ProductControl", {id : $(row).attr("id"), act : "delete" }) 
 				.done(function(json){
-					$(".selected").remove();
-					console.log(json);
+					$(row).remove();
 					$("#Iva span").html(json.totIva);
 					$("#noIva span").html(json.noIva);
 					$("#tot span").html(json.tot);

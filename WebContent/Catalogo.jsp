@@ -63,7 +63,7 @@ $(document).ready(function () {
 						.attr("src", this.img)
 					
 					var name = $('<h3 style = "font-size: 120%">');
-					var link = $('<a>').attr("href", 'ProductControl?id'+this.id).html(this.name);
+					var link = $('<a>').attr("href", 'ProductControl?act=view&id='+this.id).html(this.name);
 					var prezzo = $('<p class = "prezzo">').html(this.price+"&#8364;");
 					var sconto = $('<p class = "sconto">').html(this.priceDisc+"&#8364;");
 					var button = $('<button>').html('Acquista');
