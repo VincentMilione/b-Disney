@@ -33,6 +33,7 @@
 	     <thead class="thead-primary">
 			<tr class="text-center">
 				<th>&nbsp;</th>
+				<th>Recenzione</th>
 				<th>Prodotto</th>
 				<th>nome Prodotto</th>
 				<th>Prezzo</th>
@@ -55,6 +56,7 @@
 				for(Order o : orders){
 				 	ProductBean bean = o.getProduct();
 				%>
+				<td><a  class="button button2" href="ProductControl?id=<%=bean.getCode()%>&act=view">Aggiungi</a></div>
 				<td><div id="img" style="background-image: url('<%=bean.getPhoto()%>');"></div></td>
 				<td><%=bean.getName()%></td>
 				<td><%=bean.getPriceSenzaIva()%></td>

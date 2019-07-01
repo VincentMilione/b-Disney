@@ -12,12 +12,12 @@
 					<tr class="text-center">
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
-		     			<th>Product</th>
-						<th>Price</th>
-						<th>Price + Iva</th>
-						<th>Discount</th>
-						<th>Quantity</th>
-						<th>Total</th>
+						<th>Prodotto</th>
+						<th>Prezzo</th>
+						<th>Prezzo con Iva</th>
+						<th>Sconto</th>
+						<th>Quantita</th>
+						<th>Totale</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,7 +50,7 @@ if (cart == null) {
 	
 	%>
 					<tr class="text-center">
-						<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						<td class="product-remove"><button class="removeX" style="background-image: url('images/x.png')"></button>
 						<td class="image-prod"><div id="img" style="background-image: url('<%=urlImage%>');"></div> </td>
 						<td class="product-name"><%=name%></td>
 						<td><%=priceUnit%></td>

@@ -43,8 +43,8 @@
 		}
 	}%>
 <%@include file = "header2.jsp" %>
-<section class="card">
-	<div style="float:left; padding:20px;" >
+<section class="card"  style="padding-bottom:90px;">
+	<div style="float:left; padding:20px " >
      	<%@include file = "zoom.jsp" %>	
   	</div>
   	<div class="capo">

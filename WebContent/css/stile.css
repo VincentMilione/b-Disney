@@ -8,6 +8,13 @@
 	width: 5%;	
 }
 
+.removeX{
+	height:20px;
+	width:20px;
+	border:none;
+	border-radius: 50%;
+}
+
 .img-magnifier-container {
   position:relative;
   box-sizing: border-box;
@@ -19,7 +26,7 @@
   display: none;
   border: 3px solid #000;
   border-radius: 50%;
-  /*Set the size of the magnifier glass:*/
+  /*grandezza magnifier glass:*/
   width: 100px;
   height: 100px;
 }
