@@ -133,7 +133,7 @@ div .container {
   }
  .imgSconto{
  max-width:100%; 
- 
+  overflow: hidden;
  }
  .nomeProdSconto{
  height:auto;
