@@ -62,13 +62,14 @@ public class Login extends HttpServlet {
 				} else page = "index.jsp";
 			} else{
 				UserBean administrator = admin.login(username, password);
-				System.out.println(administrator);
 				if (administrator != null){
 					session.setAttribute("isAdmin", true);
+					page = "amministratore.jsp";
 				} else throw new Exception();
 			}
 			response.sendRedirect(response.encodeURL(page));
 		} catch (SQLException e) {
+			response.sendRedirect("error.jsp");
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();

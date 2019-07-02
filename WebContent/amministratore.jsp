@@ -16,8 +16,10 @@
 	<center><img  src="images/admin.jpg"> </center>
 		<h1> Bentornato admin </h1>
 	<h2>Cosa desideri effettuare?</h2>
-	<a href="Ordini.jsp">Visualizzare ordini dei clienti</a><br><br>
-	<a href="catalogoAdm.jsp">Revisionare il catalogo</a><br>	
+	<a href="admin">Visualizzare ordini dei clienti</a><br><br>
+	<a href="catalogoAdm.jsp">Revisionare il catalogo</a><br><br>
+	<a href="Logout">Logout</a><br>	
+	
 	
 	</fieldset>
 	</form>
