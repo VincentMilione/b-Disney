@@ -52,7 +52,8 @@ public class CartServlet extends HttpServlet {
 		else {
 			//access DB and update values....
 			try {
-				java.util.List<beans.ProductBean> list = model.doRetrieveList(cart.getCodes());
+				java.util.List<beans.ProductBean> list = model.doRetrieveList(cart.getCodes(), true);
+				
 						
 				for (beans.ProductBean bean : list) {
 					Order o = new Order (bean, cart.getOrder(bean.getCode()).getQty());

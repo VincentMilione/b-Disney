@@ -87,7 +87,7 @@ public abstract class ProductModel {
 		}
 	}
 	
-	public synchronized ProductBean doRetrieveByKey(int code) throws SQLException {
+	public synchronized ProductBean doRetrieveByKey(int code, boolean acquistabile) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -140,17 +140,13 @@ public abstract class ProductModel {
 	}
 	
 
-	public synchronized java.util.List<ProductBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized java.util.List<ProductBean> doRetrieveAll(Boolean acquistabile) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		java.util.ArrayList<ProductBean> products = new java.util.ArrayList<ProductBean>();
 
-		String selectSQL = selectAllSQL;
-
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		String selectSQL = selectAllSQL + " ORDER BY nome";
 
 		try {
 			connection = getConnection();
@@ -247,7 +243,7 @@ public abstract class ProductModel {
 		return products;
 	}
 	
-	public synchronized List<ProductBean> doRetrieveByDiscount(double amount) throws Exception {
+	public synchronized List<ProductBean> doRetrieveByDiscount(double amount, boolean acquista) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -308,7 +304,7 @@ public abstract class ProductModel {
 		return (result != 0);
 	}
 
-	public synchronized List<ProductBean> doRetrieveList(int[] codes) throws SQLException {
+	public synchronized List<ProductBean> doRetrieveList(int[] codes, boolean acquista) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String query = setSQLlistString(codes.length);

@@ -38,7 +38,7 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//index servlet deve caricare una lista di prodotti in sconto
 		try {
-			List<ProductBean> list = model.doRetrieveByDiscount(30);
+			List<ProductBean> list = model.doRetrieveByDiscount(30, true);
 			
 			if (list.size()>10)
 				request.setAttribute("list", list.subList(0, 10));

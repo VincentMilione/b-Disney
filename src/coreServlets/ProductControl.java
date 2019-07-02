@@ -55,7 +55,7 @@ public class ProductControl extends HttpServlet {
 						synchronized (cart) {
 							int id = Integer.parseInt(request.getParameter("id"));
 							int qty = Integer.parseInt(request.getParameter("qty"));
-							ProductBean bean = model.doRetrieveByKey(id);
+							ProductBean bean = model.doRetrieveByKey(id, true);
 							Order orderBean = new Order (bean, qty);
 						
 							cart.addOrder(orderBean);
@@ -73,7 +73,7 @@ public class ProductControl extends HttpServlet {
 					} else if (action.equalsIgnoreCase("view")) {
 						//visualizzazione del prodotto lato client
 						int id = Integer.parseInt(request.getParameter("id"));
-						ProductBean bean = 	model.doRetrieveByKey(id);
+						ProductBean bean = 	model.doRetrieveByKey(id, true);
 		
 						if (bean != null) {
 							request.setAttribute("product", bean);
