@@ -24,7 +24,7 @@ public abstract class RegisteredModel extends UserModel {
 	public synchronized Registered doRetrieveByKey(String user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Registered bean = new Registered();
+		Registered bean = null;
 		String selectSQL = "SELECT * FROM " +TABLE +" WHERE loginA = ?";
 
 		try
@@ -35,6 +35,8 @@ public abstract class RegisteredModel extends UserModel {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) 
 			{
+				bean = new Registered();
+				
 				bean.setName(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setLogin(user);

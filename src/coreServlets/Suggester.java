@@ -49,7 +49,7 @@ public class Suggester extends HttpServlet {
 		
 		List<ProductBean> list;
 		try {
-			list = model.doRetrieveBySearch(search);
+			list = model.doRetrieveBySearch(search, true);
 			response.getWriter().write(parser.toJson(list));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

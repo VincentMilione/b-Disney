@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.UserBean;
+import coreModel.AdminModelDM;
+import coreModel.AdminModelDS;
 import coreModel.RegisteredModelDM;
 import coreModel.RegisteredModelDS;
 import coreModel.UserModel;
@@ -20,13 +22,16 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	static boolean isDataSource = false;
-	static UserModel model;
+	static UserModel utente;
+	static UserModel admin;
 	static
 	{
 		if (isDataSource) {
-			model = new RegisteredModelDS();
+			utente = new RegisteredModelDS();
+			admin = new AdminModelDS();
 		} else {
-			model = new RegisteredModelDM();
+			utente = new RegisteredModelDM();
+			admin = new AdminModelDM();
 		}
 	}
     /**
@@ -45,22 +50,30 @@ public class Login extends HttpServlet {
 		String page = new String();
 
 		try {
-			UserBean user = model.login(username, password);
-			session.setAttribute("user", user);
-			session.setAttribute("isUser", new Boolean(true));
-			session.removeAttribute("wasPaying");
+			UserBean user = utente.login(username, password);
+			if (user != null){ 
+				session.setAttribute("user", user);
+				session.setAttribute("isUser", new Boolean(true));
+				session.removeAttribute("wasPaying");
+				
+				if (paying) {
+					request.getRequestDispatcher("/Billing").forward(request, response);
+					return;
+				} else page = "index.jsp";
+			} else{
+				UserBean administrator = admin.login(username, password);
+				
+				if (administrator != null){
+					session.setAttribute("isAdmin", true);
+					page = "amministratore.jsp";
+				} else throw new Exception();
+			}
 			
-			if (paying) {
-				request.getRequestDispatcher("/Billing").forward(request, response);
-				System.out.println("ciao");
-				return;
-			} else page = "index.jsp";
 		} catch (SQLException e) {
 			page = "error.jsp";
 			e.printStackTrace();
 		} catch (Exception e) {
 			page = "Login.jsp";
-			session.setAttribute("isUser", new Boolean(false));
 		}
 		
 		response.sendRedirect(response.encodeURL(page));

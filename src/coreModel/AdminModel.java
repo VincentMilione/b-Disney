@@ -14,7 +14,7 @@ public abstract class AdminModel extends UserModel{
 	protected UserBean doRetrieveByKey(String user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		UserBean bean = new Admin();
+		UserBean bean = null;
 		String selectSQL = "SELECT * FROM " +TABLE +" WHERE loginA = ?";
 
 		try
@@ -23,8 +23,10 @@ public abstract class AdminModel extends UserModel{
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, user);
 			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) 
+			if (rs.next() && rs.getFetchSize() == 1) 
 			{
+				bean = new Admin();
+	
 				bean.setLogin(user);
 				bean.setPassword(rs.getString("pass"));
 			}

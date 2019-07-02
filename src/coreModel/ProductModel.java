@@ -87,17 +87,18 @@ public abstract class ProductModel {
 		}
 	}
 	
-	public synchronized ProductBean doRetrieveByKey(int code, boolean acquistabile) throws SQLException {
+	public synchronized ProductBean doRetrieveByKey(int code, Boolean acquistabile) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		ProductBean bean = new ProductBean();
 
 		try {
+			String selectSql = acquistabile == null ? selectSQL : selectSQL + " AND acquistabile = ?";
 			connection = getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement = connection.prepareStatement(selectSql);
 			preparedStatement.setInt(1, code);
-
+			if (acquistabile) preparedStatement.setBoolean(2, acquistabile);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) 
@@ -145,14 +146,13 @@ public abstract class ProductModel {
 		PreparedStatement preparedStatement = null;
 
 		java.util.ArrayList<ProductBean> products = new java.util.ArrayList<ProductBean>();
-
-		String selectSQL = selectAllSQL + " ORDER BY nome";
-
+		String selectSQL = acquistabile == null ? selectAllSQL : selectAllSQL + " WHERE acquistabile = ? ORDER BY nome";
+		
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			ResultSet rs = preparedStatement.executeQuery();
-
+			if (acquistabile) preparedStatement.setBoolean(2, acquistabile);
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
@@ -207,21 +207,20 @@ public abstract class ProductModel {
 		return products;
 	}
 
-	public synchronized java.util.List<ProductBean> doRetrieveBySearch(String search) throws SQLException {
+	public synchronized java.util.List<ProductBean> doRetrieveBySearch(String search, Boolean acquistabile) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		java.util.ArrayList<ProductBean> products = new java.util.ArrayList<ProductBean>();
-
-		String selectSQL = searchSQL + order;
-
+		String acquist = acquistabile == null ? "" : " AND acquistabile = ?"; 
+		String selectSQL = searchSQL +acquist + order;
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, "%"+search+"%");
 			preparedStatement.setString(2, "%"+search+"%");
-
+			if (acquistabile) preparedStatement.setBoolean(3, acquistabile);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -243,16 +242,17 @@ public abstract class ProductModel {
 		return products;
 	}
 	
-	public synchronized List<ProductBean> doRetrieveByDiscount(double amount, boolean acquista) throws Exception {
+	public synchronized List<ProductBean> doRetrieveByDiscount(double amount, Boolean acquista) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		List<ProductBean> list = new ArrayList<ProductBean>();
-
+		String selectSQL = acquista == null ? selectDiscountSQL : selectDiscountSQL + " AND acquistabile = ?";
 		try {
 			connection = getConnection();
-			preparedStatement = connection.prepareStatement(selectDiscountSQL);
+			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setDouble(1, amount);
+			if (acquista) preparedStatement.setBoolean(2, acquista);
 
 			ResultSet result = preparedStatement.executeQuery();
 
@@ -304,17 +304,18 @@ public abstract class ProductModel {
 		return (result != 0);
 	}
 
-	public synchronized List<ProductBean> doRetrieveList(int[] codes, boolean acquista) throws SQLException {
+	public synchronized List<ProductBean> doRetrieveList(int[] codes, Boolean acquista) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String query = setSQLlistString(codes.length);
+		String a = acquista == null ? "" :  "AND acquistabile = ?";
+		String query = setSQLlistString(codes.length) +a;
 		java.util.List <ProductBean> list = new java.util.ArrayList <ProductBean> ();
 
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			prepareSQLlist(preparedStatement, codes);
-	
+			if (acquista) preparedStatement.setBoolean(codes.length + 1, acquista);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -343,7 +344,7 @@ public abstract class ProductModel {
 	protected static final String selectSQL = "SELECT * FROM " +TABLE_NAME + " WHERE codice = ?";
 	protected static final String selectAllSQL = "SELECT * FROM " + TABLE_NAME;
 	protected static final String selectDiscountSQL = "SELECT * FROM store.prodotto WHERE sconto >= ?";
-	protected static final String deleteSQL = "DELETE FROM "+TABLE_NAME+" WHERE CODE = ?";
+	protected static final String deleteSQL = "UPDATE "+TABLE_NAME+" SET acquistabile = false WHERE codice = ?";
 	protected static final String insertSQL = "INSERT INTO " + TABLE_NAME
 			+ "(nome, descrizione, prezzo, quantita, personaggio, foto, iva, sconto, tipo, categoria)"
 			+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -351,6 +352,6 @@ public abstract class ProductModel {
 			+ "nome = ?, descrizione = ?, prezzo = ?, quantita = ?, personaggio = ?, foto = ?, iva = ?, sconto = ?, tipo = ?, "
 			+ "categoria = ? WHERE codice = ?";
 	protected static final String searchSQL = "SELECT * FROM "+TABLE_NAME+ " WHERE nome LIKE ? or descrizione LIKE ?";
-	protected static final String categorySQL = "SELECT * FROM "+TABLE_NAME+ " WHERE categoria = ?";
+	protected static final String categorySQL = "SELECT * FROM "+TABLE_NAME+ " WHERE categoria = ? AND acquistabile = 1";
 	protected static final String order = " ORDER BY nome";
 }

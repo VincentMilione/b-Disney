@@ -55,25 +55,21 @@
         		  </select>
         		
 	    <%}
-        %>    <!-- 
-        		1) chiedi all'utente di registrare un nuovo indirizzo
-        		2) al premere del submit devi avviare una richiesta ajax che chiama AddressOperations?operation=1
-        		3) al successo della richiesta ajax manipola il dom per creare la combobox con jquery-->
-	        <button id="toggle">Aggiungi indirizzo</button><br>
+        %>    <br> <button id="toggle" class="button button2">Aggiungi indirizzo</button><br>
 	         <div id="AddIndirizzo"><br>
 	        	  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> Indirizzo</label>
-            	  <input class="myInput1" type="text" value= "test" id="adr" name="address" placeholder="via della repubblica">
+            	  <input class="myInput1" type="text"  id="adr" name="address" placeholder="via della repubblica">
             	  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> Numero civico</label>
-            	  <input class="myInput1" type="number" value = "5" id="nc" name="nc" min="1" ><br>
+            	  <input class="myInput1" type="number"  id="nc" name="nc" min="1" ><br>
             	  <label class="myLabel" for="city"><i class="fa fa-institution"></i> Città</label>
-                  <input class="myInput1" type="text" value = "Roma" id="city" name="city" placeholder="Roma">
+                  <input class="myInput1" type="text"  id="city" name="city" placeholder="Roma">
                   <label  class="myLabel" for="city"><i class="fa fa-institution"></i> Provincia</label>
-                  <input class="myInput1" type="text" value = "Roma" id="provincia" name="provincia" placeholder="Roma">
+                  <input class="myInput1" type="text"  id="provincia" name="provincia" placeholder="Roma">
                   <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> CAP</label>
-            	  <input class="myInput1" type="text" id="CAP" value ="84013" name="CAP" placeholder="8089">
+            	  <input class="myInput1" type="text" id="CAP"  name="CAP" placeholder="8089">
                   <label  class="myLabel" for="state">Stato</label>
-                  <input class="myInput1" type="text" id="state" name="state" value = "Italia" placeholder="Italia">
-                  <button id="butt">Aggiungi</button>
+                  <input class="myInput1" type="text" id="state" name="state"  placeholder="Italia">
+                  <button id="butt" class="button button2">Aggiungi</button>
               </div><br>
               	 
               <%@ include file = "Acquista.jsp" %>        

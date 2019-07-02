@@ -52,4 +52,8 @@ public class Adress {
 	public void setCodice(int codice) {
 		this.codice = codice;
 	}
+	
+	public String toString (){
+		return "Indirizzo: "+street+", "+nCv +"; CAP: " +CAP +" citta: " +citta;
+	}
 }

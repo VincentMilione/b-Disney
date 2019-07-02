@@ -34,12 +34,12 @@ public abstract class UserModel {
 		}
 	}
 	
-	public UserBean login (String username, String password) throws Exception {
+	public UserBean login (String username, String password) throws SQLException{
 		UserBean user = doRetrieveByKey(username);
 		
 		if (user.getPassword().equals(password))
 			return user;
-		else throw new Exception();
+		else return null;
 	}
 	
 	protected abstract UserBean doRetrieveByKey (String username) throws SQLException;

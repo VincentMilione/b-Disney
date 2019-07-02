@@ -41,7 +41,6 @@ public class AddressOperations extends HttpServlet {
 			int op = Integer.parseInt(request.getParameter("operation"));
 			beans.Registered user = (beans.Registered) request.getSession().getAttribute("user");
 			java.util.Map<Integer,beans.Adress> ad = (java.util.Map<Integer,beans.Adress>)request.getSession().getAttribute("addresses");
-			System.out.println(user);
 			if (op == 0 && user != null) {
 				//operazione di visualizzazione
 				request.getSession().setAttribute("addresses", model.doRetrieveAll(user.getLogin()));

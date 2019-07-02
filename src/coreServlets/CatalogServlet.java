@@ -57,7 +57,7 @@ public abstract class CatalogServlet extends HttpServlet {
 				list = model.doRetrieveByCategory(ctgy);
 			}
 			else if (isEmptyString(category) && !isEmptyString(search))
-				list = model.doRetrieveBySearch(search);
+				list = model.doRetrieveBySearch(search, true);
 			else {
 				response.sendRedirect("error.jsp");
 				return;
