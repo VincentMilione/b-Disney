@@ -23,7 +23,7 @@ public abstract class AdminModel extends UserModel{
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, user);
 			ResultSet rs = preparedStatement.executeQuery();
-			if (rs.next() && rs.getFetchSize() == 1) 
+			if (rs.next()) 
 			{
 				bean = new Admin();
 	

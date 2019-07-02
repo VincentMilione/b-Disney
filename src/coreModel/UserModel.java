@@ -37,7 +37,7 @@ public abstract class UserModel {
 	public UserBean login (String username, String password) throws SQLException{
 		UserBean user = doRetrieveByKey(username);
 		
-		if (user.getPassword().equals(password))
+		if (user == null ? false : user.getPassword().equals(password))
 			return user;
 		else return null;
 	}
