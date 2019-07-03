@@ -18,7 +18,6 @@
 			</tr>
 			</thead>
 		<tbody>
-			<!--n fatture esistenti nel database-->
 	 
 		<%  
 		java.util.List<FatturaBean> lista= (java.util.List<FatturaBean>) request.getAttribute("fatture");
@@ -38,6 +37,7 @@
 				<td rowspan="<%=size%> "><%=format.format(fatt.getDate().getTime()) %></td>
 		     	
 			<%
+		
 				for(Order o : orders){
 				 	ProductBean bean = o.getProduct();
 			%>

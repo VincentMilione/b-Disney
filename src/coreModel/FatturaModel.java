@@ -182,18 +182,39 @@ public abstract class FatturaModel {
 	
 	public java.util.List<FatturaBean> retrieveInvoices (Registered e, java.util.Date date, java.util.Date date2) throws java.sql.SQLException {
 		Connection connection = null;
-		SimpleDateFormat s = new SimpleDateFormat ("yyyy-MM-dd");
-		String da = date != null ? s.format(date) : null;
-		String a = date2 != null ? s.format(date2) : null;
+
 		PreparedStatement preparedStatement = null;
-		String selectSQL = da != null && a != null ?  retrieveAllInvoices + " WHERE dataFattura BETWEEN "+da +" AND " +a : da == null && a == null ? retrieveAllInvoices: da == null && a!= null ? retrieveAllInvoices +" WHERE dataFattura < " +a : retrieveAllInvoices +" WHERE dataFattura > " +da;
-		selectSQL = e == null ? selectSQL : da!=null || a!=null ? selectSQL +" AND registrato = " +e.getLogin() : selectSQL + " WHERE registrato = " +"'"+e.getLogin()+"'";
+		String selectSQL = retrieveAllInvoices + " WHERE registrato = ?";
 		
 		java.util.List<FatturaBean> list = new java.util.ArrayList<FatturaBean> ();
 
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			if (date != null && date2 != null) {
+				selectSQL = selectSQL + " AND dataFattura BETWEEN ? AND ?";
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, e.getLogin());
+				preparedStatement.setDate(2, new java.sql.Date(date.getTime()));
+				preparedStatement.setDate(3, new java.sql.Date(date2.getTime()));
+			} else if (date != null && date2 == null) {
+				selectSQL = selectSQL + " AND dataFattura > ?";
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, e.getLogin());
+				preparedStatement.setDate(2, new java.sql.Date(date.getTime()));
+			} else if (date == null && date2 != null) {
+				selectSQL = selectSQL + " AND dataFattura < ?";
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, e.getLogin());
+				preparedStatement.setDate(2, new java.sql.Date(date2.getTime()));
+			} else {
+				preparedStatement.setString(1, e.getLogin());
+				preparedStatement = connection.prepareStatement(selectSQL);
+			}
+				
+			
+			
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
@@ -226,26 +247,37 @@ public abstract class FatturaModel {
 	public List<FatturaBean> retrieveInvoices(java.util.Date date, java.util.Date date2) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
-		SimpleDateFormat s = new SimpleDateFormat ("yyyy-MM-dd");
-		String da = date != null ? s.format(date) : null;
-		String a = date2 != null ? s.format(date2) : null;
-		PreparedStatement preparedStatement = null;
-		String selectSQL = da != null && a != null ?  retrieveAllInvoicesUsers + " WHERE dataFattura BETWEEN "+da +" AND " +a : da == null && a == null ? retrieveAllInvoicesUsers: da == null && a!= null ? retrieveAllInvoicesUsers +" WHERE dataFattura < " +a : retrieveAllInvoicesUsers +" WHERE dataFattura > " +da;
-		
+
+		PreparedStatement preparedStatement = null; 
+		String selectSQL = retrieveAllInvoicesUsers;
 		java.util.List<FatturaBean> list = new java.util.ArrayList<FatturaBean> ();
 
 		try {
 			connection = getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			if (date != null && date2 != null) {
+				selectSQL = selectSQL + " WHERE dataFattura BETWEEN ? AND ?";
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setDate(1, new java.sql.Date(date.getTime()));
+				preparedStatement.setDate(2, new java.sql.Date(date2.getTime()));
+			} else if (date != null && date2 == null) {
+				selectSQL = selectSQL + " WHERE dataFattura > ?";
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setDate(1, new java.sql.Date(date.getTime()));
+			} else if (date == null && date2 != null) {
+				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setDate(1, new java.sql.Date(date2.getTime()));
+			} else 
+				preparedStatement = connection.prepareStatement(selectSQL);
+			
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 				FatturaBean f = new FatturaBean();
 				Registered bean = new Registered ();
-				
 				java.util.GregorianCalendar cl = new java.util.GregorianCalendar();
 				cl.setTime(rs.getDate("dataFattura"));
-				
+
 				RegisteredModel.setBean(rs, bean);
 				f.setCod(rs.getInt("codiceFattura"));
 				f.setProdotti(retrieveInvoiceOrders(f.getCod(), connection));
@@ -255,7 +287,8 @@ public abstract class FatturaModel {
 				
 				list.add(f);
 			}
-		
+		System.out.println(list);
+		System.out.println();
 		} finally {
 			try {
 				if (preparedStatement != null)
