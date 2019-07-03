@@ -115,34 +115,39 @@ if(admin == null ? true : !admin.booleanValue()) {
 		  var sconto = $("."+up+' [role="discount"]').html();
 		  var iva = $("."+up+' [role="iva"]').html();
 
-		  $("."+up+' [role="price"]').html('<input type "number" size = "4">');
-		  $("."+up+' [role="qty"]').html('<input type "number" size = "4">');
-		  $("."+up+' [role="discount"]').html('<input type "number" size = "4">');
-		  $("."+up+' [role="iva"]').html('<input type "number" size = "4">');
+		  $("."+up+' [role="price"]').html('<input type = "number" size = "2">');
+		  $("."+up+' [role="qty"]').html('<input type = "number" size = "2">');
+		  $("."+up+' [role="discount"]').html('<input type = "number" size = "2">');
+		  $("."+up+' [role="iva"]').html('<input type = "number" size = "2">');
 		  var button = $("."+up+' .button');
 		  $(button).html('Update');
 		  $(button).unbind();
 		  $(button).click(function () {
 			  
 			  var code = $(this).parents().filter("tr").attr("id");
-			  var newPrice = $("."+up+' [role="price"]').val();
-			  var newQty = $("."+up+' [role="qty"]').val();
-			  var newSconto = $("."+up+' [role="discount"]').val();
-			  var newIva = $("."+up+' [role="iva"]').val();
+			  var newPrice = $("."+up+' [role="price"] input').val();
+			  var newQty = $("."+up+' [role="qty"] input').val();
+			  var newSconto = $("."+up+' [role="discount"] input').val();
+			  var newIva = $("."+up+' [role="iva"] input').val();
 			  
 			  console.log(newPrice);
-			  $(button).unbind();
 			  
 			  if (isEmpty(newPrice) || isEmpty(newQty) || isEmpty(newSconto) || isEmpty(newIva)) {
 				    alert ("Uno dei campi di input non e' stato riempito");
 				  
+				    console.log(newPrice);
 				  	$("."+up+' [role="price"]').html(price);
 					$("."+up+' [role="qty"]').html(qty);
 					$("."+up+' [role="discount"]').html(sconto);
-					$("."+up+' [role="iva"]').html(iva);   
+					$("."+up+' [role="iva"]').html(iva);  
+					$(button).unbind();
+					$(button).html('Modifica');
+					$(button).click(prova);
 					
+					return;					
 			  }
 			  else {
+				  $(button).unbind();
 				  $.post ("ProductAdminControl", {act: "modify" ,code : code, iva: newIva, price: newPrice, qty: newQty, discount: newDiscount})
 				  	.done(function () {
 				  		  $("."+up+' [role="price"]').html(newPrice);

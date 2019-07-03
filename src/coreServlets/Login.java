@@ -72,7 +72,8 @@ public class Login extends HttpServlet {
 			response.sendRedirect("error.jsp");
 			e.printStackTrace();
 		} catch (Exception e) {
-			response.sendRedirect("Login.jsp");
+			request.setAttribute("warning", new Boolean (true));
+			getServletContext().getRequestDispatcher("Login.jsp").forward(request, response);;
 		}
 	}
 
