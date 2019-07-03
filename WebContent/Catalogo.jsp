@@ -9,7 +9,8 @@
   	<link rel="stylesheet" href="css/stile.css" type = "text/css">
   	<link rel="stylesheet" href="css/bootstrap.css">
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
  	<meta name="viewport" content="width=device-width, initial-scale=1">
  	<title>Catalogo</title>
 </head>
@@ -41,6 +42,15 @@
 
 <script>
 $(document).ready(function () {
+	
+	/*animazione passaggio del mouse*/
+	/* $(".imgSconto2").animate({width:"-=10%", height:"-=10%"});*/
+	 $(".productCard").hover(function(){
+		    $(this).animate({width:"+=2%", margin:"-=1%"} );
+		  }, function() {
+		        $(this).animate({width:"-=2%", margin:"+=1%"});
+     });
+	
 	$("#submit").click (function () {
 		var pg = $(".pageof").val();
 		var ctgy = <%= ctgy%>;
@@ -87,6 +97,8 @@ $(document).ready(function () {
 				$(".productCard button").wrap("<p>")
 			});
 	})
+	
+	
 });
 </script>
 </body>

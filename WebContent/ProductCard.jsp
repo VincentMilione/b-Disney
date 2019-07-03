@@ -11,7 +11,7 @@
 <div class="productCard" >
 
 <div class="imgSconto">
-	<img src="<%=e.getPhoto()%>">
+	<img class="imgSconto2" src="<%=e.getPhoto()%>" style="overflow: hidden">
 </div>
 
  <div class ="nomeProdSconto"><h3 style = "font-size: 120%"><a href = "ProductControl?id=<%=e.getCode()%>&act=view"><%=e.getName() %></a></h3></div>
