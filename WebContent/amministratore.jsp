@@ -22,9 +22,10 @@ if(admin == null ? true : !admin.booleanValue()) {
 	<fieldset>
 	<center><img  src="images/admin.jpg"> </center>
 		<h1> Bentornato admin </h1>
-	<h2>Cosa desideri effettuare?</h2>
-	<a href="admin">Visualizzare ordini dei clienti</a><br><br>
-	<a href="catalogoAdm.jsp">Revisionare il catalogo</a><br><br>
+	<h2>Cosa desideri effettuare?</h2> 
+	<a href="admin">Visualizzare ordini dei clienti</a> <br>	
+	<a href="catalogoAdm.jsp">Revisionare il catalogo</a> <br>	
+	<a href="catalogoAdm.jsp">Aggiungi nuovi prodotti</a> <br>	
 	<a href="Logout">Logout</a><br>	
 	
 	

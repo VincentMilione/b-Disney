@@ -46,14 +46,20 @@ public class ProductAdminControl extends HttpServlet {
 						int id = Integer.parseInt(request.getParameter("id"));
 						model.doDelete(id);
 					} else if (action.equalsIgnoreCase("insert")) {
+						
 						//codice, nome, descrizione, prezzo, quantita, personaggio, foto, iva, sconto, tipo, categoria
 						String name = request.getParameter("name");
 						String description = request.getParameter("description");
-						int price = Integer.parseInt(request.getParameter("price"));
+						String personaggio = request.getParameter("personaggio");
+						String url = request.getParameter("url");
+						String tipo = request.getParameter("tipo");
+						int categoria = Integer.parseInt(request.getParameter("categoria"));
 						int quantity = Integer.parseInt(request.getParameter("qty"));
+						double price = Double.parseDouble(request.getParameter("price"));
+						double iva= Double.parseDouble(request.getParameter("iva"));
+						double sconto= Double.parseDouble(request.getParameter("sconto"));
 						
-						ProductBean bean = new ProductBean();
-					
+						ProductBean bean = new ProductBean(name, description,personaggio, url, tipo,categoria,quantity,price,iva,sconto);
 						model.doSave(bean);
 					} else if (action.equalsIgnoreCase("modify")) {
 					

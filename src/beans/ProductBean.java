@@ -26,6 +26,22 @@ public class ProductBean implements Serializable {
 	public ProductBean () {
 		
 	}
+	//name, description,personaggio, url, tipo,categoria,quantity,price,iva,sconto
+	public ProductBean (String nome,String  description, String personaggio, String url,String tipo, int categoria, int quantity, double price, double iva, double sconto  ) {
+		this.name= nome;
+		this.description= description;
+		this.character= personaggio;
+		this.photo= url;
+		this.tipo= tipo;
+		this.category= categoria;
+		this.qty= quantity;
+		this.discount= sconto;
+	//	this.price=(BigDecimal) price;
+		this.iva= iva;
+		this.discount= sconto;
+	}
+	
+	
 
 	public int getCode() {
 		return code;
