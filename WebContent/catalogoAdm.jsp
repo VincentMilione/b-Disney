@@ -1,3 +1,4 @@
+<%@page import="beans.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% Boolean admin= (Boolean)session.getAttribute("isAdmin");
@@ -21,14 +22,18 @@ if(admin == null ? true : !admin.booleanValue()) {
 </head>
 <body>
 <body style="background-image: url('images/areg.gif');" >
- 
+
+<%
+	java.util.List<ProductBean> list = (java.util.List<ProductBean>) request.getAttribute("list");
+	
+%>
+
 <!--Tutti i prodotti nel catalogo-->
 <section class="ftco-section ftco-cart">
 	<div class="row ">
     	<div class="card x">
     	<div class="cart-list">
     	<h1>Catalogo</h1>
-  <!--   	<form action="servletProdotto.java" method="post"> --> 
 	    	<table class="table">
 	     <thead class="thead-primary">
 			<tr class="text-center">
@@ -36,30 +41,38 @@ if(admin == null ? true : !admin.booleanValue()) {
 				<th>&nbsp;</th>
 		     	<th>Prezzo</th>
 				<th>Quantit&#224;</th>
-				<th>Personaggio</th>
-				<th>Categoria</th>
 				<th>Sconto</th>
 				<th>Iva</th>
+				<th>Personaggio</th>
+				<th>Categoria</th>
 				
 			</tr>
 			</thead>
 		<tbody>
-			<!--n prodotti esistenti nel database-->
-	<%for (int i=0; i<10; i++) { %> 
-		<tr id = "" class="text-center">
+	<%	if (list == null) {
+		%>
+		<tr>
+		<td colspan = "8" style = "text-align: center">no products selected</td>
+		</tr>
+		<% 
+	} else {
+	
+		for (beans.ProductBean bean : list) { %> 
+		<tr id = "<%=bean.getCode()%>" class="text-center">
 				<td class="product-remove"><button class="removeX" style="background-image: url('images/x.png')"></button>
 				<td class="product-name">
-					<h4>codiceProdotto:<span></span></h4>
-					<p>Breve descrizione prodotto</p>
+					<h4>Prodotto: <%=bean.getName()%><span></span></h4>
 					<button  class="button button2 submitter" type="submit">Modifica</button>
 				</td>
-				<td role = "price"><%=new java.util.Random().nextDouble() %></td>
-				<td role = "qty">quantit・</td>
-				<td role = "character">personaggio</td>
-				<td role = "category">categoria</td>
-				<td role = "discount">sconto</td>
-				<td role = "iva">iva</td>
-			</tr><%} %>
+				<td role = "price"><%=bean.getPrice()%>&#8364;</td>
+				<td role = "qty"><%=bean.getQty()%></td>
+				<td role = "discount"><%=bean.getDiscount()%>%</td>
+				<td role = "iva"><%=bean.getIva()%>%</td>
+				<td role = "character"><%=bean.getCharacter()%></td>
+				<td role = "category"><%=bean.getCategory()%></td>
+				
+			</tr><%} 
+		}%>
 		</tbody>
 			</table>
 		
@@ -67,6 +80,7 @@ if(admin == null ? true : !admin.booleanValue()) {
 			<button  class="button button2 submitter" type="submit">Aggiorna</button>
 			<a href= "amministratore.jsp"> Indietro</a>
 			</fieldset>
+			<p style = "text-align: center">pg <input class = "pageof" type = "number" value = "1" min="1" max="<%= request.getAttribute("maxPg") %>"> of <%= request.getAttribute("maxPg") %> <button id = "submit">Invia</button></p>
 		</div>
 		</div>
 	</div>

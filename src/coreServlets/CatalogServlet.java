@@ -60,8 +60,7 @@ public abstract class CatalogServlet extends HttpServlet {
 			else if (isEmptyString(category) && !isEmptyString(search))
 				list = model.doRetrieveBySearch(search, true);
 			else {
-				response.sendRedirect("error.jsp");
-				return;
+				list = model.doRetrieveAll(true);
 			}
 			coreModel.Paginator<ProductBean> pager = new coreModel.Paginator<ProductBean>(numEl, pgNumber);
 			Paginator<ProductBean>.Pair obj = pager.paginate(list);
@@ -69,6 +68,7 @@ public abstract class CatalogServlet extends HttpServlet {
 			request.setAttribute("maxPg", obj.maxPg);
 		} catch (SQLException e) {
 			response.sendRedirect("error.jsp");
+			e.printStackTrace();
 			return;
 		}
 		
@@ -80,7 +80,6 @@ public abstract class CatalogServlet extends HttpServlet {
 			request.getRequestDispatcher(response.encodeURL(URL)).forward(request, response);
 		}
 		else {
-			//send JSON FILE
 			response.setContentType("application/json");
 			response.getWriter().write(new GsonBuilder().registerTypeAdapter(ProductBean.class, new json.JsonBuilderProd()).create().toJson(list));
 		}

@@ -146,8 +146,8 @@ public abstract class ProductModel {
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setBoolean(1, acquistabile.booleanValue());
 			ResultSet rs = preparedStatement.executeQuery();
-			if (acquistabile) preparedStatement.setBoolean(2, acquistabile);
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
