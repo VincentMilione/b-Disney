@@ -20,6 +20,12 @@ body {
 	height:auto;
 }
 
+@media screen and (max-height: 400px) or (max-width: 800px){
+ .footer2{
+	position: relative;
+	}
+}
+
 .footer{
 	position: relative;
 	clear: both;
@@ -45,13 +51,6 @@ footer {
   width: 98%;
   clear: both;
  }
- 
-@media screen and (max-width: 900px) {
-	.footer2 {
-		position: relative;
-	}
-
-}
 
 article,
 aside,

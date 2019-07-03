@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@page import="beans.*"%>
+ <% Boolean user= (Boolean)session.getAttribute("isUser");
+if(user == null ? true : !user.booleanValue()) {
+	response.sendRedirect(response.encodeURL("Login.jsp"));
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,8 +69,14 @@
     	<div id= "success2" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>
 		<div id= "alert2" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l aggiornamento</div>
 		<div id= "alert3" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> La password non corrisponde a quella digitata</div>
+	<hr>
+		<h3>Aggiungi nuovo indirizzo</h3>
+		 <%@ include file = "newAddress.jsp" %> 
 </div>
+
 <%@include file = "footer.jsp" %>
+<script type="text/javascript" src= "js/credenziali.js"></script>
+
 <%UserBean us = (UserBean) session.getAttribute("user"); %>
 <script>
 $(document).ready(function() {

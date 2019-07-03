@@ -55,23 +55,8 @@
         		  </select>
         		
 	    <%}
-        %>    <br> <button id="toggle" class="button button2">Aggiungi indirizzo</button><br>
-	         <div id="AddIndirizzo"><br>
-	        	  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> Indirizzo</label>
-            	  <input class="myInput1" type="text"  id="adr" name="address" placeholder="via della repubblica">
-            	  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> Numero civico</label>
-            	  <input class="myInput1" type="number"  id="nc" name="nc" min="1" ><br>
-            	  <label class="myLabel" for="city"><i class="fa fa-institution"></i> Città</label>
-                  <input class="myInput1" type="text"  id="city" name="city" placeholder="Roma">
-                  <label  class="myLabel" for="city"><i class="fa fa-institution"></i> Provincia</label>
-                  <input class="myInput1" type="text"  id="provincia" name="provincia" placeholder="Roma">
-                  <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> CAP</label>
-            	  <input class="myInput1" type="text" id="CAP"  name="CAP" placeholder="8089">
-                  <label  class="myLabel" for="state">Stato</label>
-                  <input class="myInput1" type="text" id="state" name="state"  placeholder="Italia">
-                  <button id="butt" class="button button2">Aggiungi</button>
-              </div><br>
-              	 
+        %>  
+              <%@ include file = "newAddress.jsp" %>    
               <%@ include file = "Acquista.jsp" %>        
 	     
        <% if (isUser) { %> 
@@ -79,33 +64,8 @@
      </div>
   </div>
 		<%@include file = "footer.jsp" %>
-<script>
-$(document).ready(function() {
-	$("#AddIndirizzo").slideUp();
-	$("#toggle").click(function(){
-		  $("#AddIndirizzo").slideToggle();
-		});
-	$("#butt").click(function () {
-		var via = $("#adr").val();
-		var nC = $("#nc").val();
-		var ct= $("#city").val();
-		var cap= $("#CAP").val();
-		var st= $("#state").val();
-		var provincia= $("#provincia").val();
-		
-		$.post("AddressOperations", {operation: "1", via: via, ncv: nC, citta: ct, provincia: provincia , cap: cap, stato: st}, "html")
-		.done(function(data){
-			console.log(data);
-			var string = "<option value="+data.codice+">"+data.street +data.nvc +data.citta+"</option>"
-			$("#indirizzi").append(string);
-		})
-		.fail(function() {
-			//scrivi un box di errore
-		
-		});
-	});
-});
-</script>
+<script type="text/javascript" src= "js/credenziali.js"></script>
+	
 </body>
 </html>
 <!-- 

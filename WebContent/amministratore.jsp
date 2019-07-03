@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<% Boolean admin= (Boolean)session.getAttribute("isAdmin");
+if(admin == null ? true : !admin.booleanValue()) {
+	response.sendRedirect(response.encodeURL("Login.jsp"));
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>

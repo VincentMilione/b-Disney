@@ -48,7 +48,8 @@
      	<%@include file = "zoom.jsp" %>	
   	</div>
   	<div class="capo">
-   		<h1>${product.getName()}</h1><br>
+   		<h1>${product.getName()} <%@include file = "Voto.jsp" %></h1>
+   		<br>
     	<h3 class="price"><span>${product.getPricewithIva()} &#8364</span></h3>
     	<p>La quantit&#224 disponibile in magazzino &#232 ${product.getQty()}</p>
     	<p>${product.getDescription()}</p>
@@ -61,11 +62,7 @@
   		</form>
 		</div><br>
 </section>
-<section class="card">
-		<div >
-   		 <%@include file = "Voto.jsp" %>
-   		 	</div>
-</section>
+
    
    		<div class="Myvotazione card">
    		<%

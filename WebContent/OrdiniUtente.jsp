@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@page import="beans.*"%>
+ <% Boolean user= (Boolean)session.getAttribute("isUser");
+if(user == null ? true : !user.booleanValue()) {
+	response.sendRedirect(response.encodeURL("Login.jsp"));
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
