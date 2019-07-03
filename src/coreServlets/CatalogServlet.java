@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.GsonBuilder;
 import beans.ProductBean;
+import coreModel.Paginator;
 import coreModel.ProductModel;
 import coreModel.ProductModelDM;
 import coreModel.ProductModelDS;
@@ -46,12 +47,12 @@ public abstract class CatalogServlet extends HttpServlet {
 		String category = request.getParameter("ctgy");
 		String search = request.getParameter("srch");
 		java.util.List<ProductBean> list = null;
-		int pgNumber = Integer.parseInt(request.getParameter("pg"));
+		String pg = request.getParameter("pg");
+		int pgNumber = pg == null || "".equals(pg) ? 1 : Integer.parseInt(pg);
+		 
 		int size = 0;
 		
 		try {
-			int start = numEl * (pgNumber - 1);
-			
 			if (!isEmptyString(category) && isEmptyString(search)) {
 				int ctgy = Integer.parseInt(category);
 				list = model.doRetrieveByCategory(ctgy);
@@ -62,15 +63,10 @@ public abstract class CatalogServlet extends HttpServlet {
 				response.sendRedirect("error.jsp");
 				return;
 			}
-			
-			size = list.size();
-			request.setAttribute("maxPg", (size/numEl) + 1);
-			
-			if(size > start && size - start > numEl)
-				list = list.subList(start, start + numEl);
-			else if(size > start && size - start <= numEl)
-				list = list.subList(start, size - 1);
-			else list = null;
+			coreModel.Paginator<ProductBean> pager = new coreModel.Paginator<ProductBean>(numEl, pgNumber);
+			Paginator<ProductBean>.Pair obj = pager.paginate(list);
+			list = obj.pagedList;
+			request.setAttribute("maxPg", obj.maxPg);
 		} catch (SQLException e) {
 			response.sendRedirect("error.jsp");
 			return;

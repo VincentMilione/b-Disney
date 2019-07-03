@@ -33,7 +33,7 @@ if(admin == null ? true : !admin.booleanValue()) {
 	     <thead class="thead-primary">
 			<tr class="text-center">
 				<th>&nbsp;</th>
-				
+				<th>&nbsp;</th>
 		     	<th>Prezzo</th>
 				<th>Quantit&#224;</th>
 				<th>Personaggio</th>
@@ -46,9 +46,10 @@ if(admin == null ? true : !admin.booleanValue()) {
 		<tbody>
 			<!--n prodotti esistenti nel database-->
 	<%for (int i=0; i<10; i++) { %> 
-		<tr class="text-center">
+		<tr id = "" class="text-center">
+				<td class="product-remove"><button class="removeX" style="background-image: url('images/x.png')"></button>
 				<td class="product-name">
-					<h4>codiceProdotto/ nome </h4>
+					<h4>codiceProdotto:<span></span></h4>
 					<p>Breve descrizione prodotto</p>
 					<button  class="button button2 submitter" type="submit">Modifica</button>
 				</td>
@@ -73,7 +74,24 @@ if(admin == null ? true : !admin.booleanValue()) {
 	<script>
 		$(document).ready(function(){
 		var i = 0;
+		
+		function isEmpty(a) {
+			return a == null || a==NaN || a=="";
+		}
+		
+		$(".removeX").click (function () {
+			var row = $(this).parents().filter("tr");
+			var code = $(row).attr("id");
 			
+			$.post("ProductAdminControl", {act: "delete", id : code})
+				.done(function () {
+					$(row).remove();
+				})
+				.fail(function () {
+					alert("Non è stato possibile rimuovere il prodotto");
+				})
+		})
+		
   		$(".button").click(function prova (){
   		  i++;
   		  var up = "update"+ i;
@@ -83,27 +101,59 @@ if(admin == null ? true : !admin.booleanValue()) {
 		  var sconto = $("."+up+' [role="discount"]').html();
 		  var iva = $("."+up+' [role="iva"]').html();
 
-		  $("."+up+' [role="price"]').html('<input type "number" size = 7>');
-		  $("."+up+' [role="qty"]').html('<input type "number" size = 7>');
-		  $("."+up+' [role="discount"]').html('<input type "number" size = 7>');
-		  $("."+up+' [role="iva"]').next().html('<input type "number" size = 7>');
+		  $("."+up+' [role="price"]').html('<input type "number" size = "4">');
+		  $("."+up+' [role="qty"]').html('<input type "number" size = "4">');
+		  $("."+up+' [role="discount"]').html('<input type "number" size = "4">');
+		  $("."+up+' [role="iva"]').html('<input type "number" size = "4">');
 		  var button = $("."+up+' .button');
 		  $(button).html('Update');
 		  $(button).unbind();
 		  $(button).click(function () {
 			  
+			  var code = $(this).parents().filter("tr").attr("id");
+			  var newPrice = $("."+up+' [role="price"]').val();
+			  var newQty = $("."+up+' [role="qty"]').val();
+			  var newSconto = $("."+up+' [role="discount"]').val();
+			  var newIva = $("."+up+' [role="iva"]').val();
 			  
-			  $("."+up+' [role="price"]').html(price);
-			  $("."+up+' [role="qty"]').html(qty);
-			  $("."+up+' [role="discount"]').html(sconto);
-			  $("."+up+' [role="iva"]').next().html(iva);
+			  console.log(newPrice);
 			  $(button).unbind();
-			  $(button).html('Modifica');
-			  $(button).click(prova);
-			  $('tbody '+"."+ up).removeClass(up);
 			  
-			  if($("input").length == 0)
-				  i = 0;
+			  if (isEmpty(newPrice) || isEmpty(newQty) || isEmpty(newSconto) || isEmpty(newIva)) {
+				    alert ("Uno dei campi di input non e' stato riempito");
+				  
+				  	$("."+up+' [role="price"]').html(price);
+					$("."+up+' [role="qty"]').html(qty);
+					$("."+up+' [role="discount"]').html(sconto);
+					$("."+up+' [role="iva"]').html(iva);   
+					
+			  }
+			  else {
+				  $.post ("ProductAdminControl", {act: "modify" ,code : code, iva: newIva, price: newPrice, qty: newQty, discount: newDiscount})
+				  	.done(function () {
+				  		  $("."+up+' [role="price"]').html(newPrice);
+						  $("."+up+' [role="qty"]').html(newQty);
+						  $("."+up+' [role="discount"]').html(newSconto);
+						  $("."+up+' [role="iva"]').next().html(newIva);
+						 
+				  	})
+				  	.fail (function () {
+				  		alert("Modifica fallita!");
+				  		
+				  		$("."+up+' [role="price"]').html(price);
+						$("."+up+' [role="qty"]').html(qty);
+						$("."+up+' [role="discount"]').html(sconto);
+						$("."+up+' [role="iva"]').html(iva);
+				  	})
+				  	.always (function () {
+				  		  $(button).html('Modifica');
+						  $(button).click(prova);
+						  $('tbody '+"."+ up).removeClass(up);
+						  if($("input").length == 0)
+							  i = 0;
+				  	})
+				 
+			  }
 		  });
   		});
 	});

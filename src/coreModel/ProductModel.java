@@ -40,11 +40,6 @@ public abstract class ProductModel {
 	
 	}
 	
-	private void prepareUpdateStatement (PreparedStatement preparedStatement, ProductBean product) throws SQLException {
-		prepareInsertStatement(preparedStatement, product);
-		preparedStatement.setInt(11, product.getCode());
-	}
-	
 	private void prepareSQLlist (PreparedStatement statement, int [] codes) throws SQLException {
 		
 		int size = codes.length;
@@ -279,17 +274,22 @@ public abstract class ProductModel {
 		return list;
 	}
 	
-	public synchronized boolean doUpdate(ProductBean product) throws SQLException {
+	public synchronized boolean doUpdate(ProductBean item) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
+		//prezzo = ?, quantita = ?, iva = ?, sconto = ?
 		int result = 0;
 
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
-			prepareUpdateStatement(preparedStatement, product);
-
+			
+			preparedStatement.setBigDecimal(1, item.getPrice());
+			preparedStatement.setInt(2, item.getQty());
+			preparedStatement.setDouble(3, item.getIva());
+			preparedStatement.setDouble(4, item.getDiscount());
+			preparedStatement.setInt(5, item.getCode());
+			
 			result = preparedStatement.executeUpdate();
 
 		} finally {
@@ -349,8 +349,8 @@ public abstract class ProductModel {
 			+ "(nome, descrizione, prezzo, quantita, personaggio, foto, iva, sconto, tipo, categoria)"
 			+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	protected static final String updateSQL = "UPDATE prodotto SET "
-			+ "nome = ?, descrizione = ?, prezzo = ?, quantita = ?, personaggio = ?, foto = ?, iva = ?, sconto = ?, tipo = ?, "
-			+ "categoria = ? WHERE codice = ?";
+			+ "prezzo = ?, quantita = ?, iva = ?, sconto = ?"
+			+ " WHERE codice = ?";
 	protected static final String searchSQL = "SELECT * FROM "+TABLE_NAME+ " WHERE nome LIKE ? or descrizione LIKE ?";
 	protected static final String categorySQL = "SELECT * FROM "+TABLE_NAME+ " WHERE categoria = ? AND acquistabile = 1";
 	protected static final String order = " ORDER BY nome";
