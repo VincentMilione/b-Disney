@@ -78,8 +78,12 @@
    					
    		<%} else if (f!= null ? f.booleanValue() : false) {%>
    				<div id = "votazione">
-   					<input type = "number" min = "1" max = "5">
-   					<textarea>
+   					<input id="voto" type = "number" min = "1" max = "5">
+   					<textarea  id="text" rows="4" cols="50">Lascia la tua opinione...</textarea>
+   					<button id = "send" class="button button2">Aggiungi</button>
+   					<div id= "success4" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Recenzione inserita correttamente</div>
+					<div id= "alert4" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l inserimento</div>
+		
    				</div>
    			<%
    			}%>
@@ -95,12 +99,20 @@
    			}
    			%>
    		</div>
-
+<!-- pripend -->
 <%@include file = "footer.jsp" %>
 <script type="text/javascript">
 $(document).ready(function () {
-	$("").click(function () {
-		
+	$("#send").click(function () {
+		var text = $("#text").val();
+		var voto = $("#voto").val();
+		$.post("RecenzioneServlet", {operation: "insert", comment: text, vote: voto}, "html")
+		.done(function(data){
+			 $("#success4").slideToggle();
+		})
+		.fail(function() {
+			 $("#alert4").slideToggle();
+		});
 	});
 });
 </script>

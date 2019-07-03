@@ -21,28 +21,7 @@ if(user == null ? true : !user.booleanValue()) {
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<style>
-.alert {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-}
-.alert.success {background-color: #4CAF50;}
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-.closebtn:hover {
-  color: black;
-}
-</style>
 <title>Protected page</title>
 </head>
 <body  style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
