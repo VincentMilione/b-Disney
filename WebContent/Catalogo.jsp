@@ -46,9 +46,9 @@ $(document).ready(function () {
 	/*animazione passaggio del mouse*/
 	/* $(".imgSconto2").animate({width:"-=10%", height:"-=10%"});*/
 	 $(".productCard").hover(function(){
-		    $(this).animate({width:"+=2%", margin:"-=1%"} );
+		    $(this).animate({width:"+=2%", height:"+=2%", margin:"-=1%"} );
 		  }, function() {
-		        $(this).animate({width:"-=2%", margin:"+=1%"});
+		        $(this).animate({width:"-=2%",height:"-=2%", margin:"+=1%"});
      });
 	
 	$("#submit").click (function () {
