@@ -61,7 +61,9 @@
 $(document).ready (function () {
 	$.get("index", function(data){
 		$("#catalog")
-		.html("<h3>Prodotti imperdibili con sconti maggiori del 30%</h3>\n"+data); });
+		.html("<h3>Prodotti imperdibili con sconti maggiori del 30%</h3>\n"+data); 
+		$.getScript("js/animation.js");	
+	});
 });
 </script>
 </body>

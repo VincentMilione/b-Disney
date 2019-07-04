@@ -296,7 +296,7 @@ fieldset a:link, fieldset a:visited ,.field a:link, .field  a:visited{
 
 fieldset a:hover,fieldset a:active,.field a:hover, .field  a:active{
   background-color: blue;
-  margin: 10px 10px 10px 10px;
+   margin: 5px 5px 5px 5px;
 }
 /**/
 .button {

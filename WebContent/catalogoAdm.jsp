@@ -39,6 +39,7 @@ if(admin == null ? true : !admin.booleanValue()) {
 			<tr class="text-center">
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
+				<th>Foto</th>
 		     	<th>Prezzo</th>
 				<th>Quantit&#224;</th>
 				<th>Sconto</th>
@@ -57,19 +58,27 @@ if(admin == null ? true : !admin.booleanValue()) {
 		<% 
 	} else {
 	
-		for (beans.ProductBean bean : list) { %> 
+		for (beans.ProductBean bean : list) { 
+			int ctgy= bean.getCategory();
+			String c="";
+  			if("0".equals(ctgy+c)){ c="Articoli per la casa";}
+  			if("1".equals(ctgy+c)){ c="Abbigliamento e Accessori";}
+  			if("2".equals(ctgy+c)){ c="Articoli per le feste";}
+  			if("3".equals(ctgy+c)){ c="Giochi";}
+	 %> 
 		<tr id = "<%=bean.getCode()%>" class="text-center">
 				<td class="product-remove"><button class="removeX" style="background-image: url('images/x.png')"></button>
 				<td class="product-name">
 					<h4>Prodotto: <%=bean.getName()%><span></span></h4>
 					<button  class="button button2 submitter" type="submit">Modifica</button>
 				</td>
+				<td><div id="img" style="background-image: url('<%=bean.getPhoto()%>');"></div></td>
 				<td role = "price"><%=bean.getPrice()%>&#8364;</td>
 				<td role = "qty"><%=bean.getQty()%></td>
 				<td role = "discount"><%=bean.getDiscount()%>%</td>
 				<td role = "iva"><%=bean.getIva()%>%</td>
 				<td role = "character"><%=bean.getCharacter()%></td>
-				<td role = "category"><%=bean.getCategory()%></td>
+				<td role = "category"><%=c %></td>
 				
 			</tr><%} 
 		}%>

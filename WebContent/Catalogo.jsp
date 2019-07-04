@@ -39,18 +39,9 @@
   </div>
  </div>
 <%@include file = "footer.jsp" %>
-
 <script>
 $(document).ready(function () {
-	
-	/*animazione passaggio del mouse*/
-	/* $(".imgSconto2").animate({width:"-=10%", height:"-=10%"});*/
-	 $(".productCard").hover(function(){
-		    $(this).animate({width:"+=2%", height:"+=2%", margin:"-=1%"} );
-		  }, function() {
-		        $(this).animate({width:"-=2%",height:"-=2%", margin:"+=1%"});
-     });
-	
+
 	$("#submit").click (function () {
 		var pg = $(".pageof").val();
 		var ctgy = <%= ctgy%>;
@@ -94,12 +85,15 @@ $(document).ready(function () {
 				$(".productCard a").wrap ('<h3 style = "font-size: 120%">');
 				$(".productCard h3").wrap('<div class = "nomeProdSconto"></div>');
 				$(".productCard img").wrap('<div class = "imgSconto"></div>');
-				$(".productCard button").wrap("<p>")
+				$(".productCard button").wrap("<p>");
+				
+				$.getScript("js/animation.js");
 			});
 	})
 	
 	
 });
 </script>
+<script src="js/animation.js"></script>
 </body>
 </html>
