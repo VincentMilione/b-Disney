@@ -1,7 +1,5 @@
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page import="beans.*"%>
  <% Boolean user= (Boolean)session.getAttribute("isUser");
 if(user == null ? true : !user.booleanValue()) {
 	response.sendRedirect(response.encodeURL("Login.jsp"));
@@ -25,60 +23,28 @@ if(user == null ? true : !user.booleanValue()) {
 </head>
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
 <%@include file = "header2.jsp" %>
-<%
-	List<FatturaBean> lista= (List<FatturaBean>) session.getAttribute("fatture");
- 	System.out.println(lista);
- 	if (lista == null) return;
-%>
-<div class="field2">
-	<div class="row ">
-    	<div class="card x">
-    	<div class="cart-list">
-    	<h1>Ordini effettuati</h1>
-      	<table class="table">
-	     <thead class="thead-primary">
-			<tr class="text-center">
-				<th>&nbsp;</th>
-				<th>Recenzione</th>
-				<th>Prodotto</th>
-				<th>nome Prodotto</th>
-				<th>Prezzo</th>
-				<th>Prezzo Iva</th>
-				<th>Sconto</th>
-				<th>Quantità</th>
-			</tr>
-			</thead>
-		<tbody>
-			<!--n ordini esistenti nel database-->
-		 <%for (FatturaBean fatt : lista) {
-			 int size = fatt.size();
-			 java.util.List<Order> orders = fatt.getProdotti();
-			 %> 
-			<tr class="text-center">
-				<td rowspan="<%=size%> " class="product-name">
-				<button  class="button button2 submitter" type="submit">Fattura</button>
-				</td>
-				<%
-				for(Order o : orders){
-				 	ProductBean bean = o.getProduct();
-				%>
-				<td><a  class="button button2" href="ProductControl?id=<%=bean.getCode()%>&act=view">Aggiungi</a></div>
-				<td><div id="img" style="background-image: url('<%=bean.getPhoto()%>');"></div></td>
-				<td><%=bean.getName()%></td>
-				<td><%=bean.getPriceSenzaIva()%></td>
-				<td><%=bean.getPricewithIva()%></td>
-				<td><%=bean.getDiscount()%></td>
-				<td><%=o.getQty()%></td>
-			</tr><%} }%>
-		</tbody>
-			</table>
-		<p style = "text-align: center">pg <input class = "pageof" type = "number" value = "1" min="1" max="<%= request.getAttribute("maxPg") %>"> of <%= request.getAttribute("maxPg") %> <button id = "submit">Invia</button></p>
-	</div>
- 	</div>
- 	</div>
-</div>
-
-
+<%@include file = "contentJSP/contentOrdiniUtente.jsp"%>
 <%@include file = "footer.jsp" %>
+<script>
+$(document).ready(function () {
+	$("#submit").click (function () {
+		var pg = $(".pageof").val();
+		var data = {da: $('input[name = "da"]').val(), a : $('input[name = "a"]').val()};
+		
+		//avvia richiesta per reperire lista prodotti da visualizzare in pagina = pg
+		$.get("UserManager", data)
+			//se funge
+			.done (function (data) {
+				//rimuovi i prodotti dalla pagina
+				$("table").remove();
+				$("#title").append(data);
+			})
+			.fail() {
+				$("tr").remove();
+				$("tbody").append ('<tr><td colspan = "8" style = "text-align:center">la ricerca non ha prodotto alcun risultato</td></tr>');
+			}
+		}
+});
+</script>
 </body>
 </html>

@@ -9,15 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import beans.ProductBean;
 import coreModel.FatturaModel;
 import coreModel.FatturaModelDM;
 import coreModel.FatturaModelDS;
-import coreModel.Paginator;
 import coreModel.RegisteredModel;
 import coreModel.RegisteredModelDM;
 import coreModel.RegisteredModelDS;
@@ -76,10 +70,9 @@ public class UserManager extends HttpServlet {
 					String pass = request.getParameter("pass") == null ? bean.getPassword() : request.getParameter("pass");
 					
 					model.doModify(bean, name, surname, login, pass);
-				} else if ("viewOrders".equalsIgnoreCase(op)) {
-					
 				} else if ("viewFatture".equalsIgnoreCase(op)) {
-				
+					response.setContentType("text/html");
+					
 					if(request.getHeader("x-requested-with") == null) {
 						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, null, null), Integer.parseInt(request.getParameter("pg")));
 						
@@ -87,7 +80,6 @@ public class UserManager extends HttpServlet {
 						request.setAttribute("maxPg", obj.maxPg);
 						request.getRequestDispatcher(response.encodeURL("OrdiniUtente.jsp")).forward(request, response);
 					} else {
-						response.setContentType("application/json");
 						
 						SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 						String par1 = request.getParameter("da");
@@ -95,9 +87,11 @@ public class UserManager extends HttpServlet {
 						java.util.Date da = par1 == null ? null : format.parse(par1);
 						java.util.Date a = par2 == null ? null : format.parse(par2);
 						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, da, a), Integer.parseInt(request.getParameter("pg")));
-						JsonObject x = new JsonObject ();
-											
-						response.getWriter().write(new Gson().toJson());
+						
+						request.setAttribute("fatture", obj.pagedList);
+						request.setAttribute("maxPg", obj.maxPg);
+						
+						getServletContext().getRequestDispatcher(response.encodeURL("contentJSP/tableOrdiniUtente.jsp")).forward(request, response);
 					}
 				}
 		
