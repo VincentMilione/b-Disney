@@ -77,7 +77,20 @@ $(document).ready(function () {
 				$(".cart-list").append(data);
 			})
 		
-	});
+	});	
+	
+	$(".pageof").click (function () {
+		var da = $('input[name = "da"]').val();
+		var a = $('input[name = "a"]').val();
+		var user = $('#mySearch').val();
+		var pg = $(".pageof").val();
+		
+		$.get("admin", {search : user, da : da, a : a, pg : pg})
+			.done(function (data){
+				$("table").remove();
+				$(".cart-list").append(data);
+			})
+	})
 	
 	$("#mySearch").keydown(function myFunction() {
 			$('#myDropdown p').remove();

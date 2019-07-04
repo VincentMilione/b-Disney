@@ -3,7 +3,6 @@ package coreServlets;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,26 +71,28 @@ public class UserManager extends HttpServlet {
 					model.doModify(bean, name, surname, login, pass);
 				} else if ("viewFatture".equalsIgnoreCase(op)) {
 					response.setContentType("text/html");
+					String pg = request.getParameter("pg");
 					
 					if(request.getHeader("x-requested-with") == null) {
-						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, null, null), Integer.parseInt(request.getParameter("pg")));
 						
+						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, null, null), pg == null ? 1 : Integer.parseInt(pg));						
 						request.setAttribute("fatture", obj.pagedList);
 						request.setAttribute("maxPg", obj.maxPg);
+						
 						request.getRequestDispatcher(response.encodeURL("OrdiniUtente.jsp")).forward(request, response);
 					} else {
 						
 						SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 						String par1 = request.getParameter("da");
 						String par2 = request.getParameter("a");
-						java.util.Date da = par1 == null ? null : format.parse(par1);
-						java.util.Date a = par2 == null ? null : format.parse(par2);
-						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, da, a), Integer.parseInt(request.getParameter("pg")));
+						java.util.Date da = par1 == null || "".equals(par1) ? null : format.parse(par1);
+						java.util.Date a = par2 == null || "".equals(par2)? null : format.parse(par2);
+						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, da, a), pg == null ? 1 : Integer.parseInt(pg));
 						
 						request.setAttribute("fatture", obj.pagedList);
 						request.setAttribute("maxPg", obj.maxPg);
 						
-						getServletContext().getRequestDispatcher(response.encodeURL("contentJSP/tableOrdiniUtente.jsp")).forward(request, response);
+						getServletContext().getRequestDispatcher(response.encodeURL("/contentJSP/tableOrdiniUtente.jsp")).forward(request, response);
 					}
 				}
 		

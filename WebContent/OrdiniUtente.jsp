@@ -29,7 +29,7 @@ if(user == null ? true : !user.booleanValue()) {
 $(document).ready(function () {
 	$("#submit").click (function () {
 		var pg = $(".pageof").val();
-		var data = {da: $('input[name = "da"]').val(), a : $('input[name = "a"]').val()};
+		var data = {op: "viewFatture", da: $('input[name = "da"]').val(), a : $('input[name = "a"]').val(), pg: pg};
 		
 		//avvia richiesta per reperire lista prodotti da visualizzare in pagina = pg
 		$.get("UserManager", data)
@@ -37,13 +37,14 @@ $(document).ready(function () {
 			.done (function (data) {
 				//rimuovi i prodotti dalla pagina
 				$("table").remove();
-				$("#title").append(data);
+				console.log(data);
+				$("#title").after(data);
 			})
-			.fail() {
+			.fail(function ()  {
 				$("tr").remove();
 				$("tbody").append ('<tr><td colspan = "8" style = "text-align:center">la ricerca non ha prodotto alcun risultato</td></tr>');
-			}
-		}
+			});
+	});
 });
 </script>
 </body>

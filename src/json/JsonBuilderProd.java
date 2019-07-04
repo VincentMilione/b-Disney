@@ -15,6 +15,13 @@ public class JsonBuilderProd implements com.google.gson.JsonSerializer<beans.Pro
 		// TODO Auto-generated method stub
 		JsonObject obj = new JsonObject();
 		
+		int ctgy= o.getCategory();
+		String c="";
+			if("0".equals(ctgy+c)){ c="Articoli per la casa";}
+			if("1".equals(ctgy+c)){ c="Abbigliamento e Accessori";}
+			if("2".equals(ctgy+c)){ c="Articoli per le feste";}
+			if("3".equals(ctgy+c)){ c="Giochi";}
+		
 		obj.addProperty("id", o.getCode());
 		obj.addProperty("name", o.getName());
 		obj.addProperty("img", o.getPhoto());
@@ -22,6 +29,10 @@ public class JsonBuilderProd implements com.google.gson.JsonSerializer<beans.Pro
 		obj.addProperty("price", o.getPriceSenzaSconto().toString());
 		obj.addProperty("priceDisc", o.getPricewithIva().toString());
 		obj.addProperty("discount", o.getDiscount());
+		obj.addProperty("qty", o.getQty());
+		obj.addProperty("iva", o.getIva());
+		obj.addProperty("character", o.getCharacter());
+		obj.addProperty("category", c);
 		
 		return obj;
 	}

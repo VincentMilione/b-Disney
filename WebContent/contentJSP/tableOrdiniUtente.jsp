@@ -1,9 +1,10 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page import="beans.*"%>
+ <%@page import="beans.*, java.text.SimpleDateFormat"%>
 <%
-	List<FatturaBean> lista= (List<FatturaBean>) session.getAttribute("fatture"); 
+	List<FatturaBean> lista= (List<FatturaBean>) request.getAttribute("fatture"); 
+	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 %>
 
 <table class="table">
@@ -36,6 +37,7 @@
 			 %> 
 			<tr class="text-center">
 				<td rowspan="<%=size%> " class="product-name">
+				<p><%= format.format(fatt.getDate().getTime())%></p>
 				<button  class="button button2 submitter" type="submit">Fattura</button>
 				</td>
 				<%

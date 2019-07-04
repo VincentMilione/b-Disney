@@ -209,8 +209,8 @@ public abstract class FatturaModel {
 				preparedStatement.setString(1, e.getLogin());
 				preparedStatement.setDate(2, new java.sql.Date(date2.getTime()));
 			} else {
-				preparedStatement.setString(1, e.getLogin());
 				preparedStatement = connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, e.getLogin());
 			}
 				
 			

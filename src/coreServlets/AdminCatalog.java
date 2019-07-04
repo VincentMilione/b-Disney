@@ -17,7 +17,7 @@ public class AdminCatalog extends CatalogServlet {
 		super.init(config);
 
 		URL = "catalogoAdm.jsp";
-		numEl = 45;
+		numEl = 20;
 	}
 
 	/**

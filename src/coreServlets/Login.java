@@ -73,7 +73,7 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		} catch (Exception e) {
 			request.setAttribute("warning", new Boolean (true));
-			getServletContext().getRequestDispatcher("Login.jsp").forward(request, response);;
+			getServletContext().getRequestDispatcher("Login.jsp").forward(request, response);
 		}
 	}
 

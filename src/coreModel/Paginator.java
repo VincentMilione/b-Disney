@@ -27,9 +27,9 @@ public class Paginator <E> {
 		
 		if(size > start && size - start > numEl)
 			pagedList = list.subList(start, start + numEl);
-		else if(size > start && size - start <= numEl)
-			pagedList = list.subList(start, size - 1);
-		
+		else if(size > start && size - start <= numEl) 
+			pagedList = list.subList(start, size);
+			
 		return new Pair (pagedList, maxPg);
 	}
 	
