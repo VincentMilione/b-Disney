@@ -34,7 +34,6 @@ public class ProductAdminControl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Boolean isAdmin = (Boolean) request.getSession().getAttribute("isAdmin");
@@ -46,20 +45,21 @@ public class ProductAdminControl extends HttpServlet {
 						int id = Integer.parseInt(request.getParameter("id"));
 						model.doDelete(id);
 					} else if (action.equalsIgnoreCase("insert")) {
+						ProductBean bean = new ProductBean();
 						
 						//codice, nome, descrizione, prezzo, quantita, personaggio, foto, iva, sconto, tipo, categoria
-						String name = request.getParameter("name");
-						String description = request.getParameter("description");
-						String personaggio = request.getParameter("personaggio");
-						String url = request.getParameter("url");
-						String tipo = request.getParameter("tipo");
-						int categoria = Integer.parseInt(request.getParameter("categoria"));
-						int quantity = Integer.parseInt(request.getParameter("qty"));
-						double price = Double.parseDouble(request.getParameter("price"));
-						double iva= Double.parseDouble(request.getParameter("iva"));
-						double sconto= Double.parseDouble(request.getParameter("sconto"));
+						bean.setName(request.getParameter("name"));
+						bean.setDescription(request.getParameter("description"));
+						bean.setCharacter(request.getParameter("personaggio"));
+						bean.setPhoto(request.getParameter("url"));
+						bean.setTipo(request.getParameter("tipo")); 
+						bean.setCategory(Integer.parseInt(request.getParameter("categoria")));
+						bean.setQty(Integer.parseInt(request.getParameter("qty")));
+						bean.setPrice(Double.parseDouble(request.getParameter("price")));
+						bean.setIva(Double.parseDouble(request.getParameter("iva")));
+						bean.setDiscount(Double.parseDouble(request.getParameter("sconto")));
+						System.out.println(bean);
 						
-						ProductBean bean = new ProductBean(name, description,personaggio, url, tipo,categoria,quantity,price,iva,sconto);
 						model.doSave(bean);
 					} else if (action.equalsIgnoreCase("modify")) {
 					
@@ -77,6 +77,10 @@ public class ProductAdminControl extends HttpServlet {
 			}
 			catch (SQLException e) {
 				response.sendRedirect("error.jsp");
+				e.printStackTrace();
+			}
+			catch (java.lang.NumberFormatException e){
+				response.sendError(406);
 			}
 	}
 

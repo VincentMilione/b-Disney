@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!--  Boolean admin= (Boolean)session.getAttribute("isAdmin");
+<% 
+Boolean admin= (Boolean)session.getAttribute("isAdmin");
 if(admin == null ? true : !admin.booleanValue()) {
 	response.sendRedirect(response.encodeURL("Login.jsp"));
 	return;
 }
- -->
+ %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -46,21 +47,17 @@ if(admin == null ? true : !admin.booleanValue()) {
     	</select>
     	<label  class="myLabel" for="tipo">Descrizione</label>
     	<textarea class="myInput1" type="text" id="des" name="des"  placeholder="Inserire descrizione prodotto" rows="9"></textarea>
-    	<button id="but2" class=" button button2">Aggiungi</button>
+    	<button id="but1" class=" button button2">Aggiungi</button>
     	<button id="but2" class=" button button2" href="amministratore.jsp">Indietro</button>
-    	
-    	<div id= "success5" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>
-		<div id= "alert5" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Errore durante l aggiornamento</div>
-     <hr>
+    	<div id="esito"></div>
+   	    <hr>
 	</div>
 	
 
 <script>
 $(document).ready(function() {
-	$("#success5").hide();
-	$("#alert5").hide();
 	
-	$("#but2").click(function () {
+	$("#but1").click(function () {
 		var nome = $("#nome").val();
 		var prezzo = $("#prezzo").val();
 		var quantita = $("#quantita").val();
@@ -74,10 +71,15 @@ $(document).ready(function() {
 		
 		$.post("ProductAdminControl", {act: "insert", name : nome, price : prezzo, qty : quantita, personaggio: prs, url : url,iva : iva, sconto : sconto, tipo : tipo, categoria : categoria, description : des})
 		.done(function(data){
-			 $("#success1").slideToggle();
+			 $("#esito").append('<div id= "success5" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong>Prodotto inserito correttamente</div>').hide().slideDown();
 		})
 		.fail(function() {
-			 $("#alert1").slideToggle();
+			 $("#esito").append('<div id= "alert5" class="alert"><span class="closebtn" onclick="this.parentElement.style.display="none";">&times;</span><strong>Errore!</strong> Errore durante l\'inserimento</div>').hide().slideDown();
+		})
+		.always(function () {
+			$("#esito .closebtn").click(function () {
+				$("#esito div").remove();
+			})
 		});
 	});
 });

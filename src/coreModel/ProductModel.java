@@ -69,8 +69,6 @@ public abstract class ProductModel {
 			prepareInsertStatement(preparedStatement, product);
 
 			preparedStatement.executeUpdate();
-
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
