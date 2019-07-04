@@ -3,6 +3,11 @@
 * {
   box-sizing: border-box;
 }
+.lente{
+	 background-repeat: no-repeat;
+	 border: none;
+}
+
 .alert {
   padding: 20px;
   background-color: #f44336;
@@ -164,6 +169,7 @@ body {
   font-family: arial;
   float:left;
 }
+
 
 .prezzo {
   text-decoration: line-through;

@@ -42,6 +42,7 @@
         	<li><a href="#"><span>Welcome </span>${user.name}</a></li>
         <% }
         else { %>
+        	<li><%@ include file="ricerca.jsp" %></li>
       		<li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span>&#160 Login</a></li>
       		<li><a href="registration.jsp"><span class="glyphicon glyphicon-user"></span>&#160 Iscriviti</a></li>
       	<%}%>
