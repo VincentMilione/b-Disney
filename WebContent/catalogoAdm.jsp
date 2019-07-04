@@ -74,16 +74,11 @@ if(admin == null ? true : !admin.booleanValue()) {
 			</tr><%} 
 		}%>
 		</tbody>
-			</table>
-		
-			<fieldset>
-			<button  class="button button2 submitter" type="submit">Aggiorna</button>
-			<a href= "amministratore.jsp"> Indietro</a>
-			</fieldset>
-			<p style = "text-align: center">pg <input class = "pageof" type = "number" value = "1" min="1" max="<%= request.getAttribute("maxPg") %>"> of <%= request.getAttribute("maxPg") %> <button id = "submit">Invia</button></p>
-		</div>
+		</table>
+		<p style = "text-align: center">pg <input class = "pageof" type = "number" value = "1" min="1" max="<%= request.getAttribute("maxPg") %>"> of <%= request.getAttribute("maxPg") %> <button id = "submit">Invia</button></p>
 		</div>
 	</div>
+</div>
  </section>
 	<script>
 		$(document).ready(function(){
@@ -93,6 +88,11 @@ if(admin == null ? true : !admin.booleanValue()) {
 			return a == null || a==NaN || a=="";
 		}
 		
+		$(".pageof").click(function () {
+			
+		});
+		
+		//funzionante
 		$(".removeX").click (function () {
 			var row = $(this).parents().filter("tr");
 			var code = $(row).attr("id");
@@ -148,12 +148,12 @@ if(admin == null ? true : !admin.booleanValue()) {
 			  }
 			  else {
 				  $(button).unbind();
-				  $.post ("ProductAdminControl", {act: "modify" ,code : code, iva: newIva, price: newPrice, qty: newQty, discount: newDiscount})
-				  	.done(function () {
-				  		  $("."+up+' [role="price"]').html(newPrice);
-						  $("."+up+' [role="qty"]').html(newQty);
-						  $("."+up+' [role="discount"]').html(newSconto);
-						  $("."+up+' [role="iva"]').next().html(newIva);
+				  $.post ("ProductAdminControl", {act: "modify" ,code : code, iva: newIva, price: newPrice, qty: newQty, discount: newSconto})
+				  	.done(function (json) {
+				  		  $("."+up+' [role="price"]').html(json.newPrice);
+						  $("."+up+' [role="qty"]').html(json.newQty);
+						  $("."+up+' [role="discount"]').html(json.newSconto);
+						  $("."+up+' [role="iva"]').html(json.newIva);
 						 
 				  	})
 				  	.fail (function () {

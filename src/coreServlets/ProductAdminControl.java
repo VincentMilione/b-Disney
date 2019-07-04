@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.JsonObject;
+
 import beans.ProductBean;
 import coreModel.ProductModel;
 import coreModel.ProductModelDM;
@@ -58,7 +61,6 @@ public class ProductAdminControl extends HttpServlet {
 						bean.setPrice(Double.parseDouble(request.getParameter("price")));
 						bean.setIva(Double.parseDouble(request.getParameter("iva")));
 						bean.setDiscount(Double.parseDouble(request.getParameter("sconto")));
-						System.out.println(bean);
 						
 						model.doSave(bean);
 					} else if (action.equalsIgnoreCase("modify")) {
@@ -66,12 +68,24 @@ public class ProductAdminControl extends HttpServlet {
 						ProductBean bean = new ProductBean ();
 						bean.setCode(Integer.parseInt(request.getParameter("code")));
 						bean.setIva(Integer.parseInt(request.getParameter("iva")));
-						bean.setPrice(Integer.parseInt(request.getParameter("price")));
+						bean.setPrice(Double.parseDouble(request.getParameter("price")));
 						bean.setDiscount(Integer.parseInt(request.getParameter("discount")));
 						bean.setQty(Integer.parseInt(request.getParameter("qty")));
 						
 						
 						model.doUpdate(bean);
+						
+						if (request.getHeader("x-requested-with")!= null){
+							response.setContentType("application/json");
+							JsonObject obj = new JsonObject ();
+							
+							obj.addProperty("newPrice", bean.getPrice()+"&#8364;");
+							obj.addProperty("newQty", bean.getQty());
+							obj.addProperty("newSconto", bean.getDiscount() +"%");
+							obj.addProperty("newIva", bean.getIva() +"%");
+							
+							response.getWriter().write(new com.google.gson.Gson().toJson(obj));
+						}
 					}
 				}
 			}
