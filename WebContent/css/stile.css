@@ -3,6 +3,11 @@
 * {
   box-sizing: border-box;
 }
+
+#video {
+  max-width: 100%;
+  height: auto;
+}
 .lente{
 	 background-repeat: no-repeat;
 	 border: none;

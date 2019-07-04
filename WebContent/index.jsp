@@ -32,6 +32,7 @@
     </div>
   </section>
   <section class="rightcolumn" style="background-image: url('images/areg.gif');">
+   
     <div class="card">
       <h3>Contatti</h3>
       <p>Per maggiori informazioni sui nostri prodotti, sulla modalità di consegna o altro contattare </p>
@@ -44,6 +45,10 @@
       	 	 	366 4422 &nbsp514</p>
       			  
       
+    </div>
+     <div class="card">
+      <h3>Vieni a trovarci in negozio</h3>
+      <iframe  id="video" width="853" height="480" src="https://www.youtube.com/embed/AJb6hA0tY-g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
      <div class="card">
      <h3>Mappa</h3>
