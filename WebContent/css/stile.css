@@ -165,7 +165,8 @@ body {
  .nomeProdSconto{
  height:auto;
  }
-
+ 
+ 
 /*product card*/
 .productCard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -176,7 +177,6 @@ body {
   float:left;
   line-height: 20px;
 }
-
 
 .prezzo {
   text-decoration: line-through;
@@ -455,6 +455,7 @@ div.desc {
   display: table;
   clear: both;
 }
+
 .Myvotazione{
 	 width: 100%;
 	
@@ -559,6 +560,11 @@ span.price {
   width: 75%;
 }
 
+.imgSconto2 {
+	width: 65%;
+	text-align: center;
+}
+
 
 /* Responsive layout - con larghezza minore di 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 200px) {
@@ -578,10 +584,6 @@ span.price {
  	 width:100%; 
  	 height:auto;
  	 }
- 	.imgSconto{
- 	max-width:50%; 
- 	max-height:50%; 
- 	}
  	.nomeProdSconto{
  	height:auto;
  	}

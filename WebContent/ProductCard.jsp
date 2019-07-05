@@ -9,16 +9,12 @@
 <div class = "container flex-container">
 <%for (ProductBean e : list) { %>
 
- <div class="productCard" >
-
-	<div class="imgSconto">
-		<img class="imgSconto2" src="<%=e.getPhoto()%>" >
-	</div>
-
-	 <div class ="nomeProdSconto"><h3 style = "font-size: 120%"><a href = "ProductControl?id=<%=e.getCode()%>&act=view"><%=e.getName() %></a></h3></div>
- 	 <p class="prezzo"><%=e.getPriceSenzaSconto()%>&#8364;</p>
-  	 <p class="sconto"><%=e.getPricewithIva()%>&#8364;</p>
-  	 <p><button>Acquista</button></p> 
+ 	<div class="productCard" >
+		<img  class="imgSconto2" src="<%=e.getPhoto()%>" >
+		<div class ="nomeProdSconto"><h3 style = "font-size: 120%"><a href = "ProductControl?id=<%=e.getCode()%>&act=view"><%=e.getName() %></a></h3></div>
+ 		<p class="prezzo"><%=e.getPriceSenzaSconto()%>&#8364;</p>
+  		<p class="sconto"><%=e.getPricewithIva()%>&#8364;</p>
+  		<p><button>Acquista</button></p> 
 	</div>
 <%} %>
 </div>
