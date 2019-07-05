@@ -4,10 +4,15 @@
 
 <%
 	List<ProductBean> list =(List<ProductBean>)  request.getAttribute("list");
-	int size = list.size();
 %> 
 <div class = "container flex-container">
-<%for (ProductBean e : list) { %>
+<%
+if (list == null ? true : list.size() == 0) {
+	%>
+	<p style = "text-align: center">la ricerca non ha prodotto risultati</p>
+	<% 
+} else {
+	for (ProductBean e : list) { %>
 
  	<div class="productCard" >
 		<img  class="imgSconto2" src="<%=e.getPhoto()%>" >
@@ -16,5 +21,6 @@
   		<p class="sconto"><%=e.getPricewithIva()%>&#8364;</p>
   		<p><button>Acquista</button></p> 
 	</div>
-<%} %>
+<%}
+}%>
 </div>
