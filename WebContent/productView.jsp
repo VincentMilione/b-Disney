@@ -19,29 +19,6 @@
   	<title>${product.getName()}</title>
 </head>
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
-
-<%
-	List<RecenzioneBean> list =(List<RecenzioneBean>)  request.getAttribute("recenzioni");
-	List<RecenzioneBean> listNew= new ArrayList<RecenzioneBean>();
-	
-	int i=0, j=0;
-	if(list!=null){
-		int size = list.size();
-		if(size>5)
-		{	
-			Random rand= new Random();
-			
-			for( j=0;j<5;j++);
-			{
-				i= rand.nextInt(size-j);
-				listNew.add(list.get(i));
-				list.remove(i);
-			}
-		}else
-		{	
-			listNew=  new ArrayList<RecenzioneBean>(list);
-		}
-	}%>
 <%@include file = "header2.jsp" %>
 <section class="card"  style="padding-bottom:90px;">
 	<div style="float:left; padding:20px " >
@@ -62,43 +39,9 @@
   		</form>
 		</div><br>
 </section>
-
-   
-   		<div class="Myvotazione card">
-   		<%
-   		Boolean f=(Boolean) request.getAttribute("payed");
-   		
-   		if(request.getAttribute("userComment")!=null){
-   				
-   				%>
-   				<div class=commento>
-   					<h3>You</h3>
-   					<p>${userComment.description}</p>
-   				</div>
-   					
-   		<%} else if (f!= null ? f.booleanValue() : false) {%>
-   				<div id = "votazione">
-   					<input id="voto" type = "number" min = "1" max = "5">
-   					<textarea  id="text" rows="4" cols="50">Lascia la tua opinione...</textarea>
-   					<button id = "send" class="button button2">Aggiungi</button>
-   					<div id= "success4" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Recenzione inserita correttamente</div>
-					<div id= "alert4" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l inserimento</div>
-		
-   				</div>
-   			<%
-   			}%>
-   			<h3>Ecco cosa ne pensano i nostri clienti...</h3>
-   			<% for (RecenzioneBean e : listNew) {
-   				%>
-   				
-   				<div class=commento>
-   					<h3><%=e.getName() %></h3>
-   					<p><%=e.getDescription() %></p>
-   				</div>
-   				<%
-   			}
-   			%>
-   		</div>
+<section>
+	<%@include file = "contentJSP/recenzione.jsp" %>
+</section>
 <!-- pripend -->
 <%@include file = "footer.jsp" %>
 <script type="text/javascript">

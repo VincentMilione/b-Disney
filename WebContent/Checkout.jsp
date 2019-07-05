@@ -36,7 +36,7 @@
 		<div class="field2">
     <div class="a" style="padding: 1%;">
        <h3>Billing Address</h3>
-		 
+		<form action="Checkout.jsp"> 
          <%
         Boolean User = session.getAttribute("isUser") == null ? false : (Boolean) session.getAttribute("isUser");
         java.util.Map<Integer, beans.Adress> map = (java.util.Map<Integer, beans.Adress>) session.getAttribute("addresses");
@@ -59,8 +59,8 @@
               <%@ include file = "newAddress.jsp" %>    
               <%@ include file = "Acquista.jsp" %>        
 	     
-       <% if (isUser) { %> 
-        <input type="submit" value="Continue to checkout" class="btn"><%} %>
+        <input type="submit" value="Continue to checkout" class="btn">
+        </form> 
      </div>
   </div>
 		<%@include file = "footer.jsp" %>

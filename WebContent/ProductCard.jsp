@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import = "java.util.List, beans.ProductBean, java.util.Random"%>
+<%@ page import = "java.util.List, beans.ProductBean"%>
 
 <%
 	List<ProductBean> list =(List<ProductBean>)  request.getAttribute("list");
