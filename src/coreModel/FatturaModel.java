@@ -30,30 +30,21 @@ public abstract class FatturaModel {
 		bean.setQty(rs.getInt("qty"));
 	}
 	
-	/*private static final String insertOrder = "INSERT INTO "+ORDER_TABLE+" VALUES (?, ?, ?, ?, ?, ?)";
-	 * private static final String newFattura = "INSERT INTO " +FATT_TABLE +" (registrato, dataFattura, Indirizzo) VALUES (?,?,?)";
-	
-	*/
 	private String createInsertStatement(FatturaBean f) throws java.sql.SQLException {
 		// TODO Auto-generated method stub
-		String insertSQL = newFattura +"\n";
 		java.util.List<Order> list = f.getProdotti();
-		
+		String insertSQL = "";
 		for (int i = 0; i < list.size(); i++)
 			insertSQL = insertSQL +insertOrder + "\n";
 		
 		return insertSQL;
 	}
 	
-	//fattura, prodotto, prezzoAp, qty, ivaAp, scontoAp
 	private void prepareStatement(PreparedStatement state, FatturaBean f) throws SQLException {
-		// TODO Auto-generated method stub
-		state.setString(1, f.getUser().getLogin());
-		state.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
-		state.setInt(3, f.getShipping().getCodice());
+		// TODO Auto-generated method stu
 		
 		java.util.List<Order> list = f.getProdotti();
-		int i = 4;
+		int i = 1;
 		
 		for (Order o : list) {
 			ProductBean bean = o.getProduct();
@@ -65,7 +56,7 @@ public abstract class FatturaModel {
 			state.setDouble(i + 4, bean.getIva());
 			state.setDouble(i + 5, bean.getDiscount());
 			
-			i = i+6;
+			i = i + 6;
 		}
 	}
 	
@@ -75,18 +66,31 @@ public abstract class FatturaModel {
 	public void doSave (FatturaBean f) throws java.sql.SQLException {
 
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement = null, insert = null;
+		java.util.Date da = new java.util.Date();
 
 		try {
 			connection = getConnection();
-			preparedStatement = connection.prepareStatement(createInsertStatement(f));
-			prepareStatement(preparedStatement, f);
-			
+			preparedStatement = connection.prepareStatement(newFattura, java.sql.Statement.RETURN_GENERATED_KEYS);
+	
+			preparedStatement.setString(1, f.getUser().getLogin());
+			preparedStatement.setDate(2, new java.sql.Date(da.getTime()));
+			preparedStatement.setInt(3, f.getShipping().getCodice());
 			preparedStatement.executeUpdate();
-			connection.commit();
+		
+			ResultSet rs = preparedStatement.getGeneratedKeys();
+			
+			if (rs.next()) {
+				f.setCod(rs.getInt(1));
+				insert = connection.prepareStatement(createInsertStatement(f));
+				prepareStatement(insert, f);
+				
+				insert.execute();
+			}
+			
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null || insert != null)
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
