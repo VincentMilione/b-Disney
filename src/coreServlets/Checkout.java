@@ -44,22 +44,31 @@ public class Checkout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Boolean isUser = (Boolean) request.getSession().getAttribute("isUser");
 		
-		if (isUser == null ? false : isUser)
+		if (isUser == null ? false : !isUser)
 			return;
+		
+			
 		
 		try {
 			@SuppressWarnings("unchecked")
 			java.util.Map<Integer,beans.Adress> addresses = (java.util.Map<Integer,beans.Adress>) request.getSession().getAttribute("addresses");
-			beans.Adress shipping = addresses.get(request.getParameter("address"));
+			beans.Adress shipping = addresses.get(Integer.parseInt(request.getParameter("address")));
 			beans.Cart cart = (beans.Cart) request.getSession().getAttribute("cart");
 			beans.FatturaBean invoice = new beans.FatturaBean();
 			
-			invoice.setProdotti(cart.getOrders());
-			invoice.setUser((beans.Registered)request.getSession().getAttribute("user"));
-			invoice.setShipping(shipping);
+			if (!cart.isEmpty()) {
+				invoice.setProdotti(cart.getOrders());
+				invoice.setUser((beans.Registered)request.getSession().getAttribute("user"));
+				invoice.setShipping(shipping);
 			
-			request.getSession().removeAttribute("cart");
-			model.doSave(invoice);
+				request.getSession().removeAttribute("cart");
+				model.doSave(invoice);
+				response.getWriter().write("Grazie per aver acquistato da noi");
+			} 
+			else 
+				response.sendRedirect(response.encodeURL("error.jsp"));
+				
+			
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

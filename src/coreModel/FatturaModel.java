@@ -1,7 +1,6 @@
 package coreModel;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +30,10 @@ public abstract class FatturaModel {
 		bean.setQty(rs.getInt("qty"));
 	}
 	
+	/*private static final String insertOrder = "INSERT INTO "+ORDER_TABLE+" VALUES (?, ?, ?, ?, ?, ?)";
+	 * private static final String newFattura = "INSERT INTO " +FATT_TABLE +" (registrato, dataFattura, Indirizzo) VALUES (?,?,?)";
+	
+	*/
 	private String createInsertStatement(FatturaBean f) throws java.sql.SQLException {
 		// TODO Auto-generated method stub
 		String insertSQL = newFattura +"\n";
@@ -42,10 +45,11 @@ public abstract class FatturaModel {
 		return insertSQL;
 	}
 	
+	//fattura, prodotto, prezzoAp, qty, ivaAp, scontoAp
 	private void prepareStatement(PreparedStatement state, FatturaBean f) throws SQLException {
 		// TODO Auto-generated method stub
 		state.setString(1, f.getUser().getLogin());
-		state.setDate(2, (Date) new java.util.Date());
+		state.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
 		state.setInt(3, f.getShipping().getCodice());
 		
 		java.util.List<Order> list = f.getProdotti();
@@ -59,7 +63,9 @@ public abstract class FatturaModel {
 			state.setBigDecimal(i + 2, bean.getPrice());
 			state.setInt(i + 3, o.getQty());
 			state.setDouble(i + 4, bean.getIva());
-			state.setDouble(i + 6, bean.getDiscount());
+			state.setDouble(i + 5, bean.getDiscount());
+			
+			i = i+6;
 		}
 	}
 	

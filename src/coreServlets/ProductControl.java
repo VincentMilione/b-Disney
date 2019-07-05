@@ -78,7 +78,6 @@ public class ProductControl extends HttpServlet {
 						if (bean != null) {
 							request.setAttribute("product", bean);
 							request.getRequestDispatcher(response.encodeURL("RecenzioneServlet?act=view")).include(request, response);
-							System.out.println(request.getAttribute("recenzioni"));
 							request.getRequestDispatcher(response.encodeURL("/productView.jsp")).forward(request, response);
 						}
 						else response.sendRedirect("/error.jsp");

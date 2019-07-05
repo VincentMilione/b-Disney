@@ -7,25 +7,7 @@
    		List<RecenzioneBean> listNew= new java.util.ArrayList<RecenzioneBean>();
    		Boolean f=(Boolean) request.getAttribute("payed");
    		int size = 0;
-   		if(list == null ? false : (size = list.size ()) != 0){
-   			
-   			if(size>5)
-   			{	
-   				Random rand= new Random();
-   				int i=0;
-   				int j = 0;
-   				for(j = 0;j < 5; j++);
-   				{
-   					i = rand.nextInt(size - j);
-   					listNew.add(list.get(i));
-   					list.remove(i);
-   				}
-   			}
-   			else
-   			{	
-   				listNew = list;
-   			}
-   		}
+   		
    		
    		if(request.getAttribute("userComment")!=null){
    				
@@ -45,16 +27,37 @@
 		
    				</div>
    			<%
-   			}%>
-   			<h3>Ecco cosa ne pensano i nostri clienti...</h3>
-   			<% for (RecenzioneBean e : listNew) {
-   				%>
-   				
-   				<div class=commento>
-   					<h3><%=e.getName() %></h3>
-   					<p><%=e.getDescription() %></p>
-   				</div>
-   				<%
    			}
-   			%>
-   </div>
+			if(list == null ? false : (size = list.size ()) != 0){
+   			
+   					if(size>5) {	
+   						Random rand= new Random();
+   						int i=0;
+   						int j = 0;
+   						for(j = 0;j < 5; j++);
+   						{
+   							i = rand.nextInt(size - j);
+   							listNew.add(list.get(i));
+   							list.remove(i);
+   						}
+   					}
+   					else
+   						listNew = list;
+   					%>
+   					<h3>Ecco cosa ne pensano i nostri clienti...</h3>
+   		   			<% for (RecenzioneBean e : listNew) {
+   		   				%>
+   		   				
+   		   				<div class=commento>
+   		   					<h3><%=e.getName() %></h3>
+   		   					<p><%=e.getDescription() %></p>
+   		   				</div>
+   		   				<%
+   		   			}
+   				} else {
+		   				%>
+		   				<h3 style="text-align: center">Nessun commento è stato inserito</h3>
+		   				<% 
+		   			}
+				%>
+  </div>
