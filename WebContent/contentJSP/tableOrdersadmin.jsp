@@ -53,5 +53,3 @@
 			
 		</tbody>
 			</table>
-			
-			<a class="button button2"  href= "amministratore.jsp"> Indietro</a>

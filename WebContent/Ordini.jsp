@@ -74,12 +74,12 @@ $(document).ready(function () {
 		$.get("admin", {search : user, da : da, a : a})
 			.done(function (data){
 				$("table").remove();
-				$(".cart-list").append(data);
+				$(".pageof").before(data);
 			})
 		
 	});	
 	
-	$(".pageof").click (function () {
+	$("#submit").click (function () {
 		var da = $('input[name = "da"]').val();
 		var a = $('input[name = "a"]').val();
 		var user = $('#mySearch').val();
@@ -88,7 +88,7 @@ $(document).ready(function () {
 		$.get("admin", {search : user, da : da, a : a, pg : pg})
 			.done(function (data){
 				$("table").remove();
-				$(".cart-list").append(data);
+				$(".pageof").before(data);
 			})
 	})
 	

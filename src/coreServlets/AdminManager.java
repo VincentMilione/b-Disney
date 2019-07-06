@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.ProductBean;
+import coreModel.Paginator;
+
 /**
  * Servlet implementation class AdminManager
  */
@@ -41,11 +44,16 @@ public class AdminManager extends HttpServlet {
 				SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 				String par1 = request.getParameter("da");
 				String par2 = request.getParameter("a");
+				String pg = request.getParameter("pg");
 			
 				java.util.Date da = par1 == null || "".equals(par1) ? null : format.parse(par1);
 				java.util.Date a = par2 == null || "".equals(par2) ? null : format.parse(par2);
 				
-				request.setAttribute("fatture", login == null || "".equals(login) ? model.retrieveInvoices(da, a) : model.retrieveInvoices(new coreModel.RegisteredModelDM().doRetrieveByKey(login), da, a));
+				coreModel.Paginator<beans.FatturaBean> pager = new coreModel.Paginator<beans.FatturaBean>(10, pg == null ? 1 : Integer.parseInt(pg) );
+				Paginator<beans.FatturaBean>.Pair obj = pager.paginate(login == null || "".equals(login) ? model.retrieveInvoices(da, a) : model.retrieveInvoices(new coreModel.RegisteredModelDM().doRetrieveByKey(login), da, a));
+				
+				request.setAttribute("maxPg", obj.maxPg);
+				request.setAttribute("fatture", obj.pagedList);
 				
 				if (request.getHeader("x-requested-with") == null)
 					getServletContext().getRequestDispatcher(response.encodeURL("/Ordini.jsp")).forward(request, response);

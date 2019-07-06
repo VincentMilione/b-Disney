@@ -18,11 +18,17 @@
 </head>
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
 	<%@include file = "header2.jsp" %><br><br>
-	<form action="Login" method="post">
+	<form id = "val" action="Login" method="post">
 	<fieldset>
-		<h1> Account Disney </h1>
+	<h1> Account Disney </h1>
+	<% 
+	Boolean warning = (Boolean) request.getAttribute("warning");
+	if (warning == null ? false : warning) {
+	%>
+		<div id="alert3" class="alert" style=""><span class="closebtn" onclick="this.parentElement.style.display='none';">×</span> <strong>Errore!</strong> Nome utente o password non corretti</div>
+	<%}
+	%>
 	<h2>Accedi</h2>
-	
 	<p><label for="username"> <input id="username" type="email" size="30" name = "username" placeholder="Email" autocomplete="off"></label><br></p>
     <p>	<label for="password"><input id="password" type="password" size="30" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off"></label><br></p>
   		<button class="button button2" type = "submit" >Accedi</button>
@@ -31,6 +37,6 @@
 	</fieldset>
 	</form>
 	
-<%@include file = "footer.jsp" %>
+<%@include file = "footer2.jsp" %>
 </body>
 </html>

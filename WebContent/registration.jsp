@@ -17,9 +17,9 @@
 </head>
 
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
-	<%@include file = "header2.jsp" %><br>
+<%@include file = "header2.jsp" %><br>
 
-		<form action = "Registration" method = "POST" onsubmit = "return validation()">
+<form id = "val" action = "Registration" method = "POST">
 	<div class="field">
 	<%
 	Boolean error = (Boolean) request.getAttribute("error");
@@ -34,13 +34,13 @@
 	<h1 class="h1disney"> Account Disney </h1>
 	<h2 class="h2disney"> Non sei ancora iscritto? Registrati e potrai ricevere tutti gli aggiornamenti sui nuovi prodotti e offerte esclusive.</h2>
 	
-   <label class = "casella"> <input type="text" id = "name" size="20" name = "name" placeholder="Nome" onfocus = "focuser(this.form.name)" onblur = "blurer(this.form.name)"></label><br>
+   <label class = "casella"> <input type="text" id = "name" size="20" name = "name" placeholder="Nome"></label><br>
    <p id = "nameWarning" class = "casella"></p>
-   <label class = "casella"> <input type="text" id = "surname" size="20" name = "surname" placeholder="Cognome" onfocus = "focuser(this.form.surname)" onblur = "blurer(this.form.surname)"></label><br>
+   <label class = "casella"> <input type="text" id = "surname" size="20" name = "surname" placeholder="Cognome"></label><br>
    <p id = "surnameWarning" class = "casella"></p>
-   <label class = "casella"> <input type="text" id = "email" size="20" name = "email" placeholder="Email" autocomplete="off" onfocus = "focuser(this.form.email)" onblur = "blurer(this.form.email)"></label><br>
+   <label class = "casella"> <input type="text" id = "email" size="20" name = "email" placeholder="Email" autocomplete="off"></label><br>
    <p id = "emailWarning" class = "casella"></p>
-   <label class = "casella"> <input type="password" id = "password" size="20" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off" onfocus = "focuser(this.form.password)" onblur = "blurer(this.form.password)"></label><br>
+   <label class = "casella"> <input type="password" id = "password" size="20" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off"></label><br>
    <p id = "passwordWarning" class = "casella"></p>	
  
     <br> 
@@ -49,6 +49,7 @@
   </div>
  	
 </form>
+
 <script>
 $(document).ready(function() {
     $.getScript("js/validation.js");
@@ -77,6 +78,8 @@ $(document).ready(function() {
     }
 });
 </script>
+
+<script type = "text/javascript" src= "js/validation.js"></script>
 
  <%@include file = "footer.jsp" %>
  
