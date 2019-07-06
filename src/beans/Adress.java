@@ -1,7 +1,8 @@
 package beans;
 
-public class Adress {
+public class Adress implements java.io.Serializable {
 
+	private static final long serialVersionUID = 6021946553406606291L;
 	private String nation;
 	private String street;
 	private int nCv;
