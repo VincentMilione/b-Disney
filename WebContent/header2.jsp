@@ -32,6 +32,7 @@
         Boolean isUser = session.getAttribute("isUser") == null ? false : (Boolean) session.getAttribute("isUser");
         
         if (isUser) {%>
+        	<li><%@ include file="ricerca.jsp" %></li>
         	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Welcome ${user.name}</span><span class="caret"></span></a>
             	<ul class="dropdown-menu">
             	<li><a href="protected-page.jsp">Area Personale</a>

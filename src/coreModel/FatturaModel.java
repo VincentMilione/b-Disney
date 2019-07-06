@@ -30,36 +30,6 @@ public abstract class FatturaModel {
 		bean.setQty(rs.getInt("qty"));
 	}
 	
-	private String createInsertStatement(FatturaBean f) throws java.sql.SQLException {
-		// TODO Auto-generated method stub
-		java.util.List<Order> list = f.getProdotti();
-		String insertSQL = "";
-		for (int i = 0; i < list.size(); i++)
-			insertSQL = insertSQL +insertOrder + "\n";
-		
-		return insertSQL;
-	}
-	
-	private void prepareStatement(PreparedStatement state, FatturaBean f) throws SQLException {
-		// TODO Auto-generated method stu
-		
-		java.util.List<Order> list = f.getProdotti();
-		int i = 1;
-		
-		for (Order o : list) {
-			ProductBean bean = o.getProduct();
-			
-			state.setInt(i, f.getCod());
-			state.setInt(i + 1, bean.getCode());
-			state.setBigDecimal(i + 2, bean.getPrice());
-			state.setInt(i + 3, o.getQty());
-			state.setDouble(i + 4, bean.getIva());
-			state.setDouble(i + 5, bean.getDiscount());
-			
-			i = i + 6;
-		}
-	}
-	
 	//codiceFattura, registrato, dataFattura, Indirizzo
 	//fattura, prodotto, prezzoAp, quantita, ivaAp, scontoAp
 	
@@ -82,10 +52,20 @@ public abstract class FatturaModel {
 			
 			if (rs.next()) {
 				f.setCod(rs.getInt(1));
-				insert = connection.prepareStatement(createInsertStatement(f));
-				prepareStatement(insert, f);
+				java.util.List<Order> list = f.getProdotti();
 				
-				insert.execute();
+				for (Order o : list) {
+					ProductBean bean = o.getProduct();
+					insert = connection.prepareStatement(insertOrder);
+					insert.setInt(1, f.getCod());
+					insert.setInt(2, bean.getCode());
+					insert.setBigDecimal(3, bean.getPrice());
+					insert.setInt(4, o.getQty());
+					insert.setDouble(5, bean.getIva());
+					insert.setDouble(6, bean.getDiscount());
+					
+					insert.executeUpdate();
+				}
 			}
 			
 		} finally {
@@ -217,7 +197,7 @@ public abstract class FatturaModel {
 					closeConnection(connection);
 			}
 		}
-	
+
 		return f;
 	}
 	
