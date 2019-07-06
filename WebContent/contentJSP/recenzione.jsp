@@ -22,7 +22,7 @@
    					<h3>Lascia la tua opinione </h3>
    					<label  class="myLabel" for="fname">Inserisci un voto da 1 a 5</label>
    					<input class="myInput1" id="voto"  type = "number" min = "1" max = "5">
-   					<label  class="myLabel" for="fname">Inserisci una recenzione</label>
+   					<label  class="myLabel" for="fname">Inserisci una recensione</label>
    					<textarea class="myInput1" id="text" rows="4" cols="50" placeholder="Commenta..."></textarea>
    					<button id = "send" class="button button2">Aggiungi</button><br>
    					<div id= "success4" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Recenzione inserita correttamente</div>
