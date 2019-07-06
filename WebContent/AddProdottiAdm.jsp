@@ -31,7 +31,7 @@ if(admin == null ? true : !admin.booleanValue()) {
     	<label  class="myLabel" for="personaggio"> Personaggio</label>
     	<input class="myInput1" type="text" id="prs" name="personaggio"  placeholder="Aurora">
  		<label  class="myLabel" for="url">Url Foto</label>
-    	<input class="myInput1" type="text" id="url" name="url"  placeholder="images/auroraCuscino.PNG">
+    	<input class="myInput1" type="url" id="url" name="url"  placeholder="images/auroraCuscino.PNG">
  		<label  class="myLabel" for="iva">Iva</label>
     	<input class="myInput1" type="text" id="iva" name="iva"  placeholder="5">
     	<label  class="myLabel" for="sconto">Sconto</label>
