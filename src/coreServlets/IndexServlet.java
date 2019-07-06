@@ -49,7 +49,7 @@ public class IndexServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/ProductCard.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/ProductCard.jsp").forward(request, response);
 	}
 
 	/**

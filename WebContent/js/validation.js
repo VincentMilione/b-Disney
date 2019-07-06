@@ -1,5 +1,5 @@
-$(document).ready(function () {
-	function Validator (element, formatter, warning, errorMessage)
+
+function Validator (element, formatter, warning, errorMessage)
 	{	
 		this.x = element;
 		this.format = formatter;
@@ -17,7 +17,6 @@ $(document).ready(function () {
 			else
 			{
 				this.x.value = "";
-				console.log ("hola");
 				this.warner.innerHTML = this.error;
 				return false;
 			}
@@ -34,4 +33,3 @@ $(document).ready(function () {
 		this.style.border = "";
 		this.style.backgroundColor = "";
 	});
-});

@@ -54,28 +54,17 @@
 $(document).ready(function() {
     $.getScript("js/validation.js");
     
-    function validation () {
+    $("#val").submit(function (event) {
+    	event.preventDefault();
     	var list = new Array (4);
     	var flag = true;
+    	var mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    	var nameFormat = /^[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/;
+    	var passwordFormat = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/;
     	
-    	list[0] = new Validator ($("name"), /^[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/, 
-    			$("nameWarning"), "there shouldn't be any numbers or special characters");
-    	list[1] = new Validator ($("surname"), /^[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/, 
-    			$("surnameWarning"), "there shouldn't be any numbers or special characters");
-    	list[2] = new Validator ($("email"), /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 
-    			$("emailWarning"), "the inserted value is not an email");
-    	list[3] = new Validator ($("password"), /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/,
-    			$("passwordWarning"), "the password is too short or weak");
-    	
-    	
-    	for (var i = 0; i < 4 ; i++)
-    	{
-    		if (!list[i]["verifier"]())
-    			flag = false;
-    	}
-    	
-    	return flag;
-    }
+    	if (flag) event.preventDefault();
+    });
+   
 });
 </script>
 
