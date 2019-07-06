@@ -98,6 +98,36 @@ public abstract class FatturaModel {
 			}
 		}
 	}
+	
+	public boolean hasPurchased (beans.ProductBean product, Registered e) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String sql= "select * from ordine join fattura on fattura = codiceFattura where registrato = ? and prodotto = ?";
+		
+		try {
+			connection = getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, e.getLogin());
+			preparedStatement.setInt(2, product.getCode());
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					closeConnection(connection);
+			}
+		}
+		return false;
+	}
 
 	public java.util.List<Order> retrieveOrders (Registered e, java.util.Date date, java.util.Date date2) throws java.sql.SQLException {
 		Connection connection = null;
@@ -297,8 +327,7 @@ public abstract class FatturaModel {
 				
 				list.add(f);
 			}
-		System.out.println(list);
-		System.out.println();
+	
 		} finally {
 			try {
 				if (preparedStatement != null)

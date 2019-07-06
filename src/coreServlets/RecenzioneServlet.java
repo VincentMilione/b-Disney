@@ -45,17 +45,19 @@ public class RecenzioneServlet extends HttpServlet {
 			
 				java.util.List<beans.RecenzioneBean> list = recenzione.getComments(bean);
 				beans.RecenzioneBean userComment = user == null ? null : recenzione.userComment(user, bean);
+				boolean payed = userComment == null ? new coreModel.FatturaModelDS().hasPurchased(bean, user):false;
 				list.remove(userComment);
 				
 				request.setAttribute("voto", recenzione.mediumVote(bean));
 				request.setAttribute("userComment", userComment);
 				request.setAttribute("recenzioni", list);
+				request.setAttribute("payed", payed);
 			
-			
-			} else if ("insert".equalsIgnoreCase(action)) {
+			}  else if ("insert".equalsIgnoreCase(action)) {
 				String comment = request.getParameter("comment");
 				int vote = Integer.parseInt(request.getParameter("vote"));
-				recenzione.newComment(user, bean, comment, vote);
+				ProductBean owo = new ProductBean (Integer.parseInt(request.getParameter("id")));
+				recenzione.newComment(user, owo, comment, vote);
 		}
 		} catch (SQLException e) {
 			e.printStackTrace();

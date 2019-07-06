@@ -44,20 +44,6 @@
 </section>
 <!-- pripend -->
 <%@include file = "footer.jsp" %>
-<script type="text/javascript">
-$(document).ready(function () {
-	$("#send").click(function () {
-		var text = $("#text").val();
-		var voto = $("#voto").val();
-		$.post("RecenzioneServlet", {operation: "insert", comment: text, vote: voto}, "html")
-		.done(function(data){
-			 $("#success4").slideToggle();
-		})
-		.fail(function() {
-			 $("#alert4").slideToggle();
-		});
-	});
-});
-</script>
+
 </body>
 </html>

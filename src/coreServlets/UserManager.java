@@ -74,7 +74,6 @@ public class UserManager extends HttpServlet {
 					String pg = request.getParameter("pg");
 					
 					if(request.getHeader("x-requested-with") == null) {
-						
 						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, null, null), pg == null ? 1 : Integer.parseInt(pg));						
 						request.setAttribute("fatture", obj.pagedList);
 						request.setAttribute("maxPg", obj.maxPg);
@@ -87,6 +86,7 @@ public class UserManager extends HttpServlet {
 						String par2 = request.getParameter("a");
 						java.util.Date da = par1 == null || "".equals(par1) ? null : format.parse(par1);
 						java.util.Date a = par2 == null || "".equals(par2)? null : format.parse(par2);
+						
 						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, da, a), pg == null ? 1 : Integer.parseInt(pg));
 						
 						request.setAttribute("fatture", obj.pagedList);
