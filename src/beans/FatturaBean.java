@@ -1,5 +1,7 @@
 package beans;
 
+import java.math.RoundingMode;
+
 public class FatturaBean implements java.io.Serializable{
 
 	private static final long serialVersionUID = -7048837643544538726L;
@@ -41,6 +43,18 @@ public class FatturaBean implements java.io.Serializable{
 	}
 	public int size () {
 		return prodotti.size();
+	}
+	public java.math.BigDecimal getTotal () {
+		double total = 0;
+		java.util.List<Order> list = prodotti;
+		
+		for (Order o : list) {
+			beans.ProductBean item = o.getProduct();
+			
+			total = total + o.getQty()*(item.getPricewithIva().doubleValue());
+		}
+		
+		return new java.math.BigDecimal(total).setScale(2, RoundingMode.HALF_EVEN);
 	}
 	@Override
 	public String toString() {

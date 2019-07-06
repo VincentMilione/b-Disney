@@ -203,7 +203,7 @@ public abstract class FatturaModel {
 				
 				f.setCod(rs.getInt("codiceFattura"));
 				f.setProdotti(this.retrieveInvoiceOrders(f.getCod(), connection));
-				f.setUser(user);
+				f.setUser(new coreModel.RegisteredModelDS().doRetrieveByKey(user.getLogin()));
 				f.setShipping(new AddressModelDS().doRetrieve(rs.getInt("Indirizzo")));
 				f.setDate(cl);
 			}
@@ -217,6 +217,7 @@ public abstract class FatturaModel {
 					closeConnection(connection);
 			}
 		}
+	
 		return f;
 	}
 	
@@ -347,7 +348,7 @@ public abstract class FatturaModel {
 	private static final String PROD_TABLE = "prodotto";
 	private static final String FATT_TABLE = "fattura";
 	private static final String newFattura = "INSERT INTO " +FATT_TABLE +" (registrato, dataFattura, Indirizzo) VALUES (?,?,?)";
-	private static final String retrieveInvoice = "SELECT FROM * " +FATT_TABLE +" WHERE registrato = ? AND codiceFattura = ?";
+	private static final String retrieveInvoice = "SELECT * FROM " +FATT_TABLE +" WHERE registrato = ? AND codiceFattura = ?";
 	private static final String retrieveInvoiceorders = "SELECT * FROM " +ORDER_TABLE +" JOIN " +PROD_TABLE + " ON codice = prodotto  WHERE fattura = ?";
 	private static final String retrieveAllInvoices = "SELECT * FROM " +FATT_TABLE;
 	private static final String retrieveAllInvoicesUsers = "SELECT * FROM " +FATT_TABLE +" JOIN " +RegisteredModel.TABLE + " ON loginA = registrato ";

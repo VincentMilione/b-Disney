@@ -38,7 +38,7 @@
 			<tr class="text-center">
 				<td rowspan="<%=size%> " class="product-name">
 				<p><%= format.format(fatt.getDate().getTime())%></p>
-				<button  class="button button2 submitter" type="submit">Fattura</button>
+			<a href="FatturaPDF?id=<%=fatt.getCod()%>">	<button  class="button button2 submitter" type="submit">Fattura</button></a>
 				</td>
 				<%
 				for(Order o : orders){
