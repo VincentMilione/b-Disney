@@ -1,30 +1,11 @@
 
-	 
-	 
-$(document).ready(function () {
-	$("#nameWarning").hide();
-    $("#surnameWarning").hide();
-    $("#emailWarning").hide();
-    $("#passwordWarning").hide();
-    
-function verifier (element, formatter, warning) {
-		if(element.value.match(formatter))
-			return true;
-		else {
-		
-		$(warning).slideToggle();
-		return false;
-	}
-
-}
-
-$(".validation").submit (function (event) {
+function validateCredentials () {
 	var email = document.getElementById("email");
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	var nome = document.getElementById("name"); 
 	var cognome = document.getElementById("surname"); 
 	var nameformat = /^[A-Za-z]+$/;
-	var password = document.getElementById("password"); 
+	var password = document.getElementById("password").value; 
 	var passid_len = password.length;
 	var flag = true;
 	console.log(email +nome +cognome +password);
@@ -54,8 +35,32 @@ $(".validation").submit (function (event) {
 			flag = false;
 	}
 	
-	if (!flag)
+	return flag;
+}	 
+
+function verifier (element, formatter, warning) {
+	if(element.value.match(formatter))
+		return true;
+	else {
+	
+	$(warning).slideDown();
+	return false;
+}
+
+}
+	 
+$(document).ready(function () {
+	$("#nameWarning").hide();
+    $("#surnameWarning").hide();
+    $("#emailWarning").hide();
+    $("#passwordWarning").hide();
+   
+
+$(".validation").submit (function (event) {
+	
+	if (!validateCredentials ())
 		event.preventDefault();
+	
 });
 
 

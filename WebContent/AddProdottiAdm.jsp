@@ -24,20 +24,28 @@ if(admin == null ? true : !admin.booleanValue()) {
 		<h3>Aggiungi un nuovo prodotto </h3><br>
  		<label  class="myLabel" for="fname"> Nome prodotto</label>
     	<input class="myInput1" type="text" id="nome" name="nome" placeholder="Cuscino Aurora" >
+    	     	 
     	<label  class="myLabel" for="prezzo"> Prezzo</label>
-    	<input class="myInput1" type="text" id="prezzo" name="prezzo"  placeholder="17.90" >
+    	<input class="myInput1" type="number" id="prezzo" name="prezzo"  placeholder="17.90" >
+    	
     	<label  class="myLabel" for="quantita"> Quantità</label>
     	<input class="myInput1" type="number" id="quantita" name="quantita"  min="1">
+    	
     	<label  class="myLabel" for="personaggio"> Personaggio</label>
     	<input class="myInput1" type="text" id="prs" name="personaggio"  placeholder="Aurora">
+    	
  		<label  class="myLabel" for="url">Url Foto</label>
     	<input class="myInput1" type="url" id="url" name="url"  placeholder="images/auroraCuscino.PNG">
+    	
  		<label  class="myLabel" for="iva">Iva</label>
-    	<input class="myInput1" type="text" id="iva" name="iva"  placeholder="5">
+    	<input class="myInput1" type="number" id="iva" name="iva"  placeholder="5">
+    	
     	<label  class="myLabel" for="sconto">Sconto</label>
-    	<input class="myInput1" type="text" id="sconto" name="sconto"  placeholder="10, in mancanza inserire 0">
+    	<input class="myInput1" type="number" id="sconto" name="sconto"  placeholder="10, in mancanza inserire 0">
+    	
     	<label  class="myLabel" for="tipo">Tipo</label>
     	<input class="myInput1" type="text" id="tipo" name="tipo"  placeholder="cuscino">
+    	
     	<label  class="myLabel" for="tipo">Categoria</label>
     	<select class="myInput1" type="text" id="categoria" name="categoria" >
     		<option value="0">Articoli per la Casa</option>
@@ -45,8 +53,10 @@ if(admin == null ? true : !admin.booleanValue()) {
  		 	<option value="2">Articoli per le Feste</option>
   			<option value="3">Giochi</option>
     	</select>
+    	
     	<label  class="myLabel" for="tipo">Descrizione</label>
     	<textarea class="myInput1" type="text" id="des" name="des"  placeholder="Inserire descrizione prodotto" rows="9"></textarea>
+    	
     	<button id="but1" class=" button button2">Aggiungi</button>
     	<button id="but2" class=" button button2" href="amministratore.jsp">Indietro</button>
     	<div id="esito"></div>

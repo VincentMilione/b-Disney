@@ -4,11 +4,7 @@
 
 $(document).ready(function() {
 	
-	$("#AddressWarning").hide();
-    $("#cityWarning").hide();
-    $("#provinciaWarning").hide();
-    $("#capWarning").hide();
-    $("#statoWarning").hide();
+$(".alert").hide();
     
     
 function verifier (element, formatter, warning) {
@@ -16,7 +12,7 @@ function verifier (element, formatter, warning) {
 			return true;
 		else {
 		
-		$(warning).slideToggle();
+		$(warning).slideDown();
 		return false;
 	}
 
@@ -29,7 +25,7 @@ function validation () {
 	var state = document.getElementById("state");
 	var caratteri = /^[A-Za-z\s]+$/;
 	
-	var cap = document.getElementById("CAP").value +""; /*cap.lenght==5*/
+	var cap = document.getElementById("CAP"); /*cap.lenght==5*/
 	var max = /^\d{5}$/;
 	
 	var flag = true;
@@ -69,6 +65,7 @@ function validation () {
 $("input").focus (function focuser () {
 this.style.border = "2px solid a3d1ff";
 this.style.backgroundColor = "a3d1ff";
+$('#'+$(this).attr("id")+'Warner').slideUp();
 });
 
 $("input").blur (function blurer ()
@@ -90,16 +87,16 @@ this.style.backgroundColor = "";
 		var provincia= $("#provincia").val();
 		
 		if (validation ()) {
+		$(".alert").slideUp();
 		$.post("AddressOperations", {operation: "1", via: via, ncv: nC, citta: ct, provincia: provincia , cap: cap, stato: st}, "html")
 		.done(function(data){
-			console.log(data);
-			var string = '<option value="'+data.codice+'">Indirizzo:'+data.street+', ' +data.nCv+"; CAP:"+data.CAP+"; citta\'" +data.citta+'</option>';
-			console.log (string);
+			var string = '<option value="'+data.codice+'">Indirizzo:'+data.street+', ' +data.nCv+", CAP:"+data.CAP+"; citta\'" +data.citta+'</option>';
 			$("#address").append(string);
+			$("#successAddr").slideDown();
 		})
 		.fail(function() {
-			//scrivi un box di errore
-		
+			
+			$("#alertAddr").slideDown();
 		});
 		}
 	});

@@ -18,7 +18,7 @@
                   <div id= "provinciaWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Il valore non è una Provincia</div>
             	  
                   <label  class="myLabel" for="adr"><i class="fa fa-address-card-o"></i> CAP</label>
-            	  <input class="myInput1" type="number" id="CAP"  name="CAP" placeholder="80890">
+            	  <input class="myInput1" type="text" id="CAP"  name="CAP" placeholder="80890">
             	  <div id= "capWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Il valore non è un CAP</div>
             	  
                   <label  class="myLabel" for="state">Stato</label>
@@ -26,4 +26,8 @@
                   <div id= "statoWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Il valore non è uno stato</div>
             	  
                   <button id="butt" class="button button2">Aggiungi</button>
+                  
+                  <div id= "successAddr" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Indirizzo inserito correttamente</div>
+			      <div id= "alertAddr" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Errore durante l inserimento</div>
+   
               </div><br>
