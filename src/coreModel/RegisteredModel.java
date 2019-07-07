@@ -74,7 +74,6 @@ public abstract class RegisteredModel extends UserModel {
 			preparedStatement.setString(4, e.getCognome());
 			
 			preparedStatement.executeUpdate();
-			connection.commit();
 		} 
 		finally 
 		{

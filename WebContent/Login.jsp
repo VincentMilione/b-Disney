@@ -29,8 +29,8 @@
 	<%}
 	%>
 	<h2>Accedi</h2>
-	<p><label for="username"> <input id="username" type="email" size="30" name = "username" placeholder="Email" autocomplete="off"></label><br></p>
-    <p>	<label for="password"><input id="password" type="password" size="30" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off"></label><br></p>
+	<p><input class="myInput1" id="username" type="email" size="30" name = "username" placeholder="Email" autocomplete="off"><br></p>
+    <p><input class="myInput1" id="password" type="password" size="30" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off"><br></p>
   		<button class="button button2" type = "submit" >Accedi</button>
   		<button class="button button2" type = "reset">Reset</button><br><br>
 	Non sei ancora registrato? &nbsp &nbsp<a href= "registration.jsp"> Registrati ora</a>

@@ -19,7 +19,7 @@
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
 <%@include file = "header2.jsp" %><br>
 
-<form id = "val" action = "Registration" method = "POST">
+<form class = "validation" id = "val" action = "Registration" method = "POST">
 	<div class="field">
 	<%
 	Boolean error = (Boolean) request.getAttribute("error");
@@ -34,15 +34,18 @@
 	<h1 class="h1disney"> Account Disney </h1>
 	<h2 class="h2disney"> Non sei ancora iscritto? Registrati e potrai ricevere tutti gli aggiornamenti sui nuovi prodotti e offerte esclusive.</h2>
 	
-   <label class = "casella"> <input type="text" id = "name" size="20" name = "name" placeholder="Nome"></label><br>
-   <p id = "nameWarning" class = "casella"></p>
-   <label class = "casella"> <input type="text" id = "surname" size="20" name = "surname" placeholder="Cognome"></label><br>
-   <p id = "surnameWarning" class = "casella"></p>
-   <label class = "casella"> <input type="text" id = "email" size="20" name = "email" placeholder="Email" autocomplete="off"></label><br>
-   <p id = "emailWarning" class = "casella"></p>
-   <label class = "casella"> <input type="password" id = "password" size="20" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off"></label><br>
-   <p id = "passwordWarning" class = "casella"></p>	
- 
+   <input type="text"  class="myInput1"  id = "name" size="20" name = "name" placeholder="Nome">
+   <div id= "nameWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Il valore non è un nome</div>
+
+   <input type="text"  class="myInput1"  id = "surname" size="20" name = "surname" placeholder="Cognome">
+   <div id= "surnameWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Il valore non è un cognome</div>
+
+   <input type="text"  class="myInput1"  id = "email" size="20" name = "email" placeholder="Email" autocomplete="off">
+   <div id= "emailWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> email non valida</div>
+   
+   <input type="password"  class="myInput1"  id = "password" size="20" name = "password" placeholder="Password tra i 5 e i 10 caratteri" autocomplete="off">
+   <div id= "passwordWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong>la password deve essere almeno da 8 caratteri </div>
+  
     <br> 
       <button class="button button2 submitter" type = "submit" >Crea Account</button> 
        <a href= "Login.jsp"> Sono registrato</a>
@@ -50,25 +53,8 @@
  	
 </form>
 
-<script>
-$(document).ready(function() {
-    $.getScript("js/validation.js");
-    
-    $("#val").submit(function (event) {
-    	event.preventDefault();
-    	var list = new Array (4);
-    	var flag = true;
-    	var mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    	var nameFormat = /^[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/;
-    	var passwordFormat = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/;
-    	
-    	if (flag) event.preventDefault();
-    });
-   
-});
-</script>
+<script type = "text/javascript" src = "js/validation.js"></script>
 
-<script type = "text/javascript" src= "js/validation.js"></script>
 
  <%@include file = "footer.jsp" %>
  
