@@ -18,8 +18,9 @@ $(document).ready(function() {
 		$.post("AddressOperations", {operation: "1", via: via, ncv: nC, citta: ct, provincia: provincia , cap: cap, stato: st}, "html")
 		.done(function(data){
 			console.log(data);
-			var string = "<option value="+data.codice+">"+data.street +data.nvc +data.citta+"</option>"
-			$("#indirizzi").append(string);
+			var string = '<option value="'+data.codice+'">Indirizzo:'+data.street+', ' +data.nCv+"; CAP:"+data.CAP+"; citta\'" +data.citta+'</option>';
+			console.log (string);
+			$("#address").append(string);
 		})
 		.fail(function() {
 			//scrivi un box di errore

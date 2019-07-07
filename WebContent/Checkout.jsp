@@ -36,13 +36,14 @@
 		<div class="field2">
     <div class="a" style="padding: 1%;">
        <h3>Billing Address</h3>
-		<form action="checkout" method = "post"> 
-         <%
+		  <%
         Boolean User = (Boolean) session.getAttribute("isUser");
         java.util.Map<Integer, beans.Adress> map = (java.util.Map<Integer, beans.Adress>) session.getAttribute("addresses");
        	java.util.List <beans.Adress> addresses = map == null ? new java.util.ArrayList<beans.Adress>() : new java.util.ArrayList (map.values());
        %> <label class="myLabel" for="fname"><i class="fa fa-user"></i>Nome: ${user.name}  ${user.cognome} </label>
 		  <label class="myLabel" for="email"><i class="fa fa-envelope"></i> Email: ${user.login}</label>
+		   <%@ include file = "newAddress.jsp" %>
+		     <form action="checkout" method = "post"> 
 		<%
        if ((User == null ? false : User) && addresses.size() > 0) { %>
        				
@@ -55,11 +56,10 @@
         		  </select>
         		
 	    <%}
-        %>  
-              <%@ include file = "newAddress.jsp" %>    
+        %>   
               <%@ include file = "Acquista.jsp" %>        
-	     
-        <input type="submit" value="Continue to checkout" class="btn">
+	   
+       		 <input type="submit" value="Continue to checkout" class="btn">
         </form> 
      </div>
   </div>

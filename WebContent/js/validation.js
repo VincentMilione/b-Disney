@@ -1,27 +1,19 @@
 
-function Validator (element, formatter, warning, errorMessage)
-	{	
-		this.x = element;
-		this.format = formatter;
-		this.warner = warning;
-		this.error = errorMessage;
-
-		this.verifier = function () {
+	verifier = function (element, formatter, warning, errorMessage) {
 			
-			console.log (this.x.value);
-			if (this.x.value.match (this.format))
+			if (element.value.match (formatter))
 			{
-				this.warner.innerHTML = "";
+				this.warning.innerHTML = "";
 				return true;
 			}
 			else
 			{
 				this.x.value = "";
-				this.warner.innerHTML = this.error;
+				this.warning.innerHTML = this.error;
 				return false;
 			}
 		}
-	}
+	
 	
 	$("input").focus (function focuser () {
 		this.style.border = "2px solid blue";
