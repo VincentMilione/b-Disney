@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import beans.ProductBean;
-import beans.Registered;
-import coreModel.RegisteredModel;
-import coreModel.RegisteredModelDM;
-import coreModel.RegisteredModelDS;
+import coreModels.beans.ProductBean;
+import coreModels.beans.Registered;
+import coreModels.model.RegisteredModel;
+import coreModels.model.RegisteredModelDM;
+import coreModels.model.RegisteredModelDS;
 
 /**
  * Servlet implementation class SuggesterUser

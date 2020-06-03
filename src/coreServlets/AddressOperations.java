@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import beans.Adress;
-import coreModel.AdressModel;
-import coreModel.AddressModelDM;
-import coreModel.AddressModelDS;
+import coreModels.beans.Adress;
+import coreModels.model.AddressModelDM;
+import coreModels.model.AddressModelDS;
+import coreModels.model.AdressModel;
 
 /**
  * Servlet implementation class AddressOperations
@@ -39,8 +39,8 @@ public class AddressOperations extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			int op = Integer.parseInt(request.getParameter("operation"));
-			beans.Registered user = (beans.Registered) request.getSession().getAttribute("user");
-			java.util.Map<Integer,beans.Adress> ad = (java.util.Map<Integer,beans.Adress>)request.getSession().getAttribute("addresses");
+			coreModels.beans.Registered user = (coreModels.beans.Registered) request.getSession().getAttribute("user");
+			java.util.Map<Integer,coreModels.beans.Adress> ad = (java.util.Map<Integer,coreModels.beans.Adress>)request.getSession().getAttribute("addresses");
 			if (op == 0 && user != null) {
 				//operazione di visualizzazione
 				request.getSession().setAttribute("addresses", model.doRetrieveAll(user.getLogin()));
@@ -79,9 +79,13 @@ public class AddressOperations extends HttpServlet {
 			} else if (op == 3 && user != null) {
 				//operazione di cancellazione
 				model.doDelete(Integer.parseInt(request.getParameter("code")));
-			} 
+			} else if (op == 4 && user != null) {
+				//operazione di verifica
+				
+			}
 		} catch (java.sql.SQLException e) {
 			e.printStackTrace();
+			response.sendRedirect(response.encodeURL("error.jsp"));
 		}
 		catch (Exception e) {
 			response.sendRedirect(response.encodeURL("error.jsp"));

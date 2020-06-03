@@ -8,12 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import coreModel.FatturaModel;
-import coreModel.FatturaModelDM;
-import coreModel.FatturaModelDS;
-import coreModel.RegisteredModel;
-import coreModel.RegisteredModelDM;
-import coreModel.RegisteredModelDS;
+
+import coreModels.model.FatturaModel;
+import coreModels.model.FatturaModelDM;
+import coreModels.model.FatturaModelDS;
+import coreModels.model.RegisteredModel;
+import coreModels.model.RegisteredModelDM;
+import coreModels.model.RegisteredModelDS;
 
 /**
  * Servlet implementation class UserManager
@@ -44,8 +45,8 @@ public class UserManager extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    private coreModel.Paginator<beans.FatturaBean>.Pair paginate (java.util.List <beans.FatturaBean> list, int pgNumber) {
-    	coreModel.Paginator<beans.FatturaBean> pager = new coreModel.Paginator<beans.FatturaBean>(10, pgNumber);
+    private coreModels.model.Paginator<coreModels.beans.FatturaBean>.Pair paginate (java.util.List <coreModels.beans.FatturaBean> list, int pgNumber) {
+    	coreModels.model.Paginator<coreModels.beans.FatturaBean> pager = new coreModels.model.Paginator<coreModels.beans.FatturaBean>(10, pgNumber);
 		return pager.paginate(list);
     }
 
@@ -58,7 +59,7 @@ public class UserManager extends HttpServlet {
 		 * modifica password, modifica dell'email, operazioni su indirizzi, retrieval degli ordini
 		 * */
 		String op = request.getParameter("op");
-		beans.Registered bean = (beans.Registered) request.getSession().getAttribute("user");
+		coreModels.beans.Registered bean = (coreModels.beans.Registered) request.getSession().getAttribute("user");
 		
 		if (bean != null)
 			try {
@@ -74,11 +75,11 @@ public class UserManager extends HttpServlet {
 					String pg = request.getParameter("pg");
 					
 					if(request.getHeader("x-requested-with") == null) {
-						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, null, null), pg == null ? 1 : Integer.parseInt(pg));						
+						coreModels.model.Paginator<coreModels.beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, null, null), pg == null ? 1 : Integer.parseInt(pg));						
 						request.setAttribute("fatture", obj.pagedList);
 						request.setAttribute("maxPg", obj.maxPg);
 						
-						request.getRequestDispatcher(response.encodeURL("OrdiniUtente.jsp")).forward(request, response);
+						getServletContext().getRequestDispatcher(response.encodeURL("/OrdiniUtente.jsp")).forward(request, response);
 					} else {
 						
 						SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
@@ -87,7 +88,7 @@ public class UserManager extends HttpServlet {
 						java.util.Date da = par1 == null || "".equals(par1) ? null : format.parse(par1);
 						java.util.Date a = par2 == null || "".equals(par2)? null : format.parse(par2);
 						
-						coreModel.Paginator<beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, da, a), pg == null ? 1 : Integer.parseInt(pg));
+						coreModels.model.Paginator<coreModels.beans.FatturaBean>.Pair obj = this.paginate(fatt.retrieveInvoices(bean, da, a), pg == null ? 1 : Integer.parseInt(pg));
 						
 						request.setAttribute("fatture", obj.pagedList);
 						request.setAttribute("maxPg", obj.maxPg);
@@ -96,12 +97,10 @@ public class UserManager extends HttpServlet {
 					}
 				}
 		
-			} catch (java.sql.SQLException e) {
+			} catch (java.sql.SQLException | ParseException e) {
 				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				response.sendRedirect("error.jsp");
+			} 
 	}
 	
 

@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.GsonBuilder;
-import beans.ProductBean;
-import coreModel.Paginator;
-import coreModel.ProductModel;
-import coreModel.ProductModelDM;
-import coreModel.ProductModelDS;
+
+import coreModels.beans.ProductBean;
+import coreModels.model.Paginator;
+import coreModels.model.ProductModel;
+import coreModels.model.ProductModelDM;
+import coreModels.model.ProductModelDS;
 
 /**
  * Servlet implementation class CatalogServlet
@@ -62,12 +63,12 @@ public abstract class CatalogServlet extends HttpServlet {
 			else {
 				list = model.doRetrieveAll(true);
 			}
-			coreModel.Paginator<ProductBean> pager = new coreModel.Paginator<ProductBean>(numEl, pgNumber);
+			coreModels.model.Paginator<ProductBean> pager = new coreModels.model.Paginator<ProductBean>(numEl, pgNumber);
 			Paginator<ProductBean>.Pair obj = pager.paginate(list);
 			list = obj.pagedList;
 			request.setAttribute("maxPg", obj.maxPg);
 		} catch (SQLException e) {
-			response.sendRedirect("error.jsp");
+			response.sendRedirect(response.encodeURL("error.jsp"));
 			e.printStackTrace();
 			return;
 		}

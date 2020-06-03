@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@ page import = "beans.*, java.util.Collection" %>
-   <%@page import="beans.*"%>
+ <%@ page import = "coreModels.beans.*, java.util.Collection" %>
 
 <table class="table" id="myMenu">
 		 <thead class="thead-primary">

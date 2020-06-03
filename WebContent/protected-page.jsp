@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page import="beans.*"%>
+ <%@page import="coreModels.beans.*"%>
  <% Boolean user= (Boolean)session.getAttribute("isUser");
 if(user == null ? true : !user.booleanValue()) {
 	response.sendRedirect(response.encodeURL("Login.jsp"));
@@ -26,92 +26,11 @@ if(user == null ? true : !user.booleanValue()) {
 </head>
 <body  style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
  <%@include file = "header2.jsp" %><br>
-<div class="field2">
-	
-		<h3>Dati Personali </h3>
- 		<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Nome</label>
-    	<input class="myInput1" type="text" id="name" name="firstname" value="${user.name}" placeholder="${user.name}" >
-    	<div id= "nameWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Nome non valido, deve essere costituito da soli caratteri</div>
-  
-    	<label  class="myLabel" for="fname"><i class="fa fa-user"></i> Cognome</label>
-    	<input class="myInput1" type="text" id="surname" name="firstname" value="${user.cognome}" placeholder="${user.cognome}" >
-    	<div id= "surnameWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Cognome non valido, deve essere costituito da soli caratteri</div>
-  
-    	<button id="but1" class=" button button2">Modifica</button>
-    	
-    	<div id= "success1" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Nome e/o Cognome aggiornati correttamente</div>
-		<div id= "alert1" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Errore durante l aggiornamento</div>
-     <hr>
-     
-    	<h3>Credenziali</h3>
-    	<i class="fa fa-envelope"></i> Email: ${user.login}<br><br>
-		<label  class="myLabel" for="fname"><i class="fa fa-lock"></i>Password</label>
-    	<input class="myInput1" type="text" id="vpass" name="firstname">
-    	<label  class="myLabel" for="fname"><i class="fa fa-lock"></i>Ripeti Password</label>
-    	<input class="myInput1" type="text" id="password" name="firstname">
-    	<div id= "passwordWarning" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>Errore!</strong> Password non valida, deve essere tra 8 e 25 caratteri</div>
-  
-    	<button id="but2" class="but2 button button2">Modifica Password</button>
-    	<div id= "success2" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Password aggiornata correttamente</div>
-		<div id= "alert2" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l aggiornamento</div>
-		<div id= "alert3" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> La password non corrisponde a quella digitata</div>
-	<hr>
-		<h3>Aggiungi nuovo indirizzo</h3>
-		 <%@ include file = "newAddress.jsp" %> 
-</div>
 
+<%@include file = "contentJSP/protectedContent.jsp" %>
 <%@include file = "footer.jsp" %>
 <script type="text/javascript" src= "js/credenziali.js"></script>
 <script src = "js/validation.js"></script>
-<%UserBean us = (UserBean) session.getAttribute("user"); %>
-<script>
-$(document).ready(function() {
-	$("#success1").hide();
-	$("#alert1").hide();
-	$("#success2").hide();
-	$("#alert2").hide();
-	$("#alert3").hide();
-	
-	
-	$("#but1").click(function () {
-
-		var nome = $("#name").val();
-		var cognome = $("#surname").val();
-		
-		if (validateCredentials()) {
-		
-		$.post("UserManager", {op: "modCred", nome: nome, cognome: cognome})
-		.done(function(data){
-			 $("#success1").slideDown();
-		})
-		.fail(function() {
-			 $("#alert1").slideDown();
-		});
-		}
-	});
-	
-	$("#but2").click(function () {
-		var pw = $("#vpass").val();
-		var oldpw= $("#password").val();
-		if(oldpw==pw && validateCredentials()){
-			$.post("UserManager", {op: "modCred", pass: pw}, "html")
-			.done(function(data){
-				 $("#success2").slideDown();
-			})
-			.fail(function() {
-				 $("#alert2").slideDown();
-			});
-		}else{
-			 $("#alert3").slideDown();
-		}
-		
-		
-	});
-	
-	
-});
-</script>
-
+<script src = "js/protected.js"></script>
 </body>
 </html>
-<!--   $("#personal").after("#success1");-->

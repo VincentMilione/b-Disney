@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.ProductBean;
-import coreModel.RecenzioneModel;
-import coreModel.RecenzioneModelDM;
-import coreModel.RecenzioneModelDS;
+import coreModels.beans.ProductBean;
+import coreModels.model.RecenzioneModel;
+import coreModels.model.RecenzioneModelDM;
+import coreModels.model.RecenzioneModelDS;
 
 /**
  * Servlet implementation class RecenzioneServlet
@@ -38,14 +38,14 @@ public class RecenzioneServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("act");
-		beans.Registered user = (beans.Registered) request.getSession().getAttribute("user");
+		coreModels.beans.Registered user = (coreModels.beans.Registered) request.getSession().getAttribute("user");
 		ProductBean bean = (ProductBean) request.getAttribute("product");
 		try {
 			if ("view".equalsIgnoreCase(action)) {
 			
-				java.util.List<beans.RecenzioneBean> list = recenzione.getComments(bean);
-				beans.RecenzioneBean userComment = user == null ? null : recenzione.userComment(user, bean);
-				boolean payed = userComment == null ? user == null ? false : new coreModel.FatturaModelDS().hasPurchased(bean, user) :false;
+				java.util.List<coreModels.beans.RecenzioneBean> list = recenzione.getComments(bean);
+				coreModels.beans.RecenzioneBean userComment = user == null ? null : recenzione.userComment(user, bean);
+				boolean payed = userComment == null ? user == null ? false : new coreModels.model.FatturaModelDS().hasPurchased(bean, user) :false;
 				list.remove(userComment);
 				
 				request.setAttribute("voto", recenzione.mediumVote(bean));
@@ -61,6 +61,7 @@ public class RecenzioneServlet extends HttpServlet {
 		}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			response.sendRedirect("error.jsp");
 		}
 	}
 

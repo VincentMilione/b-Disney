@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import beans.Cart;
-import beans.Order;
-import beans.ProductBean;
-import coreModel.*;
+import coreModels.beans.Cart;
+import coreModels.beans.Order;
+import coreModels.beans.ProductBean;
+import coreModels.model.ProductModel;
+import coreModels.model.ProductModelDM;
+import coreModels.model.ProductModelDS;
 /**
  * Servlet implementation class ProductControl
  */
@@ -80,7 +82,7 @@ public class ProductControl extends HttpServlet {
 							request.getRequestDispatcher(response.encodeURL("RecenzioneServlet?act=view")).include(request, response);
 							request.getRequestDispatcher(response.encodeURL("/productView.jsp")).forward(request, response);
 						}
-						else response.sendRedirect("/error.jsp");
+						else response.sendRedirect("error.jsp");
 					} else if (action.equalsIgnoreCase("delete")) {
 						//elimina dal carrello
 						response.setContentType("application/json");

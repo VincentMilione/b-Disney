@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Cart;
-import beans.Order;
-import coreModel.ProductModel;
-import coreModel.ProductModelDM;
-import coreModel.ProductModelDS;
+import coreModels.beans.Cart;
+import coreModels.beans.Order;
+import coreModels.model.ProductModel;
+import coreModels.model.ProductModelDM;
+import coreModels.model.ProductModelDS;
 
 /**
  * Servlet implementation class CartServlet
@@ -47,27 +47,32 @@ public class CartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Cart cart = (Cart) request.getSession().getAttribute("cart");
+		Cart newCart = new Cart ();	
 		
-		if (cart == null) request.getSession().setAttribute("cart", new Cart());
+		if (cart == null ? true : cart.size() == 0) {
+			request.getSession().setAttribute("cart", new Cart());
+			cart = new Cart();
+		}
 		else {
 			//access DB and update values....
 			try {
-				java.util.List<beans.ProductBean> list = model.doRetrieveList(cart.getCodes(), true);
+				java.util.List<coreModels.beans.ProductBean> list = model.doRetrieveList(cart.getCodes(), true);
 				
-						
-				for (beans.ProductBean bean : list) {
+				
+				for (coreModels.beans.ProductBean bean : list) {
 					Order o = new Order (bean, cart.getOrder(bean.getCode()).getQty());
-					cart.addOrder(o);
+					newCart.addOrder(o);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			request.getSession().setAttribute("cart", cart);
-			request.getRequestDispatcher("/cartContent.jsp").forward(request, response);
 		}
-	}
+			if (newCart.size() < cart.size()) request.setAttribute("warning", true);
+			request.getSession().setAttribute("cart", newCart);
+			getServletContext().getRequestDispatcher("/contentJSP/cartDiv.jsp").forward(request, response);
+		}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

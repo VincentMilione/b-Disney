@@ -1,41 +1,51 @@
 
-function validateCredentials () {
-	var email = document.getElementById("email");
-	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	var nome = document.getElementById("name"); 
-	var cognome = document.getElementById("surname"); 
-	var nameformat = /^[A-Za-z]+$/;
+function validatePassword () {
 	var password = document.getElementById("password").value; 
 	var passid_len = password.length;
 	var flag = true;
-	console.log(email +nome +cognome +password);
 	
 	if (passid_len == 0 ||passid_len >= 25 || passid_len < 8) {
 		flag = false;
 		$("#passwordWarning").slideToggle();
 	}
-			/*pss no valida;*/
+	
+	return flag;
+}
 
-	if (email != null) {
+function emailVerifier () {
+	var email = document.getElementById("email");
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var flag = true;
+	
+	if (email != null || email != undefined) {
 		if(!verifier(email, mailformat , document.getElementById("emailWarning")))
-			flag = false;
-	}
-		
-	if(nome != null){
-		if(!verifier(nome,nameformat, document.getElementById("nameWarning")))
-			flag = false;
-	}
-		
-	if (cognome != null){	
-		if(!verifier(cognome, nameformat, document.getElementById("surnameWarning")))
-			flag = false;
-	}
-	if (password != null){
-		if(!verifier(password, document.getElementById("passwordWarning")))
 			flag = false;
 	}
 	
 	return flag;
+}
+
+function nameVerifier () {
+	var nome = document.getElementById("name"); 
+	var cognome = document.getElementById("surname"); 
+	var nameformat = /^[A-Za-z]+$/;
+	var flag = true;
+	
+	if(nome != null || nome != undefined){
+		if(!verifier(nome,nameformat, document.getElementById("nameWarning")))
+			flag = false;
+	}
+		
+	if (cognome != null || cognome != undefined){	
+		if(!verifier(cognome, nameformat, document.getElementById("surnameWarning")))
+			flag = false;
+	}
+	
+	return flag;
+}
+
+function validateCredentials () {
+	return validatePassword () && emailVerifier () && nameVerifier (); 
 }	 
 
 function verifier (element, formatter, warning) {

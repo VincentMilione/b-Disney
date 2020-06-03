@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.ProductBean;
-import coreModel.ProductModel;
-import coreModel.ProductModelDM;
-import coreModel.ProductModelDS;
+import coreModels.beans.ProductBean;
+import coreModels.model.ProductModel;
+import coreModels.model.ProductModelDM;
+import coreModels.model.ProductModelDS;
 
 /**
  * Servlet implementation class IndexServlet
@@ -49,7 +49,7 @@ public class IndexServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		getServletContext().getRequestDispatcher("/ProductCard.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/contentJSP/ProductCard.jsp").forward(request, response);
 	}
 
 	/**

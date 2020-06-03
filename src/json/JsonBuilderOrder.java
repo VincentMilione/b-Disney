@@ -7,10 +7,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import beans.Order;
-import beans.ProductBean;
+import coreModels.beans.Order;
+import coreModels.beans.ProductBean;
 
-public class JsonBuilderOrder implements com.google.gson.JsonSerializer<beans.Order>
+public class JsonBuilderOrder implements com.google.gson.JsonSerializer<coreModels.beans.Order>
 {
 
 	public JsonElement serialize(Order order, Type arg1, JsonSerializationContext arg2) {

@@ -27,9 +27,9 @@ public class Billing extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		beans.Cart cart = request.getSession().getAttribute("cart") == null ? new beans.Cart() : (beans.Cart) request.getSession().getAttribute("cart");
+		coreModels.beans.Cart cart = request.getSession().getAttribute("cart") == null ? new coreModels.beans.Cart() : (coreModels.beans.Cart) request.getSession().getAttribute("cart");
 		
-		if (cart.isEmpty()) return;
+		if (cart.isEmpty()) response.setStatus(204);
 		else if(request.getSession().getAttribute("user") != null) {
 			request.getRequestDispatcher("AddressOperations?operation=0").include(request, response);
 			request.getRequestDispatcher(response.encodeURL("Checkout.jsp")).forward(request, response);

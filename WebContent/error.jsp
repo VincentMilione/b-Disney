@@ -14,16 +14,14 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
-<body  style="background-image: url('img/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
+<body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
 	<%@include file = "header2.jsp" %><br><br>
-	<div id="errore" class=".field2">
+	<div id="errore" class="field2">
 		<h1> Errore </h1>
-	<h2>Si è verificato un errore durante all'accesso...</h2>
-	<a class="button button2" href= "registration.jsp"> Registrati ora</a>
-	<a class="button button2" href= "Login.jsp"> Riprova</a>		
+	<h2>Si è verificato un errore, la pagina a cui stai tentando di accedere è privata o inesistente ...</h2>
+	<a class="button button2" href= "index.jsp"> Home</a>		
 	</div>
 
-	 <%@include file = "footer2.jsp" %>
-
+	
 </body>
 </html>

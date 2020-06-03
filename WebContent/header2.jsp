@@ -1,4 +1,4 @@
-<%@page import="beans.UserBean"%>
+<%@page import="coreModels.beans.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -32,7 +32,7 @@
         Boolean isUser = session.getAttribute("isUser") == null ? false : (Boolean) session.getAttribute("isUser");
         
         if (isUser) {%>
-        	<li><%@ include file="ricerca.jsp" %></li>
+        	<li><%@ include file="contentJSP/ricerca.jsp" %></li>
         	<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span>Welcome ${user.name}</span><span class="caret"></span></a>
             	<ul class="dropdown-menu">
             	<li><a href="protected-page.jsp">Area Personale</a>
@@ -43,8 +43,8 @@
         	<li><a href="#"><span>Welcome </span>${user.name}</a></li>
         <% }
         else { %>
-        	<li><%@ include file="ricerca.jsp" %></li>
-      		<li><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span>&#160 Login</a></li>
+        	<li><%@ include file="contentJSP/ricerca.jsp" %></li>
+      		<li class="loginClear"><a href="Login.jsp"><span class="glyphicon glyphicon-log-in"></span>&#160 Login</a></li>
       		<li><a href="registration.jsp"><span class="glyphicon glyphicon-user"></span>&#160 Iscriviti</a></li>
       	<%}%>
       	

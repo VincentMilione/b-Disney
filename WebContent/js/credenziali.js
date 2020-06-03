@@ -63,8 +63,8 @@ function validation () {
 
 
 $("input").focus (function focuser () {
-this.style.border = "2px solid a3d1ff";
-this.style.backgroundColor = "a3d1ff";
+this.style.border = "2px solid #a3d1ff";
+this.style.backgroundColor = "#a3d1ff";
 $('#'+$(this).attr("id")+'Warner').slideUp();
 });
 
@@ -74,7 +74,7 @@ this.style.border = "";
 this.style.backgroundColor = "";
 });
 	
-	$("#AddIndirizzo").slideUp();
+	$("#AddIndirizzo").hide();
 	$("#toggle").click(function(){
 		  $("#AddIndirizzo").slideToggle();
 		});

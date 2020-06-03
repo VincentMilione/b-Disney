@@ -3,6 +3,7 @@ package coreServlets;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
+//import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -26,12 +26,11 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
- 
 
-import coreModel.FatturaModel;
-import coreModel.FatturaModelDM;
-import coreModel.FatturaModelDS;
-import beans.FatturaBean;
+import coreModels.beans.FatturaBean;
+import coreModels.model.FatturaModel;
+import coreModels.model.FatturaModelDM;
+import coreModels.model.FatturaModelDS;
 
 /**
  * Servlet implementation class FatturaPDF
@@ -52,9 +51,9 @@ public class FatturaPDF extends HttpServlet {
 	}
 	
 	 private static Font bigFont  = new Font(Font.FontFamily.TIMES_ROMAN, 18,  Font.BOLD);
-	 private static Font redFont  = new Font(Font.FontFamily.TIMES_ROMAN, 12,  Font.NORMAL, BaseColor.RED);
+	// private static Font redFont  = new Font(Font.FontFamily.TIMES_ROMAN, 12,  Font.NORMAL, BaseColor.RED);
 	 private static Font subFont  = new Font(Font.FontFamily.TIMES_ROMAN, 16,  Font.BOLD);
-	 private static Font smallBold  = new Font(Font.FontFamily.TIMES_ROMAN, 12,  Font.BOLD);
+//	 private static Font smallBold  = new Font(Font.FontFamily.TIMES_ROMAN, 12,  Font.BOLD);
 
     
     public FatturaPDF() {
@@ -73,13 +72,13 @@ public class FatturaPDF extends HttpServlet {
 			int id= Integer.parseInt(request.getParameter("id"));
 			FatturaBean fattura= null;
 			if(isUser == null ? false : isUser.booleanValue() ){
-				beans.Registered user = (beans.Registered) session.getAttribute("user");
+				coreModels.beans.Registered user = (coreModels.beans.Registered) session.getAttribute("user");
 				fattura= model.retrieveInvoice(user, id);
-			}else if(isAdmin == null ? true : isAdmin.booleanValue()){
+			}else if(isAdmin == null ? false : isAdmin.booleanValue()){
 				String login= request.getParameter("search");
 				
 				System.out.println(login);
-				beans.Registered user = new  beans.Registered();
+				coreModels.beans.Registered user = new  coreModels.beans.Registered();
 				user.setLogin(login);
 				fattura= model.retrieveInvoice(user, id);		
 			}
@@ -93,7 +92,7 @@ public class FatturaPDF extends HttpServlet {
 		}
 	}
 	
-	private static void generatePDF(beans.FatturaBean fattura, OutputStream outStream) {
+	private static void generatePDF(coreModels.beans.FatturaBean fattura, OutputStream outStream) {
 		String fileName = "fattura"+fattura.getCod()+".pdf";
 		creaFile(fattura, fileName);  
 		File downloadFile = new File(fileName);
@@ -120,7 +119,7 @@ public class FatturaPDF extends HttpServlet {
 		
 	}
 	
-	private static void  creaFile(beans.FatturaBean fattura, String fileName){
+	private static void  creaFile(coreModels.beans.FatturaBean fattura, String fileName){
 		try {
 		   Document document = new Document();
 		   PdfWriter.getInstance(document, new FileOutputStream(fileName));
@@ -141,12 +140,18 @@ public class FatturaPDF extends HttpServlet {
 		/*  document.addCreator("Luigi Bianchi");*/
 		 }
 		 
-		 private static void aggiungiContenuto(Document document, beans.FatturaBean fattura) throws DocumentException {
+		 private static void aggiungiContenuto(Document document, coreModels.beans.FatturaBean fattura) throws DocumentException {
 		 
 			Paragraph p = new Paragraph();
-			beans.Registered registrato = fattura.getUser();
+			coreModels.beans.Registered registrato = fattura.getUser();
+			SimpleDateFormat format = new SimpleDateFormat ("dd-MM-yyyy");
 			/*intestazione fattura*/
+			
 			p.add(new Paragraph(registrato.getCognome() +" " +registrato.getName(), bigFont));
+			
+			  Paragraph paragraph = new Paragraph("Data: " +format.format(fattura.getDate().getTime()));
+			  paragraph.setAlignment(Element.ALIGN_RIGHT);
+			  p.add(paragraph);
 			aggiungiLineaVuota(p, 1);
 				
 			/*indirizzo*/
@@ -160,7 +165,7 @@ public class FatturaPDF extends HttpServlet {
 			document.add(p);
 		 }
 		 
-		 private static void creaTabella(Paragraph p ,beans.FatturaBean fattura) throws BadElementException {
+		 private static void creaTabella(Paragraph p ,coreModels.beans.FatturaBean fattura) throws BadElementException {
 		  PdfPTable tabella = new PdfPTable(8);
 		  // tabella.setBorderColor(BaseColor.GRAY);
 		  // tabella.setPadding(4);
@@ -213,7 +218,7 @@ public class FatturaPDF extends HttpServlet {
 		  tabella.addCell(c1);
 		  tabella.setHeaderRows(1);
 		  
-		  java.util.List<beans.Order> list = fattura.getProdotti();
+		  java.util.List<coreModels.beans.Order> list = fattura.getProdotti();
 		  for(int i=0; i<list.size(); i++)
 		  {
 			  tabella.addCell(""+list.get(i).getProduct().getCode());

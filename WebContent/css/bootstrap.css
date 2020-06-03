@@ -13,19 +13,12 @@ body {
   margin: 0;
 }
 
-/* Footer */
 
-.extended {
-	margin-bottom:0;
-	height:auto;
-}
-
-@media screen and (max-height: 400px) or (max-width: 800px){
- .footer2{
-	position: relative;
+@media screen and (max-width: 800px) {
+  .footer2{
+	position: relative !important;
 	}
 }
-
 .footer{
 	position: relative;
 	clear: both;
@@ -2691,7 +2684,7 @@ output {
 }
 .form-control {
   display: block;
-  width: 100%;
+  width: 70%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -2710,6 +2703,7 @@ output {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
 }
+
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
@@ -4484,6 +4478,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   margin-bottom: 8px;
+  
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {

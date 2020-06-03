@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
-import beans.ProductBean;
-import coreModel.ProductModel;
-import coreModel.ProductModelDM;
-import coreModel.ProductModelDS;
+import coreModels.beans.ProductBean;
+import coreModels.model.ProductModel;
+import coreModels.model.ProductModelDM;
+import coreModels.model.ProductModelDS;
 
 /**
  * Servlet implementation class ProductAdminControl
@@ -59,8 +59,8 @@ public class ProductAdminControl extends HttpServlet {
 						bean.setCategory(Integer.parseInt(request.getParameter("categoria")));
 						bean.setQty(Integer.parseInt(request.getParameter("qty")));
 						bean.setPrice(Double.parseDouble(request.getParameter("price")));
-						bean.setIva(Double.parseDouble(request.getParameter("iva")));
-						bean.setDiscount(Double.parseDouble(request.getParameter("sconto")));
+						bean.setIva(Integer.parseInt(request.getParameter("iva")));
+						bean.setDiscount(Integer.parseInt(request.getParameter("sconto")));
 						
 						model.doSave(bean);
 					} else if (action.equalsIgnoreCase("modify")) {
@@ -90,10 +90,11 @@ public class ProductAdminControl extends HttpServlet {
 				}
 			}
 			catch (SQLException e) {
-				response.sendRedirect("error.jsp");
+				response.sendRedirect(response.encodeURL("error.jsp"));
 				e.printStackTrace();
 			}
 			catch (java.lang.NumberFormatException e){
+				e.printStackTrace();
 				response.sendError(406);
 			}
 	}

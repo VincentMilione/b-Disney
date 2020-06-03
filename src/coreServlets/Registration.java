@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Registered;
-import coreModel.*;
+import coreModels.beans.Registered;
+import coreModels.model.RegisteredModel;
+import coreModels.model.RegisteredModelDM;
+import coreModels.model.RegisteredModelDS;
 
 /**
  * Servlet implementation class Registration
@@ -50,7 +52,7 @@ public class Registration extends HttpServlet {
 		} catch (java.sql.SQLIntegrityConstraintViolationException e) {
 			// TODO: handle exception
 			request.setAttribute("error", true);
-			request.getRequestDispatcher(response.encodeURL("registration.jsp")).forward(request, response);
+			getServletContext().getRequestDispatcher(response.encodeURL("/registration.jsp")).forward(request, response);
 			return;
 		} 
 		catch (SQLException e) {

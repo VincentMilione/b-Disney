@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.UserBean;
-import coreModel.AdminModelDM;
-import coreModel.AdminModelDS;
-import coreModel.RegisteredModelDM;
-import coreModel.RegisteredModelDS;
-import coreModel.UserModel;
+import coreModels.beans.UserBean;
+import coreModels.model.AdminModelDM;
+import coreModels.model.AdminModelDS;
+import coreModels.model.RegisteredModelDM;
+import coreModels.model.RegisteredModelDS;
+import coreModels.model.UserModel;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -65,6 +65,7 @@ public class Login extends HttpServlet {
 				if (administrator != null){
 					session.setAttribute("isAdmin", true);
 					page = "amministratore.jsp";
+					session.removeAttribute("cart");
 				} else throw new Exception();
 			}
 			response.sendRedirect(response.encodeURL(page));

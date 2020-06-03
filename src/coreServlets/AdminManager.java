@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.ProductBean;
-import coreModel.Paginator;
+import coreModels.model.Paginator;
 
 /**
  * Servlet implementation class AdminManager
@@ -20,15 +19,15 @@ import coreModel.Paginator;
 @WebServlet("/admin")
 public class AdminManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    static coreModel.FatturaModel model;
+    static coreModels.model.FatturaModel model;
     static boolean isDataSource = false;
     
     static
 	{
 		if (isDataSource) 
-			model = new coreModel.FatturaModelDS();
+			model = new coreModels.model.FatturaModelDS();
 		else 
-			model = new coreModel.FatturaModelDM();
+			model = new coreModels.model.FatturaModelDM();
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -49,8 +48,8 @@ public class AdminManager extends HttpServlet {
 				java.util.Date da = par1 == null || "".equals(par1) ? null : format.parse(par1);
 				java.util.Date a = par2 == null || "".equals(par2) ? null : format.parse(par2);
 				
-				coreModel.Paginator<beans.FatturaBean> pager = new coreModel.Paginator<beans.FatturaBean>(10, pg == null ? 1 : Integer.parseInt(pg) );
-				Paginator<beans.FatturaBean>.Pair obj = pager.paginate(login == null || "".equals(login) ? model.retrieveInvoices(da, a) : model.retrieveInvoices(new coreModel.RegisteredModelDM().doRetrieveByKey(login), da, a));
+				coreModels.model.Paginator<coreModels.beans.FatturaBean> pager = new coreModels.model.Paginator<coreModels.beans.FatturaBean>(10, pg == null ? 1 : Integer.parseInt(pg) );
+				Paginator<coreModels.beans.FatturaBean>.Pair obj = pager.paginate(login == null || "".equals(login) ? model.retrieveInvoices(da, a) : model.retrieveInvoices(new coreModels.model.RegisteredModelDM().doRetrieveByKey(login), da, a));
 				
 				request.setAttribute("maxPg", obj.maxPg);
 				request.setAttribute("fatture", obj.pagedList);
@@ -61,6 +60,7 @@ public class AdminManager extends HttpServlet {
 			} catch (ParseException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				response.sendRedirect(response.encodeURL("error.jsp"));
 			}
 		}
 	}

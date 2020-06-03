@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page import="beans.*, java.text.SimpleDateFormat"%>
+ <%@page import="coreModels.beans.*, java.text.SimpleDateFormat"%>
 <%
 	List<FatturaBean> lista= (List<FatturaBean>) request.getAttribute("fatture"); 
 	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -24,7 +24,7 @@
 		
 			<!--n ordini esistenti nel database-->
 		 <%
-		if (lista == null) {
+		if (lista == null ? true : lista.size() == 0) {
 			%>
 			<tr>
 				<td colspan = "8" style ="text-align: center">Nessun ordine risulta essere stato effettuato</td>

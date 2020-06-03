@@ -6,9 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import beans.ProductBean;
+import coreModels.beans.ProductBean;
 
-public class JsonBuilderProd implements com.google.gson.JsonSerializer<beans.ProductBean>{
+public class JsonBuilderProd implements com.google.gson.JsonSerializer<coreModels.beans.ProductBean>{
 
 	@Override
 	public JsonElement serialize(ProductBean o, Type arg1, JsonSerializationContext arg2) {

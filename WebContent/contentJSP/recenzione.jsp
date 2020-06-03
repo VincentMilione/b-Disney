@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import = "java.util.List, beans.RecenzioneBean, java.util.Random, beans.ProductBean"%>
+<%@ page import = "java.util.List, coreModels.beans.RecenzioneBean, java.util.Random, coreModels.beans.ProductBean"%>
    		<div class="Myvotazione card">
    		<%
    		List<RecenzioneBean> list =(List<RecenzioneBean>)  request.getAttribute("recenzioni");
@@ -25,8 +25,7 @@
    					<label  class="myLabel" for="fname">Inserisci una recensione</label>
    					<textarea class="myInput1" id="text" rows="4" cols="50" placeholder="Commenta..."></textarea>
    					<button id = "send" class="button button2">Aggiungi</button><br>
-   					<div id= "success4" class="alert success"><span class="closebtn">&times;</span><strong>Successo!</strong> Recenzione inserita correttamente</div>
-					<div id= "alert4" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l inserimento</div>
+   					<div id= "alert4" class="alert"><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Errore!</strong> Errore durante l inserimento</div>
 		
    				</div>
    				
@@ -36,14 +35,20 @@
 	 					$("#alert4").hide();
 						$("#send").click(function () {
 								var text = $("#text").val();
+								var id = ${product.code};
 								var voto = $("#voto").val();
-								$.post("RecenzioneServlet", {act: "insert", id:${product.code},comment: text, vote: voto})							
+								if (voto > 0 && voto < 6) {
+								$.post("RecenzioneServlet", {act: "insert", id: id, comment: text, vote: voto})							
 								.done(function(){
-									 $("#success4").slideToggle();
+									$("#votazione").empty();
+									$("#votazione").addClass ("commento");
+									$("#votazione").append ('<div class=commento><h3>You</h3><p>'+text+'</p></div>');
 								})
 								.fail(function() {
-			 						$("#alert4").slideToggle();
+			 						$("#alert4").slideDown();
 								});
+								} else 
+									$("#alert4").slideDown();
 						});
 					});
 				</script>
@@ -65,7 +70,7 @@
    					else
    						listNew = list;
    					%>
-   					<h3>Ecco cosa ne pensano i nostri clienti...</h3>
+   					<h3 style="margin-top: 5%;">Ecco cosa ne pensano i nostri clienti...</h3>
    		   			<% for (RecenzioneBean e : listNew) {
    		   				%>
    		   				
@@ -77,7 +82,7 @@
    		   			}
    				} else {
 		   				%>
-		   				<h3 style="text-align: center">Nessun commento è stato inserito</h3>
+		   				<h3 style="margin-top: 5%; text-align: center">Altri utenti non hanno ancora commentato</h3>
 		   				<% 
 		   			}
 				%>

@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import coreModel.FatturaModel;
-import coreModel.FatturaModelDM;
-import coreModel.FatturaModelDS;
+import coreModels.model.FatturaModel;
+import coreModels.model.FatturaModelDM;
+import coreModels.model.FatturaModelDS;
 
 /**
  * Servlet implementation class Checkout
@@ -45,36 +45,42 @@ public class Checkout extends HttpServlet {
 		Boolean isUser = (Boolean) request.getSession().getAttribute("isUser");
 		
 		if (isUser == null ? false : !isUser)
-			return;
+			response.sendRedirect(response.encodeURL("error.jsp"));
 		
 			
 		
 		try {
 			@SuppressWarnings("unchecked")
-			java.util.Map<Integer,beans.Adress> addresses = (java.util.Map<Integer,beans.Adress>) request.getSession().getAttribute("addresses");
-			beans.Adress shipping = addresses.get(Integer.parseInt(request.getParameter("address")));
-			beans.Cart cart = (beans.Cart) request.getSession().getAttribute("cart");
-			beans.FatturaBean invoice = new beans.FatturaBean();
+			java.util.Map<Integer,coreModels.beans.Adress> addresses = (java.util.Map<Integer,coreModels.beans.Adress>) request.getSession().getAttribute("addresses");
+			coreModels.beans.Adress shipping = addresses.get(Integer.parseInt(request.getParameter("address")));
+			coreModels.beans.Cart cart = (coreModels.beans.Cart) request.getSession().getAttribute("cart");
+			coreModels.beans.FatturaBean invoice = new coreModels.beans.FatturaBean();
 			
 			if (!cart.isEmpty()) {
 				invoice.setProdotti(cart.getOrders());
-				invoice.setUser((beans.Registered)request.getSession().getAttribute("user"));
+				invoice.setUser((coreModels.beans.Registered)request.getSession().getAttribute("user"));
 				invoice.setShipping(shipping);
-			
-				request.getSession().removeAttribute("cart");
 				model.doSave(invoice);
-				response.getWriter().write("Grazie per aver acquistato da noi");
+				request.getSession().removeAttribute("cart");
+				response.sendRedirect("Thanks.jsp");
 			} 
 			else 
 				response.sendRedirect(response.encodeURL("error.jsp"));
 				
 			
-		} catch (NumberFormatException | SQLException e) {
+		} 
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			response.sendRedirect(response.encodeURL("error.jsp"));
 		}
-		
-		
+		catch (NumberFormatException w) {
+			request.setAttribute("warning", true);
+			getServletContext().getRequestDispatcher(response.encodeURL("/Billing")).forward(request, response);
+		}
+		catch (Exception e) {
+			request.setAttribute("warning", true);
+			getServletContext().getRequestDispatcher(response.encodeURL("/Billing")).forward(request, response);
+		}
 	}
 
 	/**

@@ -16,31 +16,8 @@
 </head>
 
 <body style="background-image: url('images/areg.gif');" data-spy="scroll" data-target=".navbar" data-offset="50">
-
- <%@include file = "header2.jsp" %> <br><br>
- <div class="row" >
-  <% 	String c="";
-  		String ctgy= request.getParameter("ctgy");
-  		String srch= request.getParameter ("srch");
-  		
-  		if(srch != null) c = srch;
-  		else {
-  			if("0".equals(ctgy)) c="Articoli per la casa";
-  			if("1".equals(ctgy)) c="Abbigliamento e Accessori";
-  	  		if("2".equals(ctgy)) c="Articoli per le feste";
-  	  		if("3".equals(ctgy)) c="Giochi";
-  		}
-  		
-	   %>
-    <div class="card">
-      <h3>Risultato per "<%=c %>"</h3>
-     
-   	<div> 
- 		<%@include file= "ProductCard.jsp" %>
-		<p style = "text-align: center">pg <input class = "pageof" type = "number" value = "1" min="1" max="<%= request.getAttribute("maxPg") %>"> of <%= request.getAttribute("maxPg") %> <button id = "submit">Invia</button></p>
-	</div>
-  </div>
- </div>
+<%@include file = "header2.jsp" %>
+<%@include file = "contentJSP/catalogoContent.jsp" %>
 <%@include file = "footer.jsp" %>
 <script>
 $(document).ready(function () {
@@ -48,7 +25,7 @@ $(document).ready(function () {
 	$("#submit").click (function () {
 		var pg = $(".pageof").val();
 		var ctgy = <%= ctgy%>;
-		var srch = <%= srch%>;
+		var srch = "<%= srch%>";
 		var data = ctgy == null ? {pg: pg, srch: srch} : {pg: pg, ctgy: ctgy};
 		
 		//avvia richiesta per reperire lista prodotti da visualizzare in pagina = pg
@@ -57,7 +34,6 @@ $(document).ready(function () {
 			.done (function (json) {
 				//rimuovi i prodotti dalla pagina
 				$(".productCard").remove();
-				console.log(json);
 				$.each(json, function () {
 					//costruisci il div per i prodotti
 					var divImage = $('<div class = "imgSconto">');

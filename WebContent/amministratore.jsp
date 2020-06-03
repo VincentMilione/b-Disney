@@ -10,7 +10,6 @@ if(admin == null ? true : !admin.booleanValue()) {
 <!DOCTYPE html>
 <html>
 <head>
-<!--  <link rel="stylesheet" href="css/stilereg.css" type = "text/css">-->
 <link rel="stylesheet" href="css/stile.css" type = "text/css">
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,7 +19,7 @@ if(admin == null ? true : !admin.booleanValue()) {
 
 <form action="Aggiunta" method="post">
 	<fieldset>
-	<center><img  src="images/admin.jpg"> </center>
+	<img  src="images/admin.jpg">
 		<h1> Bentornato admin </h1>
 	<h2>Cosa desideri effettuare?</h2> 
 	<a href="admin">Visualizzare ordini dei clienti</a> <br>	

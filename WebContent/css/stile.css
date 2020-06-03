@@ -1,7 +1,49 @@
 @CHARSET "ISO-8859-1";
+.Mydropbtn {
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.Mydropbtn:hover, .Mydropbtn:focus {
+  background-color: write;/* #2980B9;*/
+}
+
+.Mydropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.Mydropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+ /* min-width: 30%;*/
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.Mydropdown-content p {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.Mydropdown-content p:hover {background-color: #ddd;}
+
+.show {display: block;}
 
 * {
   box-sizing: border-box;
+}
+
+@font-face {
+	font-family: Waltograph;
+	src: url(fonts/WALTOGRAPH42.TTF) format("truetype");
 }
 
 #video {
@@ -24,6 +66,11 @@
   color: white;
 }
 .alert.success {background-color: #4CAF50;}
+.warning {
+	 background-color: #ffff85;
+   	 padding: 20px;
+	 color: black;
+	 }
 .closebtn {
   margin-left: 15px;
   color: white;
